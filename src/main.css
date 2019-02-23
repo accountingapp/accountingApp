@@ -1,0 +1,28 @@
+/* Global */
+html {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Home Page */
+.header {
+  background: #345fa0;
+  color: white;
+  padding: 10px 20px;
+  border-bottom: #bbbbbb solid 8px;
+}
+.mb-3.accountSearch.input-group {
+  width: 50%;
+  margin: 50px auto;
+}
+input.form-control {
+  height: 55px;
+  font-size: 1.3rem;
+}
+.section {
+  padding: 1rem;
+}
+.listTitle {
+  font-size: 1.5rem;
+  margin: 2rem 10rem;
+  border-bottom: lightgrey solid 2px;
+}

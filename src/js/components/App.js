@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Home from './Home';
+import Header from './Header';
 
 class App extends Component {
   constructor(props){
@@ -11,6 +12,7 @@ class App extends Component {
     return (
           <BrowserRouter>
             <Fragment>
+              <Header />
               <Switch>
                   <Route 
                     component={Home} 
