@@ -1,10 +1,9 @@
 const db = require('../db/connection').knex
 function getAccount(req, res) {
+  console.log("TEST: ", req.body);
   db('accounts')
     .select()
-    .where({
-      description: req.body.description
-    })
+    .where('description', 'like', `%${req.body.description}%`)
     .then(account => {
       if (account) {
         console.log(`Successfully retrieved account`);
