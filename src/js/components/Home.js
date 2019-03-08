@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProcessList from './ProcessList';
+import ProcessList from './Lists/ProcessList';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';

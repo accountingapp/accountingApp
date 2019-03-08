@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Home from './Home';
 import Owner from './Owner';
+import Account from './Account';
 import Header from './Header';
 
 class App extends Component {
@@ -17,11 +18,15 @@ class App extends Component {
               <Switch>
                   <Route 
                     component={Owner} 
-                    path="/ownerPage/:ownerId"
+                    path="/owner/:ownerId"
+                  />
+                  <Route 
+                    component={Account} 
+                    path="/account/:accountId"
                   />
                   <Route 
                     component={Home} 
-                    exact path="/"
+                    exact path="/owner/1"
                   />
               </Switch>
             </Fragment>
