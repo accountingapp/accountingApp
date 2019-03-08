@@ -3,12 +3,12 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import imagePlageholder from '../../assets/accountImage.svg'
+import imagePlageholder from '../../assets/processImage.svg'
 
-const AccountList = ({
+const ProcessList = ({
   title,
   listType,
-  accounts
+  dependencies
 }) => 
 {
   return (
@@ -16,12 +16,11 @@ const AccountList = ({
       <h2 className="listTitle">{title}</h2>
       <Container>
         <Row>
-          {accounts.length ? (
-            accounts.map((account,i) => (
-              <Col md={2} className="dependency" key={`${i}_${account}`}>
-                <Image src={imagePlageholder} color="red" rounded />
-                <div>{account.description}</div>
-                <div>{account.natural}</div>
+          {dependencies.length ? (
+            dependencies.map((item,i) => (
+              <Col md={2} className="dependency" key={`${i}_${item}`}>
+                <Image src={imagePlageholder} rounded />
+                <span>{item}</span>
               </Col>
             ))
           ): null}
@@ -31,4 +30,4 @@ const AccountList = ({
   );
 }
 
-export default AccountList;
+export default ProcessList;
