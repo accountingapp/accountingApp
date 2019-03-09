@@ -26,7 +26,7 @@ class App extends Component {
                   />
                   <Route 
                     component={Home} 
-                    exact path="/owner/1"
+                    exact path="/"
                   />
               </Switch>
             </Fragment>
