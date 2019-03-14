@@ -56,6 +56,16 @@ class Owner extends Component {
     })
   }
 
+  // getContributors(ownerId) {
+  //   axios.get(`/ownerDetails/${ownerId}`)
+  //   .then(results => {
+  //     this.setState({
+  //       ownerName: `${results.data.data[0].firstName} ${results.data.data[0].lastName}`,
+  //       email: results.data.data[0].email
+  //     })
+  //   })
+  // }
+
   handleChange(callouts, e) {
     this.setState({
       currentSearch: e.target.value
@@ -85,7 +95,7 @@ class Owner extends Component {
 
             <div className="ownerInfo">
               <Row>
-                <Col md={1} className="userImage">
+                <Col md={1} className="ownerGlyph">
                   <i className="fa fa-user" />
                 </Col>
                 <Col md={2} className="ownerText">

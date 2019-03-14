@@ -6,4 +6,5 @@ module.exports = (server) => {
   server.get('/ownerDependencies/:ownerId', routeFunctions.getDependenciesByOwner);
   server.get('/ownerDetails/:ownerId', routeFunctions.getOwner);
   server.get('/accountDependencies/:accountId', routeFunctions.getDependenciesByAccount);
+  server.post('/contributors', routeFunctions.getContributors);
 }

@@ -34,6 +34,7 @@ class Account extends Component {
       currentSearch: "",
       processes: ['Process 1','Process 2','Process 3','Process 4','Process 5','Process 6'],
       owner: {},
+      contributors: [],
       applications: ['Application 1','Application 2','Application 3','Application 4','Application 5','Application 6'],
     }
   }
@@ -41,7 +42,8 @@ class Account extends Component {
   getAccountDependencies(accountId) {
     axios.get(`/accountDependencies/${accountId}`)
     .then(results => {
-      console.log("RESULTS: ", results)
+      console.log("ACCOUNT DEPENDENCIES: ", results);
+      this.getContributors(results.data.data[0].contributors);
       let accountDetails = {
         description: results.data.data[0].description,
         natural: results.data.data[0].natural,
@@ -55,6 +57,16 @@ class Account extends Component {
       this.setState({
         account: accountDetails,
         owner: ownerDetails
+      })
+    })
+  }
+
+  getContributors(contributorIds) {
+    axios.post(`/contributors`, {contributors: contributorIds})
+    .then(results => {
+      console.log("RESULST: ", results);
+      this.setState({
+        contributors: results.data.data
       })
     })
   }
@@ -89,7 +101,7 @@ class Account extends Component {
 
             <div className="ownerInfo">
               <Row>
-                <Col md={1} className="userImage">
+                <Col md={1} className="dependency">
                   <i className="fa fa-briefcase" />
                 </Col>
                 <Col md={2} className="ownerText">
@@ -106,6 +118,7 @@ class Account extends Component {
                 title="Owner" 
                 listType="owner"
                 owner={this.state.owner}
+                contributors={this.state.contributors}
               />
               <ProcessList 
                 title="Processes" 
