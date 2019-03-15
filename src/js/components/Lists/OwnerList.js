@@ -13,7 +13,7 @@ const OwnerList = ({
   contributors
 }) => 
 {
-  console.log("CONTRIBUTORS: ", contributors)
+  console.log("OWNER: ", owner)
   return (
     <div className="section">
       <h2 className="listTitle">{title}</h2>
@@ -21,7 +21,7 @@ const OwnerList = ({
         <Row>
           <Col md={2} className="dependency">
             <Link to={`/owner/${owner.id}`}>
-                <div><i className="fa fa-user ownerGlyph" /></div>
+                <div><i className="fa fa-user ownerGlyph icon" /></div>
                 <div>{owner.name}</div>
                 <div>Owner</div>
             </Link>
@@ -29,7 +29,7 @@ const OwnerList = ({
           {contributors.map(user => (
             <Col md={2} className="dependency">
               <Link to={`/owner/${user.id}`}>
-                  <div><i className="fa fa-user" /></div>
+                  <div><i className="fa fa-user icon" /></div>
                   <div>{`${user.firstName} ${user.lastName}`}</div>
               </Link>
           </Col>

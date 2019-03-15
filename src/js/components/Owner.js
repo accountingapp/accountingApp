@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Subscribe } from 'unstated';
 import {Link} from 'react-router-dom';
+
 import AccountList from './Lists/AccountList';
 import ProcessList from './Lists/ProcessList';
 import ApplicationList from './Lists/ApplicationList';
+import ChartList from './Lists/ChartList';
+
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
@@ -32,6 +35,7 @@ class Owner extends Component {
       email: '',
       currentSearch: "",
       processes: ['Process 1','Process 2','Process 3','Process 4','Process 5','Process 6'],
+      charts: ['Chart 1','Chart 2','Chart 3','Chart 4','Chart 5','Chart 6'],
       accounts: [],
       applications: ['Application 1','Application 2','Application 3','Application 4','Application 5','Application 6'],
     }
@@ -95,8 +99,8 @@ class Owner extends Component {
 
             <div className="ownerInfo">
               <Row>
-                <Col md={1} className="ownerGlyph">
-                  <i className="fa fa-user" />
+                <Col md={1}>
+                  <i className="fa fa-user icon ownerGlyph" />
                 </Col>
                 <Col md={2} className="ownerText">
                   <h2>Owner</h2>
@@ -107,18 +111,23 @@ class Owner extends Component {
             </div>
             
             <div className="accountList">
+              <ChartList 
+                title="Charts" 
+                listType="chart"
+                dependencies={this.state.charts}
+              />
               <ProcessList 
-                title="Your Processes" 
+                title="Processes" 
                 listType="process"
                 dependencies={this.state.processes}
               />
               <AccountList 
-                title="Your Accounts" 
+                title="Accounts" 
                 listType="account"
                 accounts={this.state.accounts}
               />
               <ApplicationList 
-                title="Your Applications" 
+                title="Applications" 
                 listType="application"
                 dependencies={this.state.applications}
               />

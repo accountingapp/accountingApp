@@ -72,12 +72,28 @@ input.form-control {
   font-family: 'Slabo 27px', serif;
 }
 
-i.fa.fa-user, i.fa.fa-briefcase{
+
+/* Icons */
+
+i.fas.fa-chart-line.icon {
+  color: #85ab85;
+}
+
+i.fa.fa-user.ownerGlyph {
+  color: #f5d491;
+}
+
+.icon{
   font-size: 8rem;
   margin: 0;
   color: #378eaf;
 }
 
-i.fa.fa-user.ownerGlyph {
-  color: #f5d491;
+i.fas.fa-clipboard-list.icon {
+  color: #a2c3cd;
+}
+
+i.fas.fa-cloud.icon {
+  color: #aaabca;
+  /* border: black; */
 }

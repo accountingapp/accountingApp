@@ -17,6 +17,7 @@ exports.up = function(knex, Promise) {
         table.string('natural').notNullable();
         table.integer('moduleId').notNullable();
         table.integer('ownerId').notNullable();
+        table.specificType('processes', 'text[]');
         table.specificType('contributors', 'text[]');
 
         table.foreign('moduleId').references('id').inTable('modules').onDelete('CASCADE');
@@ -26,7 +27,7 @@ exports.up = function(knex, Promise) {
       knex.schema.createTable('processes', table =>{
         table.increments('id').primary();
         table.string('title').notNullable();
-        table.text('procedure');
+        table.specificType('process', 'json[]');
         table.integer('ownerId').notNullable();
 
         table.foreign('ownerId').references('id').inTable('users').onDelete('CASCADE');

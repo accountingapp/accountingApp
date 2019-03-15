@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -11,16 +12,19 @@ const ProcessList = ({
   dependencies
 }) => 
 {
+  console.log("PROCESSES: ", dependencies);
   return (
     <div className="section">
       <h2 className="listTitle">{title}</h2>
       <Container>
         <Row>
           {dependencies.length ? (
-            dependencies.map((item,i) => (
-              <Col md={2} className="dependency" key={`${i}_${item}`}>
-                <Image src={imagePlageholder} rounded />
-                <span>{item}</span>
+            dependencies.map((process,i) => (
+              <Col md={2} className="dependency" key={`${i}_${process}`}>
+                <Link to={`/process/${process.id}`}>
+                  <i className="fas fa-clipboard-list icon"></i>
+                  <div>{process.title}</div>
+                </Link>
               </Col>
             ))
           ): null}

@@ -3,9 +3,9 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import imagePlageholder from '../../../assets/applicationImage.svg'
+import imagePlageholder from '../../../assets/processImage.svg'
 
-const ApplicationList = ({
+const ChartList = ({
   title,
   listType,
   dependencies
@@ -19,8 +19,8 @@ const ApplicationList = ({
           {dependencies.length ? (
             dependencies.map((item,i) => (
               <Col md={2} className="dependency" key={`${i}_${item}`}>
-                <i class="fas fa-cloud icon"></i>
-                <div>{item}</div>
+                <i className="fas fa-chart-line icon"></i>
+                <span>{item}</span>
               </Col>
             ))
           ): null}
@@ -30,4 +30,4 @@ const ApplicationList = ({
   );
 }
 
-export default ApplicationList;
+export default ChartList;

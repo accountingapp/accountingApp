@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Home from './Home';
 import Owner from './Owner';
 import Account from './Account';
+import Process from './Process';
 import Header from './Header';
 
 class App extends Component {
@@ -23,6 +24,10 @@ class App extends Component {
                   <Route 
                     component={Account} 
                     path="/account/:accountId"
+                  />
+                  <Route 
+                    component={Process} 
+                    path="/process/:processId"
                   />
                   <Route 
                     component={Home} 
