@@ -9,9 +9,11 @@ import imagePlageholder from '../../../assets/applicationImage.svg'
 const OwnerList = ({
   title,
   listType,
-  owner
+  owner,
+  contributors
 }) => 
 {
+  console.log("OWNER: ", owner)
   return (
     <div className="section">
       <h2 className="listTitle">{title}</h2>
@@ -19,10 +21,19 @@ const OwnerList = ({
         <Row>
           <Col md={2} className="dependency">
             <Link to={`/owner/${owner.id}`}>
-                <div><i className="fa fa-user" /></div>
-                <span>{owner.name}</span>
+                <div><i className="fa fa-user ownerGlyph icon" /></div>
+                <div>{owner.name}</div>
+                <div>Owner</div>
             </Link>
           </Col>
+          {contributors.map(user => (
+            <Col md={2} className="dependency">
+              <Link to={`/owner/${user.id}`}>
+                  <div><i className="fa fa-user icon" /></div>
+                  <div>{`${user.firstName} ${user.lastName}`}</div>
+              </Link>
+          </Col>
+          ))}
         </Row>
       </Container>
     </div>
