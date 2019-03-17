@@ -15,7 +15,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import {Link} from 'react-router-dom';
+
 import axios from 'axios';
 
 
@@ -26,15 +26,10 @@ class Account extends Component {
 
   constructor(props) {
     super(props);
-    let currentAccount = props.match.params.accountId;
-    console.log("CURRENT ACCOUNT: ", currentAccount);
-    this.getAccountDependencies(currentAccount);
     this.state = {
-      searchResults: [],
       ownerResults: [],
       account: {},
       owner: {},
-      currentSearch: "",
       processes: [],
       charts: ['Chart 1','Chart 2','Chart 3','Chart 4','Chart 5','Chart 6'],
       owner: {},
@@ -43,10 +38,19 @@ class Account extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getAccountDependencies(this.props.match.params.accountId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.accountId !== prevProps.match.params.accountId) {
+      this.getAccountDependencies(this.props.match.params.accountId);
+    }
+  }
+
   getAccountDependencies(accountId) {
     axios.get(`/accountDependencies/${accountId}`)
     .then(results => {
-      console.log("ACCOUNT DEPENDENCIES: ", results);
       this.getContributors(results.data.data[0].contributors);
       this.getProcesses(results.data.data[0].processes);
       let accountDetails = {
@@ -55,7 +59,7 @@ class Account extends Component {
         module: results.data.data[0].module,
       }
       let ownerDetails = {
-        name: `${results.data.data[0].firstName} ${results.data.data[0].lastName}`,
+        name: results.data.data[0].name,
         id: results.data.data[0].ownerId
       }
       this.setState({
@@ -77,45 +81,25 @@ class Account extends Component {
   getProcesses(processIds) {
     axios.post(`/processes`, {processes: processIds})
     .then(results => {
-      console.log("PROCESS RESULTS: ", results.data.data);
       this.setState({
         processes: results.data.data
       })
     })
   }
 
-  handleChange(callouts, e) {
-    this.setState({
-      currentSearch: e.target.value
-    });
-    callouts.getAccounts(e.target.value)
-  }
+
 
   render() {
     return(
       <Subscribe to={[CalloutsContainer]}>
         {(callouts) => (
           <div>
-            <div className="search">
-              <Search
-                currentSearch = {this.state.currentSearch}
-                handleChange = {e => this.handleChange(callouts, e)}
-              />
-
-              
-              <ListGroup>
-                {callouts.state.searchResults.length ? callouts.state.searchResults.map(account => (
-                  <Link to={`/account/${account.id}`}>
-                    <ListGroup.Item key={account.description}>{account.description}</ListGroup.Item>
-                  </Link>
-                )): null}
-              </ListGroup>
-            </div>
+              <Search />
 
             <div className="ownerInfo">
               <Row>
                 <Col md={1} className="dependency">
-                <i class="fas fa-balance-scale icon"></i>
+                <i className="fas fa-balance-scale icon"></i>
                 </Col>
                 <Col md={2} className="ownerText">
                   <h2>Account</h2>
