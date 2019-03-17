@@ -13,7 +13,6 @@ const OwnerList = ({
   contributors
 }) => 
 {
-  console.log("OWNER: ", owner)
   return (
     <div className="section">
       <h2 className="listTitle">{title}</h2>
@@ -27,10 +26,10 @@ const OwnerList = ({
             </Link>
           </Col>
           {contributors.map(user => (
-            <Col md={2} className="dependency">
+            <Col md={2} className="dependency" key={user.name}>
               <Link to={`/owner/${user.id}`}>
                   <div><i className="fa fa-user icon" /></div>
-                  <div>{`${user.firstName} ${user.lastName}`}</div>
+                  <div>{user.name}</div>
               </Link>
           </Col>
           ))}

@@ -13,12 +13,20 @@ class Home extends Component {
 
   constructor(props) {
     super(props);
-    let currentProcess = props.match.params.processId;
-    this.getProcess(currentProcess);
     this.state = {
       title: '',
       process: [],
       ownerName: ''
+    }
+  }
+
+  componentDidMount() {
+    this.getProcess(this.props.match.params.processId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.processId !== prevProps.match.params.processId) {
+      this.getProcess(this.props.match.params.processId);
     }
   }
 

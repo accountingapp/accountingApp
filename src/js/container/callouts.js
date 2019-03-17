@@ -9,12 +9,29 @@ export default class CalloutsContainer extends Container {
     }
   }
   
-  getAccounts(searchCriteria) {
-    axios.post('/account', {description: searchCriteria})
+  getAccountByDescription(searchCriteria) {
+    axios.get(`/accountDescription/${searchCriteria}`)
     .then(results => {
-      console.log("test: ", results);
       this.setState({
-        searchResults: searchCriteria ? results.data.data : []
+        searchResults: searchCriteria ? results.data : []
+      })
+    })
+  };
+
+  getOwnerByName(searchCriteria) {
+    axios.get(`/userName/${searchCriteria}`)
+    .then(results => {
+      this.setState({
+        searchResults: searchCriteria ? results.data : []
+      })
+    })
+  };
+
+  getProcessByTitle(searchCriteria) {
+    axios.get(`/processTitle/${searchCriteria}`)
+    .then(results => {
+      this.setState({
+        searchResults: searchCriteria ? results.data : []
       })
     })
   };

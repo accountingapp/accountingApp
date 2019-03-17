@@ -1,51 +1,8 @@
 const db = require('../db/connection').knex
 
-function getAccountByDescription(req, res) {
-  db('accounts')
-    .innerJoin('users', 'accounts.ownerId', 'users.id')
-    .where('description', 'like', `%${req.body.description}%`)
-    // .orWhere('firstName', 'like', `%${req.body.description}%`)
-    .then(results => {
-      console.log("RESULTS: ", results)
-      if (results) {
-        console.log(`Successfully retrieved results`);
-        res.send({
-          status: 1,
-          data: results
-        })
-      } else {
-        console.log(`No account found`);
-      }
-    })
-    .catch(error => {
-      console.log(`ERROR: ${error}`)
-    });
-}
-
-// function getAccount(req, res) {
-//   db('accounts')
-//     .where('description', 'like', `%${req.body.description}%`)
-//     // .orWhere('firstName', 'like', `%${req.body.description}%`)
-//     .then(results => {
-//       console.log("RESULTS: ", results)
-//       if (results) {
-//         console.log(`Successfully retrieved results`);
-//         res.send({
-//           status: 1,
-//           data: results
-//         })
-//       } else {
-//         console.log(`No account found`);
-//       }
-//     })
-//     .catch(error => {
-//       console.log(`ERROR: ${error}`)
-//     });
-// }
-
 function getDependenciesByAccount(req, res) {
   db('accounts')
-    .select('description', 'natural', 'moduleId', 'ownerId', 'firstName', 'lastName', 'processes', 'contributors')
+    .select('description', 'natural', 'moduleId', 'ownerId', 'name', 'processes', 'contributors')
     .innerJoin('users', 'accounts.ownerId', 'users.id')
     .leftJoin('modules', 'accounts.ownerId', 'modules.id')
     .where('accounts.id', `${req.params.accountId}`)
@@ -164,7 +121,6 @@ function getProcess(req, res) {
 }
 
 module.exports = {
-  getAccountByDescription,
   getDependenciesByAccount,
   getDependenciesByOwner,
   getOwner,

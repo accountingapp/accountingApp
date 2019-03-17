@@ -12,7 +12,6 @@ const ProcessList = ({
   dependencies
 }) => 
 {
-  console.log("PROCESSES: ", dependencies);
   return (
     <div className="section">
       <h2 className="listTitle">{title}</h2>

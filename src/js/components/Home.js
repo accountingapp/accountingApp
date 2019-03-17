@@ -41,18 +41,10 @@ class Home extends Component {
   render() {
     return(
       <div>
-        <div className="search">
-          <Search
-            currentSearch = {this.state.currentSearch}
-            handleChange = {e => this.handleChange(e)}
-          />
-
-          <ListGroup>
-          {this.state.searchResults.length ? this.state.searchResults.map(account => (
-            <ListGroup.Item key={account.description}>{account.description}</ListGroup.Item>
-          )): null}
-          </ListGroup>
-        </div>
+         <Search
+                currentSearch = {this.state.currentSearch}
+                handleChange = {e => this.handleChange(callouts, e)}
+              />
         
         <div className="accountList">
           <ProcessList 
