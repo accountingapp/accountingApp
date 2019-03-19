@@ -57,26 +57,31 @@ input.form-control {
   font-size: 1.2rem;
 }
 
-a.nav-item.nav-link {
+a.nav-item.nav-link[data-rb-event-key="accounts"] {
+  background: #378eaf;
+  color: white;
   border: none;
   font-size: 1.4rem;
   text-align: center;
   width: 33.33%;
 }
 
-a.nav-item.nav-link[data-rb-event-key="accounts"] {
-  background: #378eaf;
-  color: white;
-}
-
 a.nav-item.nav-link[data-rb-event-key="users"] {
   background: #a6a6a6;
   color: white;
+  border: none;
+  font-size: 1.4rem;
+  text-align: center;
+  width: 33.33%;
 }
 
 a.nav-item.nav-link[data-rb-event-key="processes"] {
   background: #a2c3cc;
   color: white;
+  border: none;
+  font-size: 1.4rem;
+  text-align: center;
+  width: 33.33%;
 }
 
 .mb-3.searchInput.input-group {
@@ -99,6 +104,28 @@ button.btn.btn-outline-secondary {
   font-family: 'Slabo 27px', serif;
 }
 
+
+/* Process */
+
+.processHeader {
+  background: #f1f1f1;
+  padding: 1rem 2rem;
+  font-family: 'Slabo 27px', serif;
+}
+
+.processBody {
+  margin: 0 auto;
+  padding: 1rem 10rem;
+  font-size: 1.3rem;
+}
+
+.stepName {
+  font-weight: bold;
+}
+
+.stepData {
+  padding: 0.8rem;
+}
 
 /* Icons */
 

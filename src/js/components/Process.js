@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import ProcessList from './Lists/ProcessList';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -16,7 +20,8 @@ class Home extends Component {
     this.state = {
       title: '',
       process: [],
-      ownerName: ''
+      ownerName: '',
+      activeKey: 'step'
     }
   }
 
@@ -35,7 +40,7 @@ class Home extends Component {
     .then(results => {
       this.setState({
         title: results.data.data[0].title,
-        ownerName: `${results.data.data[0].firstName} ${results.data.data[0].lastName}`,
+        ownerName: results.data.data[0].name,
         process: results.data.data[0].process
       })
     })
@@ -48,21 +53,70 @@ class Home extends Component {
     this.getAccounts(e.target.value)
   }
 
-  render() {
+  renderTextArea() {
     return(
-      <div>
-        <h2>PROCESS PAGE</h2>
-        {this.state.process ? (
-          <div className="processWrap">
-            <h3>{this.state.title}</h3>
-            <h3>Owner: {this.state.ownerName}</h3>
+      <Form>
+        <Form.Group>
+          <Form.Control as="textarea" rows="4" />
+        </Form.Group>
+        <Button variant="outline-secondary">Add</Button>
+      </Form>
 
-            {this.state.process.map((step, i) => (
-              <div key={i}>
-                <div>{step.name}</div>
-                <div>{step.data}</div>
-              </div>
-            ))}
+    )
+  }
+
+  render() {
+    const indentStyle = {
+      0: "0px",
+      1: "30px",
+      2: "60px",
+      3: "90px"
+    }
+    const actions = ["Step", "Note", "Tip", "Image", "Video", "File", "Link"]
+    return(
+      <div className="processWrap">
+        {this.state.process ? (
+          <div>
+            <div className="processHeader">
+              <h3>{this.state.title}</h3>
+              <h3>Owner: {this.state.ownerName}</h3>
+            </div>
+            <div className="processBody">
+              <Row>
+                <Col md={5} className="steps">
+                  {this.state.process.map((step, i) => (
+                    <div key={i}>
+                      <div 
+                        className="stepData"
+                        style={{paddingLeft: indentStyle[step.indention]}}
+                      >
+                          <span className="stepName">{`${step.name}: `}</span> 
+                          {step.data}
+                      </div>
+                    </div>
+                  ))}
+                </Col>
+                <Col md={{ span: 6, offset: 1 }} className="processInput">
+                  <Tabs
+                    activeKey={this.state.activeKey}
+                    onSelect={activeKey => this.setState({activeKey})}
+                  >
+                    {actions.map((tab,i) => {
+                      return (
+                        <Tab
+                          key={tab}
+                          eventKey={tab.toLowerCase()}
+                          title={tab}
+                          className={`tab${tab}`}
+                        >
+                          {this.renderTextArea()}
+                        </Tab>
+                      )
+                    })}
+                  </Tabs>
+                </Col>
+              </Row>
+            </div>
           </div>
         ) : null }
       </div>
