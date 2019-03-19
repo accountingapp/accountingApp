@@ -36,14 +36,14 @@ class Owner extends PureComponent {
   }
 
   componentDidMount() {
-    this.getOwnerDependencies(this.props.match.params.ownerId);
-    this.getOwner(this.props.match.params.ownerId);
+    this.getOwnerDependencies(this.props.computedMatch.params.ownerId);
+    this.getOwner(this.props.computedMatch.params.ownerId);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.ownerId !== prevProps.match.params.ownerId) {
-      this.getOwnerDependencies(this.props.match.params.ownerId);
-      this.getOwner(this.props.match.params.ownerId);
+    if (this.props.computedMatch.params.ownerId !== prevProps.computedMatch.params.ownerId) {
+      this.getOwnerDependencies(this.props.computedMatch.params.ownerId);
+      this.getOwner(this.props.computedMatch.params.ownerId);
     }
   }
 

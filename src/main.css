@@ -2,6 +2,11 @@
 html {
   font-family: 'Source Sans Pro', sans-serif;
 }
+/* Login */
+.loginHead {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
 
 /* Home Page */
 .header {
@@ -12,9 +17,19 @@ html {
   font-family: 'Slabo 27px', serif;
 }
 
+
+a.appName:hover,
+a.appName:link,
+a.appName:visited,
+a.appName:active {
+  color: white;
+  text-decoration: none;
+}
+
 .section {
   padding: 1rem;
 }
+
 .listTitle {
   font-size: 2.0rem;
   font-family: 'Slabo 27px', serif;
