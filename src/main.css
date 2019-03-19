@@ -127,6 +127,14 @@ button.btn.btn-outline-secondary {
   padding: 0.8rem;
 }
 
+.processInput a.nav-item.nav-link {
+  background: #f1f1f1;
+  border: white solid 1px;
+  width: 14.286%;
+  text-align: center;
+  color: black;
+}
+
 /* Icons */
 
 i.fas.fa-chart-line.icon {
