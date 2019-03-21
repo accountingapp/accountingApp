@@ -14,18 +14,20 @@ html {
   color: white;
   padding: 10px 20px;
   border-bottom: #378eaf solid 8px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white;
+  font-size: 1.3rem;
   font-family: 'Slabo 27px', serif;
 }
 
-
-a.appName:hover,
-a.appName:link,
-a.appName:visited,
-a.appName:active,
-a.appName {
+a.appName.navbar-brand,
+a.appName.navbar-brand:hover {
   color: white;
   text-decoration: none;
   font-family: 'Slabo 27px', serif;
+  font-size: 2.0rem;
 }
 
 .section {

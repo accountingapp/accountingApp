@@ -67,6 +67,7 @@ module.exports = server => {
       getOwnerByEmail(req.user.emails[0].value)
       .then(response => {
         res.cookie('email', response[0].email);
+        res.cookie('id', response[0].id);
         return response;
       })
       .then((response) => {
