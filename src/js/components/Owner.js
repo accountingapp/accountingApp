@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Subscribe } from 'unstated';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 import AccountList from './Lists/AccountList';
 import ProcessList from './Lists/ProcessList';
@@ -36,14 +36,14 @@ class Owner extends PureComponent {
   }
 
   componentDidMount() {
-    this.getOwnerDependencies(this.props.computedMatch.params.ownerId);
-    this.getOwner(this.props.computedMatch.params.ownerId);
+    this.getOwnerDependencies(this.props.match.params.ownerId);
+    this.getOwner(this.props.match.params.ownerId);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.computedMatch.params.ownerId !== prevProps.computedMatch.params.ownerId) {
-      this.getOwnerDependencies(this.props.computedMatch.params.ownerId);
-      this.getOwner(this.props.computedMatch.params.ownerId);
+    if (this.props.match.params.ownerId !== prevProps.match.params.ownerId) {
+      this.getOwnerDependencies(this.props.match.params.ownerId);
+      this.getOwner(this.props.match.params.ownerId);
     }
   }
 
@@ -132,4 +132,4 @@ class Owner extends PureComponent {
   }
 }
 
-export default Owner;
+export default withRouter(Owner);

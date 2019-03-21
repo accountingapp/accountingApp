@@ -21,9 +21,11 @@ html {
 a.appName:hover,
 a.appName:link,
 a.appName:visited,
-a.appName:active {
+a.appName:active,
+a.appName {
   color: white;
   text-decoration: none;
+  font-family: 'Slabo 27px', serif;
 }
 
 .section {
@@ -100,8 +102,8 @@ a.nav-item.nav-link[data-rb-event-key="processes"] {
 }
 
 .mb-3.searchInput.input-group {
-  padding: 2rem;
-  border-radius: 0 0.25rem 0.25rem 0.25rem
+  padding: 1.2rem;
+  border-radius: 0 0rem 0.25rem 0.25rem;
 }
 
 button.btn.btn-outline-secondary {
@@ -173,4 +175,8 @@ i.fas.fa-clipboard-list.icon {
 i.fas.fa-cloud.icon {
   color: #aaabca;
   /* border: black; */
+}
+
+i.fas.fa-comments-dollar {
+  padding-right: 1rem;
 }
