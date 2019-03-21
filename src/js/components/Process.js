@@ -8,12 +8,12 @@ import Col from 'react-bootstrap/Col';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import ListGroup from 'react-bootstrap/ListGroup';
-import {Link} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import axios from 'axios';
 
 import Search from './Search';
 
-class Home extends Component {
+class Process extends Component {
 
   constructor(props) {
     super(props);
@@ -124,4 +124,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Process);

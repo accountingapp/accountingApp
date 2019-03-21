@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Subscribe } from 'unstated';
+import { withRouter} from 'react-router-dom';
 
 import OwnerList from './Lists/OwnerList';
 import ProcessList from './Lists/ProcessList';
@@ -140,4 +141,4 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default withRouter(Account);
