@@ -86,17 +86,13 @@ class Owner extends PureComponent {
 
             {this.state.ownerName ? (
               <div>
-                <div className="ownerInfo">
-                  <Row>
-                    <Col md={1}>
-                      <i className="fa fa-user icon ownerGlyph" />
-                    </Col>
-                    <Col md={2} className="ownerText">
-                      <h2>Owner</h2>
+                <div className="pageInfo">
+                  <i className="fa fa-user icon ownerGlyph"></i>
+                  <div className="pageInfoText">
+                    <h2>Owner</h2>
                       <h3>{this.state.ownerName}</h3>
                       <h3>{this.state.email}</h3>
-                    </Col>
-                  </Row>
+                  </div>
                 </div>
                 
                 <div className="accountList">
