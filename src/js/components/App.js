@@ -21,32 +21,32 @@ class App extends Component {
       <Subscribe to={[AppContainer]}>
         {(app) => (
           <BrowserRouter>
-                  <Fragment>
-                    <Header />
-                    <Switch>
-                        <ProtectedRoute 
-                          component={Owner} 
-                          path="/owner/:ownerId"
-                        />
-                        <ProtectedRoute 
-                          component={Account} 
-                          path="/account/:accountId"
-                        />
-                        <ProtectedRoute 
-                          component={Process} 
-                          path="/process/:processId"
-                        />
-                        <ProtectedRoute 
-                          component={Home} 
-                          exact path="/"
-                        />
-                        <Route
-                          component={Login}
-                          path="/user-login"
-                        />
-                    </Switch>
-                  </Fragment>
-            </BrowserRouter>
+            <Fragment>
+              <Header user={app.state.userId}/>
+              <Switch>
+                  <ProtectedRoute 
+                    component={Owner} 
+                    path="/owner/:ownerId"
+                  />
+                  <ProtectedRoute 
+                    component={Account} 
+                    path="/account/:accountId"
+                  />
+                  <ProtectedRoute 
+                    component={Process} 
+                    path="/process/:processId"
+                  />
+                  <ProtectedRoute 
+                    component={Home} 
+                    exact path="/"
+                  />
+                  <Route
+                    component={Login}
+                    path="/user-login"
+                  />
+              </Switch>
+            </Fragment>
+          </BrowserRouter>
         )}
         </Subscribe>
     );

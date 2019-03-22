@@ -97,18 +97,14 @@ class Account extends Component {
           <div>
               <Search />
 
-            <div className="ownerInfo">
-              <Row>
-                <Col md={1} className="dependency">
-                <i className="fas fa-balance-scale icon"></i>
-                </Col>
-                <Col md={2} className="ownerText">
-                  <h2>Account</h2>
-                  <h2>{this.state.account.description}</h2>
-                  <h2>{this.state.account.natural}</h2>
-                  <h2>{this.state.account.module}</h2>
-                </Col>
-              </Row>
+            <div className="pageInfo">
+              <i className="fas fa-balance-scale icon"></i>
+              <div className="pageInfoText">
+                <h2>Account</h2>
+                <h2>{this.state.account.description}</h2>
+                <h2>{this.state.account.natural}</h2>
+                <h2>{this.state.account.module}</h2>
+              </div>
             </div>
             
             <div className="accountList">

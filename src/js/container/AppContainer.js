@@ -13,10 +13,11 @@ function getAuthInfoFromCookies() {
 export default class AppContainer extends Container {
   constructor () {
     super();
-    const { email } = getAuthInfoFromCookies();
+    const { email, userId } = getAuthInfoFromCookies();
 
     this.state = {
-      email
+      email,
+      userId
     }
   };
 
