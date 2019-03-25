@@ -154,6 +154,11 @@ button.btn.btn-outline-secondary {
   color: black;
 }
 
+.processInput a.nav-item.nav-link.active {
+  background: #008fb3;
+  color: white;
+}
+
 /* Icons */
 
 i.fas.fa-chart-line.icon {

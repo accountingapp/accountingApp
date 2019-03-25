@@ -80,51 +80,11 @@ function getContributors(req, res) {
   });
 }
 
-function getProcesses(req, res) {
-  db('processes')
-  .whereIn('id', req.body.processes)
-  .then(results => {
-    if (results) {
-      console.log(`Successfully retrieved results`);
-      res.send({
-        status: 1,
-        data: results
-      })
-    } else {
-      console.log(`No contributors found`);
-    }
-  })
-  .catch(error => {
-    console.log(`ERROR: ${error}`)
-  });
-}
 
-function getProcess(req, res) {
-  db('processes')
-
-  .leftJoin('users', 'processes.ownerId', 'users.id')
-  .where('processes.id', req.params.processId)
-  .then(results => {
-    if (results) {
-      console.log(`Successfully retrieved results`);
-      res.send({
-        status: 1,
-        data: results
-      })
-    } else {
-      console.log(`No contributors found`);
-    }
-  })
-  .catch(error => {
-    console.log(`ERROR: ${error}`)
-  });
-}
 
 module.exports = {
   getDependenciesByAccount,
   getDependenciesByOwner,
   getOwner,
   getContributors,
-  getProcesses,
-  getProcess
 }

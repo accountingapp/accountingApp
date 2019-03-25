@@ -3,6 +3,7 @@ import ProcessList from './Lists/ProcessList';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Tabs from 'react-bootstrap/Tabs';
@@ -18,9 +19,11 @@ class Process extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      process: [],
+      processSteps: [],
       ownerName: '',
+      processTitle: '',
+      stepTextField: '',
+      newStepTitle: '',
       activeKey: 'step'
     }
   }
@@ -39,28 +42,61 @@ class Process extends Component {
     axios.get(`/processDetails/${processId}`)
     .then(results => {
       this.setState({
-        title: results.data.data[0].title,
+        processSteps: results.data.data[0].process,
         ownerName: results.data.data[0].name,
-        process: results.data.data[0].process
+        processTitle: results.data.data[0].title,
       })
     })
   }
 
-  handleChange(e) {
-    this.setState({
-      currentSearch: e.target.value
-    });
-    this.getAccounts(e.target.value)
+  addProcessStep(processId, newProcess) {
+    let currentProcess = this.state.processSteps;
+    currentProcess.push(newProcess);
+    axios.patch(`/processDetails/${processId}`, currentProcess)
+    .then(results => {
+      this.setState({
+        processSteps: currentProcess
+      })
+    })
   }
 
   renderTextArea() {
     return(
-      <Form>
-        <Form.Group>
-          <Form.Control as="textarea" rows="4" />
-        </Form.Group>
-        <Button variant="outline-secondary">Add</Button>
-      </Form>
+      <div>
+      <InputGroup>
+          <FormControl
+            placeholder="Step Title"
+            value={this.state.newStepTitle}
+            onChange={(e)=>this.setState({newStepTitle: e.target.value})}
+          />
+      </InputGroup>
+      <InputGroup>
+          <FormControl 
+            as="textarea" 
+            rows="4"
+            value={this.state.stepTextField}
+            onChange={(e => this.setState({stepTextField: e.target.value}))}
+          />
+        </InputGroup>
+        <Button 
+          variant="outline-secondary"
+          onClick={()=>{
+            let newProcessStep = {
+              type: this.state.activeKey,
+              name: this.state.newStepTitle,
+              indention: '0',
+              data: this.state.stepTextField
+            }
+            this.addProcessStep(this.props.match.params.processId, newProcessStep);
+            this.setState({
+              stepTextField: '',
+              newStepTitle: '',
+            })
+          }}
+        >
+          Add
+        </Button>
+      </div>
 
     )
   }
@@ -75,16 +111,16 @@ class Process extends Component {
     const actions = ["Step", "Note", "Tip", "Image", "Video", "File", "Link"]
     return(
       <div className="processWrap">
-        {this.state.process ? (
+        {this.state.processSteps ? (
           <div>
             <div className="processHeader">
-              <h3>{this.state.title}</h3>
+              <h3>{this.state.processTitle}</h3>
               <h3>Owner: {this.state.ownerName}</h3>
             </div>
             <div className="processBody">
               <Row>
                 <Col md={5} className="steps">
-                  {this.state.process.map((step, i) => (
+                  {this.state.processSteps.map((step, i) => (
                     <div key={i}>
                       <div 
                         className="stepData"
