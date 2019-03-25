@@ -85,6 +85,7 @@ module.exports = server => {
     (req, res) => {
       req.logout();
       res.clearCookie('email');
+      res.clearCookie('id');
       res.clearCookie('space');
       res.redirect('/user-login');
     }
