@@ -23,6 +23,12 @@ exports.seed = function(knex, Promise) {
               "data": 'This is the second step of the process'
             },
             {
+              "type":'image',
+              "name": 'Example Image',
+              "indentation": '0',
+              "data": 'https://www.smartsheet.com/sites/default/files/AccountsReceivableAging1.jpg'
+            },
+            {
               "type": 'step',
               "name": 'Step 2.1',
               "indention": '1',
@@ -39,6 +45,12 @@ exports.seed = function(knex, Promise) {
               "name": 'Note',
               "indention": '2',
               "data": 'This is a note'
+            },
+            {
+              "type": 'video',
+              "name": 'Example Video',
+              "indention": '0',
+              "data": 'https://www.youtube.com/embed/-WAEzokHSJM'
             },
             {
               "type": 'step',
@@ -78,6 +90,12 @@ exports.seed = function(knex, Promise) {
               "data": 'This is a note'
             },
             {
+              "type":'image',
+              "name": 'Example Image',
+              "indentation": '0',
+              "data": 'https://www.smartsheet.com/sites/default/files/AccountsReceivableAging1.jpg'
+            },
+            {
               "type": 'step',
               "name": 'Step 2',
               "indention": '0',
@@ -88,6 +106,12 @@ exports.seed = function(knex, Promise) {
               "name": 'Step 2.1',
               "indention": '1',
               "data": 'This is the first thing in the second step'
+            },
+            {
+              "type": 'video',
+              "name": 'Example Video',
+              "indention": '0',
+              "data": 'https://www.youtube.com/embed/-WAEzokHSJM'
             },
             {
               "type": 'tip',
@@ -106,6 +130,12 @@ exports.seed = function(knex, Promise) {
               "name": 'Step 3',
               "indention": '0',
               "data": 'This is the third step of the process'
+            },
+            {
+              "type":'image',
+              "name": 'Example Image',
+              "indentation": '0',
+              "data": 'https://www.smartsheet.com/sites/default/files/AccountsReceivableAging1.jpg'
             },
             {
               "type": 'step',

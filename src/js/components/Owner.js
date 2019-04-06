@@ -28,22 +28,25 @@ class Owner extends PureComponent {
     this.state = {
       ownerName: '',
       email: '',
-      processes: ['Process 1','Process 2','Process 3','Process 4','Process 5','Process 6'],
+      processes: [],
       charts: ['Chart 1','Chart 2','Chart 3','Chart 4','Chart 5','Chart 6'],
       accounts: [],
       applications: ['Application 1','Application 2','Application 3','Application 4','Application 5','Application 6'],
     }
+    this.ownerId=this.props.match.params.ownerId;
   }
 
   componentDidMount() {
-    this.getOwnerDependencies(this.props.match.params.ownerId);
-    this.getOwner(this.props.match.params.ownerId);
+    this.getOwnerDependencies(this.ownerId);
+    this.getOwner(this.ownerId);
+    this.getProcesses(this.ownerId);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.ownerId !== prevProps.match.params.ownerId) {
-      this.getOwnerDependencies(this.props.match.params.ownerId);
-      this.getOwner(this.props.match.params.ownerId);
+    if (this.ownerId !== prevProps.match.params.ownerId) {
+      this.getOwnerDependencies(this.ownerId);
+      this.getOwner(this.ownerId);
+      this.getProcesses(this.ownerId);
     }
   }
 
@@ -68,6 +71,15 @@ class Owner extends PureComponent {
         })
       })
     }
+  }
+
+  getProcesses(ownerId) {
+    axios.get(`/processOwner/${ownerId}`)
+    .then(results => {
+      this.setState({
+        processes: results.data
+      })
+    })
   }
 
   handleChange(callouts, e) {

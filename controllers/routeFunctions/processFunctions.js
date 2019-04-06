@@ -49,7 +49,24 @@ function getProcessByTitle(req, res) {
       console.log(`Successfully retrieved results`);
       res.status(200).send(results);
     } else {
-      console.log(`No user found`);
+      console.log(`No process found`);
+    }
+  })
+  .catch(error => {
+    console.log(`ERROR: ${error}`)
+  });
+}
+
+function getProcessByOwner(req, res) {
+  db('processes')
+  .where('ownerId',`${req.params.ownerId}`)
+  .then(results => {
+    console.log("RESULTS: ", results)
+    if (results) {
+      console.log(`Successfully retrieved owner processes`);
+      res.status(200).send(results);
+    } else {
+      console.log(`No processes found`);
     }
   })
   .catch(error => {
@@ -74,5 +91,6 @@ module.exports = {
   getProcessByTitle,
   getProcesses,
   getProcess,
-  addProcessStep
+  addProcessStep,
+  getProcessByOwner
 } 

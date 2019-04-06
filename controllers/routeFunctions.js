@@ -24,7 +24,7 @@ function getDependenciesByAccount(req, res) {
 
 function getDependenciesByOwner(req, res) {
   db('accounts')
-    .select('id', 'description', 'natural', 'moduleId', 'ownerId')
+    .select('id', 'description', 'natural', 'moduleId', 'ownerId', 'processes')
     .where('ownerId', `${req.params.ownerId}`)
     .then(results => {
       if (results) {
