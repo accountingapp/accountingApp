@@ -58,15 +58,13 @@ class Settings extends Component {
   render() {
     return(
       <div className="settingsPage">
-        <div className="settingsHeader">
-            <i className="fas fa-cog"></i>
-            <div className="pageInfoText">
-              <h2>Settings</h2>
-            </div>
-        </div>
         <Tab.Container id="left-tabs-example" defaultActiveKey="users">
           <Row>
             <Col sm={3} className="settingsTabs">
+            <div className="settingsTitle">
+              <i className="fas fa-cog"></i>
+              <h2>Settings</h2>
+            </div>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                   <Nav.Link eventKey="users" className="tab">Users</Nav.Link>

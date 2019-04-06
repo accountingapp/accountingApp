@@ -291,3 +291,12 @@ i.fas.fa-cog {
   height: 77vh;
   overflow-y: scroll;
 }
+
+.settingsPage h2 {
+  display: inline-block;
+  padding: 1rem;
+}
+
+.settingsTitle {
+  padding: 0 1rem;
+}
