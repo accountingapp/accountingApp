@@ -61,7 +61,6 @@ function getProcessByOwner(req, res) {
   db('processes')
   .where('ownerId',`${req.params.ownerId}`)
   .then(results => {
-    console.log("RESULTS: ", results)
     if (results) {
       console.log(`Successfully retrieved owner processes`);
       res.status(200).send(results);

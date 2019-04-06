@@ -20,21 +20,25 @@ class Process extends Component {
     super(props);
     this.state = {
       processSteps: [],
+      accounts: [],
       ownerName: '',
       processTitle: '',
       stepTextField: '',
       newStepTitle: '',
       activeKey: 'step'
     }
+    this.processId=this.props.match.params.processId;
   }
 
   componentDidMount() {
-    this.getProcess(this.props.match.params.processId);
+    this.getProcess(this.processId);
+    this.getAccounts(this.processId);
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.processId !== prevProps.match.params.processId) {
-      this.getProcess(this.props.match.params.processId);
+      this.getProcess(this.processId);
+      this.getAccounts(this.processId);
     }
   }
 
@@ -45,6 +49,16 @@ class Process extends Component {
         processSteps: results.data.data[0].process,
         ownerName: results.data.data[0].name,
         processTitle: results.data.data[0].title,
+      })
+    })
+  }
+
+  getAccounts(processId) {
+    axios.get(`/accounts/process/${processId}`)
+    .then(results => {
+      console.log("ACCOUNTS: ", results);
+      this.setState({
+        accounts: results.data
       })
     })
   }
@@ -72,7 +86,7 @@ class Process extends Component {
       <div>
       <InputGroup>
           <FormControl
-            placeholder="Step Title"
+            placeholder={`${this.state.activeKey[0].toUpperCase() + this.state.activeKey.slice(1)} Title`}
             value={this.state.newStepTitle}
             onChange={(e)=>this.setState({newStepTitle: e.target.value})}
           />
@@ -139,17 +153,13 @@ class Process extends Component {
             </div>
             <div className="processBody">
               <Row>
-                <Col md={5} className="steps">
+                <Col md={7} className="steps">
                   {this.state.processSteps.map((step, i) => (
-                    <div key={i}>
+                    <div key={i} className="stepData">
                       {step.type === 'step' || step.type === 'note' || step.type === 'tip' ? (
                         <>
-                          <div 
-                            className="stepData"
-                          >
-                              <span className="stepName">{`${step.name}: `}</span> 
-                              {step.data}
-                          </div>
+                          <span className="stepName">{`${step.name}: `}</span> 
+                          {step.data}
                         </>
                       ) : 
                       step.type === 'image' ? (
@@ -172,11 +182,10 @@ class Process extends Component {
                     </div>
                   ))}  
                 </Col>
-                <Col md={{ span: 6, offset: 1 }} className="processInput">
+                <Col md={5} className="processInput">
                   <>
                     <div className="editProcessInfo">
                       <h2>Process Information</h2>
-
                       <InputGroup>
                         <InputGroup.Prepend>
                           <InputGroup.Text id="basic-addon1">Title</InputGroup.Text>
@@ -206,24 +215,38 @@ class Process extends Component {
                           placeholder='Accounts'
                         />
                       </InputGroup>
+                      <div className="processAccounts">
+                        {this.state.accounts.length ? (
+                          <div>
+                            {this.state.accounts.map(account => (
+                              <div key={account.description} className="processAccount">
+                                {account.description}
+                              </div>
+                            ))}
+                          </div>
+                        ):null}
+                      </div>
                     </div>
-                    <Tabs
-                      activeKey={this.state.activeKey}
-                      onSelect={activeKey => this.setState({activeKey})}
-                    >
-                      {actions.map((tab,i) => {
-                        return (
-                          <Tab
-                            key={tab}
-                            eventKey={tab.toLowerCase()}
-                            title={tab}
-                            className={`tab${tab}`}
-                          >
-                            {this.renderTextArea()}
-                          </Tab>
-                        )
-                      })}
-                    </Tabs>
+                    <div className="addProcessStep">
+                      <h2>Add to Process</h2>
+                      <Tabs
+                        activeKey={this.state.activeKey}
+                        onSelect={activeKey => this.setState({activeKey})}
+                      >
+                        {actions.map((tab,i) => {
+                          return (
+                            <Tab
+                              key={tab}
+                              eventKey={tab.toLowerCase()}
+                              title={tab}
+                              className={`tab${tab}`}
+                            >
+                              {this.renderTextArea()}
+                            </Tab>
+                          )
+                        })}
+                      </Tabs>
+                    </div>
                   </>
                 </Col>
               </Row>

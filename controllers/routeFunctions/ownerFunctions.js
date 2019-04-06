@@ -17,6 +17,21 @@ function getOwnerByName(req, res) {
   });
 }
 
+function getAllUsers(req, res) {
+  db('users')
+  .then(results => {
+    if (results) {
+      console.log(`Successfully retrieved users`);
+      res.status(200).send(results);
+    } else {
+      console.log(`No users found`);
+    }
+  })
+  .catch(error => {
+    console.log("Error retrieving users: ", error);
+  })
+}
 module.exports = {
-  getOwnerByName
+  getOwnerByName,
+  getAllUsers
 }

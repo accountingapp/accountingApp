@@ -12,6 +12,7 @@ function Header(props){
       </Navbar.Brand>
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav>
+          <Nav.Link href={`/settings`}>Settings</Nav.Link>
           <Nav.Link href={`/owner/${props.user}`}>My Profile</Nav.Link>
           <Nav.Link href="/logout">Logout</Nav.Link>
         </Nav>

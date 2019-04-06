@@ -7,6 +7,7 @@ import Account from './Account';
 import Process from './Process';
 import Header from './Header';
 import Login from './Login';
+import Settings from './Settings';
 import AppContainer from '../container/AppContainer';
 import ProtectedRoute from '../helpers/ProtectedRoute';
 
@@ -39,6 +40,10 @@ class App extends Component {
                   <ProtectedRoute 
                     component={Home} 
                     exact path="/"
+                  />
+                  <ProtectedRoute 
+                    component={Settings} 
+                    exact path="/settings"
                   />
                   <Route
                     component={Login}
