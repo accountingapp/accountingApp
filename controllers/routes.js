@@ -14,6 +14,7 @@ module.exports = (server) => {
 
   // Users
   server.get('/userName/:name', ownerFunctions.getOwnerByName);
+  server.get('/users', ownerFunctions.getAllUsers)
 
   // Processes
   server.get('/processTitle/:title', processFunctions.getProcessByTitle);
@@ -24,5 +25,7 @@ module.exports = (server) => {
   
 
   // Accounts
+  server.get('/accounts', accountFunctions.getAllAccounts);
   server.get('/accountDescription/:description', accountFunctions.getAccountByDescription);
+  server.get('/accounts/process/:processId', accountFunctions.getAccountsByProcess)
 }
