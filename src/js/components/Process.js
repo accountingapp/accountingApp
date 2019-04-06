@@ -52,11 +52,18 @@ class Process extends Component {
   addProcessStep(processId, newProcess) {
     let currentProcess = this.state.processSteps;
     currentProcess.push(newProcess);
-    axios.patch(`/processDetails/${processId}`, currentProcess)
+    axios.patch(`/processDetails/process/${processId}`, currentProcess)
     .then(results => {
       this.setState({
         processSteps: currentProcess
       })
+    })
+  }
+
+  updateOwnerOrTitle(field, updatedValue) {
+    axios.patch(`/processDetails/${field}/${processId}`, updatedValue)
+    .then(results => {
+      console.log(`Successfully updated ${field} to ${updatedValue}`)
     })
   }
 
@@ -166,23 +173,58 @@ class Process extends Component {
                   ))}  
                 </Col>
                 <Col md={{ span: 6, offset: 1 }} className="processInput">
-                  <Tabs
-                    activeKey={this.state.activeKey}
-                    onSelect={activeKey => this.setState({activeKey})}
-                  >
-                    {actions.map((tab,i) => {
-                      return (
-                        <Tab
-                          key={tab}
-                          eventKey={tab.toLowerCase()}
-                          title={tab}
-                          className={`tab${tab}`}
-                        >
-                          {this.renderTextArea()}
-                        </Tab>
-                      )
-                    })}
-                  </Tabs>
+                  <>
+                    <div className="editProcessInfo">
+                      <h2>Process Information</h2>
+
+                      <InputGroup>
+                        <InputGroup.Prepend>
+                          <InputGroup.Text id="basic-addon1">Title</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                            id='processTitle'
+                            value={this.state.processTitle}
+                            onChange={(e)=>this.setState({processTitle: e.target.value})}
+                          />
+                      </InputGroup>
+                      <InputGroup>
+                        <InputGroup.Prepend>
+                          <InputGroup.Text id="basic-addon1">Owner</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                            id='ownerName'
+                            value={this.state.ownerName}
+                            onChange={(e)=>this.setState({ownerName: e.target.value})}
+                        />
+                      </InputGroup>
+                      <InputGroup>
+                        <InputGroup.Prepend>
+                          <InputGroup.Text id="basic-addon1">Accounts</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                          id='accounts'
+                          placeholder='Accounts'
+                        />
+                      </InputGroup>
+                    </div>
+                    <Tabs
+                      activeKey={this.state.activeKey}
+                      onSelect={activeKey => this.setState({activeKey})}
+                    >
+                      {actions.map((tab,i) => {
+                        return (
+                          <Tab
+                            key={tab}
+                            eventKey={tab.toLowerCase()}
+                            title={tab}
+                            className={`tab${tab}`}
+                          >
+                            {this.renderTextArea()}
+                          </Tab>
+                        )
+                      })}
+                    </Tabs>
+                  </>
                 </Col>
               </Row>
             </div>

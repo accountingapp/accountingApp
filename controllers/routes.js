@@ -20,7 +20,7 @@ module.exports = (server) => {
   server.get('/processDetails/:processId', processFunctions.getProcess);
   server.get('/processOwner/:ownerId', processFunctions.getProcessByOwner);
   server.post('/processes', processFunctions.getProcesses);
-  server.patch('/processDetails/:processId', processFunctions.addProcessStep)
+  server.patch('/processDetails/:processId/:field', processFunctions.updateProcess)
   
 
   // Accounts
