@@ -73,6 +73,13 @@ class Process extends Component {
       <InputGroup>
           <FormControl 
             as="textarea" 
+            placeholder=
+              {this.state.activeKey === 'video' ? 
+              'Add a link to a video. \n Example: "https://www.youtube.com/embed/-WAEzokHSJM"' : 
+              this.state.activeKey === 'image' ?
+              'Add a link to an image. \n Example: "https://www.smartsheet.com/sites/default/files/AccountsReceivableAging1.jpg"' :
+              'Type your step information here.'
+            }
             rows="4"
             value={this.state.stepTextField}
             onChange={(e => this.setState({stepTextField: e.target.value}))}
@@ -114,23 +121,49 @@ class Process extends Component {
         {this.state.processSteps ? (
           <div>
             <div className="processHeader">
-              <h3>{this.state.processTitle}</h3>
-              <h3>Owner: {this.state.ownerName}</h3>
+              <div className="pageInfo">
+                <i className="fas fa-clipboard-list icon"></i>
+                <div className="pageInfoText">
+                  <h2>Process</h2>
+                    <h3>{this.state.processTitle}</h3>
+                    <h3>Owner: {this.state.ownerName}</h3>
+                </div>
+              </div>
             </div>
             <div className="processBody">
               <Row>
                 <Col md={5} className="steps">
                   {this.state.processSteps.map((step, i) => (
                     <div key={i}>
-                      <div 
-                        className="stepData"
-                        style={{paddingLeft: indentStyle[step.indention]}}
-                      >
-                          <span className="stepName">{`${step.name}: `}</span> 
-                          {step.data}
-                      </div>
+                      {step.type === 'step' || step.type === 'note' || step.type === 'tip' ? (
+                        <>
+                          <div 
+                            className="stepData"
+                          >
+                              <span className="stepName">{`${step.name}: `}</span> 
+                              {step.data}
+                          </div>
+                        </>
+                      ) : 
+                      step.type === 'image' ? (
+                        <>
+                          <div className="processImageTitle">{step.name}</div>
+                          <img src={step.data} title='image'/>
+                        </>
+                      ) : 
+                      step.type === 'video'? (
+                        <>
+                          <div className="processVideoTitle">{step.name}</div>
+                          <iframe src={step.data}
+                            className="processVideo"
+                            allow='autoplay; encrypted-media'
+                            allowFullScreen
+                            title='video'
+                        />
+                        </>
+                      ): null}
                     </div>
-                  ))}
+                  ))}  
                 </Col>
                 <Col md={{ span: 6, offset: 1 }} className="processInput">
                   <Tabs

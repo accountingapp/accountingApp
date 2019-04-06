@@ -159,6 +159,19 @@ button.btn.btn-outline-secondary {
   color: white;
 }
 
+.processImageTitle {
+  font-style: italic;
+}
+
+.processVideoTitle {
+  font-style: italic;
+}
+
+.processVideo {
+  width: 100%;
+  height: 36rem;
+}
+
 /* Icons */
 
 i.fas.fa-chart-line.icon {

@@ -18,6 +18,7 @@ module.exports = (server) => {
   // Processes
   server.get('/processTitle/:title', processFunctions.getProcessByTitle);
   server.get('/processDetails/:processId', processFunctions.getProcess);
+  server.get('/processOwner/:ownerId', processFunctions.getProcessByOwner);
   server.post('/processes', processFunctions.getProcesses);
   server.patch('/processDetails/:processId', processFunctions.addProcessStep)
   
