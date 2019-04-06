@@ -146,6 +146,25 @@ button.btn.btn-outline-secondary {
   padding: 0.8rem;
 }
 
+.editProcessInfo {
+  margin-bottom: 1.5em;
+  padding: 14px;
+  background-color: #f1f1f1;
+}
+
+.editProcessInfo h2 {
+  font-size: 1.5rem;
+}
+.editProcessInfo .input-group {
+  margin-bottom: 0.5em;
+}
+
+.input-group-text {
+  background: #008fb3;
+  color: white;
+  font-weight: bold;
+}
+
 .processInput a.nav-item.nav-link {
   background: #f1f1f1;
   border: white solid 1px;

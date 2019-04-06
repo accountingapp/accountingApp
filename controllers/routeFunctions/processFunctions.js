@@ -74,10 +74,10 @@ function getProcessByOwner(req, res) {
   });
 }
 
-function addProcessStep(req, res) {
+function updateProcess(req, res) {
   db('processes')
   .where('id', req.params.processId)
-  .update('process', req.body)
+  .update(req.params.field, req.body)
   .then(results => {
     console.log("Successfully updated process")
     res.status(200).send({data: results});
@@ -91,6 +91,6 @@ module.exports = {
   getProcessByTitle,
   getProcesses,
   getProcess,
-  addProcessStep,
+  updateProcess,
   getProcessByOwner
 } 
