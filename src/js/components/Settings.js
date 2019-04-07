@@ -20,13 +20,19 @@ class Settings extends Component {
     super(props);
     this.state = {
       accounts: [],
-      users: []
+      users: [],
+      modules: [],
+      activeKey: 'users',
+      creatingNewItem: false,
+      newName: '',
+      newEmail: ''
     }
   }
 
   componentDidMount() {
     this.getAccounts();
     this.getUsers();
+    this.getModules();
   }
 
   getAccounts() {
@@ -48,11 +54,51 @@ class Settings extends Component {
     })
   }
 
+  getModules() {
+    axios.get('/modules')
+    .then(results => {
+      this.setState({
+        modules: results.data
+      })
+    })
+  }
+
+  createNewItem(activeKey) {
+    if (activeKey === "users") {
+      let newUser = {
+        name: this.state.newName,
+        email: this.state.newEmail
+      };
+
+      axios.post('/newUser', newUser)
+      .then(() => {
+        console.log("Created new user");
+        this.setState({
+          creatingNewItem: false,
+          newEmail: '',
+          newUser: ''
+        })
+        this.getUsers();
+      })
+    }
+    else if(activeKey === "modules") {
+      axios.post('/createModule', {module: this.state.newModule})
+      .then(() => {
+        console.log("Created new module");
+        this.setState({
+          creatingNewItem: false,
+          newModule: ''
+        })
+        this.getModules();
+      })
+    }
+  } 
+  
+
   handleChange(e) {
     this.setState({
-      currentSearch: e.target.value
+      [e.target.id]: e.target.value
     });
-    this.getAccounts(e.target.value)
   }
 
   render() {
@@ -65,12 +111,32 @@ class Settings extends Component {
               <i className="fas fa-cog"></i>
               <h2>Settings</h2>
             </div>
-              <Nav variant="pills" className="flex-column">
+              <Nav variant="pills" className="flex-column"
+                onSelect={activeKey => this.setState({activeKey})}
+              >
                 <Nav.Item>
-                  <Nav.Link eventKey="users" className="tab">Users</Nav.Link>
+                  <Nav.Link 
+                    eventKey="users" 
+                    className="tab"
+                  >
+                    Users
+                  </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="accounts" className="tab">Accounts</Nav.Link>
+                  <Nav.Link 
+                    eventKey="modules" 
+                    className="tab"
+                  >
+                    Modules
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link 
+                    eventKey="accounts"
+                    className="tab"
+                  >
+                    Accounts
+                  </Nav.Link>
                 </Nav.Item>
               </Nav>
             </Col>
@@ -96,6 +162,64 @@ class Settings extends Component {
                           <td>{user.email}</td>
                         </tr>
                       ))}
+                      {this.state.creatingNewItem ? (
+                        <tr key="newItem">
+                          <td></td>
+                          <td>
+                            <FormControl
+                              id='newName'
+                              value={this.state.newName}
+                              placeholder='Enter a first and last name'
+                              onChange={(e)=>this.handleChange(e)}
+                            />
+                          </td>
+                          <td>
+                            <FormControl
+                              id='newEmail'
+                              value={this.state.newEmail}
+                              placeholder="Enter the user's email"
+                              onChange={(e)=>this.handleChange(e)}
+                            />
+                          </td>
+                        </tr>
+                      ):null}
+                      </tbody>
+                    </Table>
+                  ):null}
+                </div>
+                </Tab.Pane>
+                <Tab.Pane eventKey="modules">
+                <div className="moduleSettings">
+                  <h3>Modules</h3>
+                  {this.state.modules.length ? (
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Module</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {this.state.modules.map((module, i) => (
+                        <tr key={module.module}>
+                          <td>{module.id}</td>
+                          <td>{module.module}</td>
+                        </tr>
+                      ))}
+                      {this.state.creatingNewItem ? (
+                        <tr key="newItem">
+                          <td></td>
+                          <td>
+                            <FormControl
+                              id='newModule'
+                              autoFocus
+                              value={this.state.newModule}
+                              placeholder='Enter a new module'
+                              onChange={(e)=>this.handleChange(e)}
+                            />
+                          </td>
+                        </tr>
+                      ):null}
                       </tbody>
                     </Table>
                   ):null}
@@ -131,6 +255,29 @@ class Settings extends Component {
                   </div>
                 </Tab.Pane>
               </Tab.Content>
+              {!this.state.creatingNewItem ? (
+                <Button
+                  className="createNewSettingButton"
+                  onClick={()=>this.setState({creatingNewItem: true})}
+                >
+                New
+              </Button>
+              ): (
+                <>
+                  <Button
+                    className="submitNewItem"
+                    onClick={()=>this.createNewItem(this.state.activeKey)}
+                  >
+                    Submit
+                  </Button>
+                  <Button
+                    className="cancelNewItem"
+                    onClick={()=>this.setState({creatingNewItem: false})}
+                  >
+                    Cancel
+                  </Button>
+                </>
+              )}
             </Col>
           </Row>
         </Tab.Container>

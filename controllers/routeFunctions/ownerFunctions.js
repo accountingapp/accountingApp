@@ -31,7 +31,21 @@ function getAllUsers(req, res) {
     console.log("Error retrieving users: ", error);
   })
 }
+
+function createUser(req, res) {
+  db('users')
+  .insert(req.body)
+  .then(()=>{
+    console.log("Successfully created a new user");
+    res.status(200).send("Successfully created a new user")
+  })
+  .catch(error => {
+    console.log("ERROR: ", error);
+    res.status(400).send({error})
+  })
+}
 module.exports = {
   getOwnerByName,
-  getAllUsers
+  getAllUsers,
+  createUser
 }
