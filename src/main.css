@@ -2,10 +2,40 @@
 html {
   font-family: 'Source Sans Pro', sans-serif;
 }
-/* Login */
+/* Landing */
 .loginHead {
   padding-top: 50px;
   padding-bottom: 20px;
+}
+.section {
+  font-size: 1.5em;
+}
+
+.mainSection {
+  background: #dcdcdc;
+}
+
+.section1 p {
+  padding: 0 10px;
+  font-family: 'Slabo 27px', serif;
+}
+
+.section3 {
+  font-family: 'Slabo 27px', serif;
+}
+
+.section2 {
+  background: #9fb39e69;
+}
+
+img.searchImage {
+  width: 50%;
+  /* display: block; */
+}
+
+img.paperworkImage, img.moneyImage {
+  /* display: block; */
+  width: inherit;
 }
 
 /* Home Page */
