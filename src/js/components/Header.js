@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 function Header(props){
   return (
     <Navbar className="header">
-      <Navbar.Brand href='/' className="appName">
+      <Navbar.Brand href='/user-login' className="appName">
         <i className="fas fa-comments-dollar"/>     Financially Stated
       </Navbar.Brand>
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

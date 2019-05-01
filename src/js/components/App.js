@@ -6,7 +6,7 @@ import Owner from './Owner';
 import Account from './Account';
 import Process from './Process';
 import Header from './Header';
-import Login from './Login';
+import LandingPage from './LandingPage';
 import Settings from './Settings';
 import AppContainer from '../container/AppContainer';
 import ProtectedRoute from '../helpers/ProtectedRoute';
@@ -46,7 +46,7 @@ class App extends Component {
                     exact path="/settings"
                   />
                   <Route
-                    component={Login}
+                    component={LandingPage}
                     path="/user-login"
                   />
               </Switch>

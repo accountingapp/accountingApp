@@ -249,6 +249,27 @@ class Settings extends Component {
                             <td>{account.name}</td>
                           </tr>
                         ))}
+                        {this.state.creatingNewItem ? (
+                        <tr key="newItem">
+                          <td></td>
+                          <td>
+                            <FormControl
+                              id='newAccountDescription'
+                              value={this.state.newAccountDescription}
+                              placeholder='Enter a new account name'
+                              onChange={(e)=>this.handleChange(e)}
+                            />
+                          </td>
+                          <td>
+                            <FormControl
+                              id='newAccountNatural'
+                              value={this.state.newAccountNatural}
+                              placeholder="Enter an account natural"
+                              onChange={(e)=>this.handleChange(e)}
+                            />
+                          </td>
+                        </tr>
+                      ):null}
                         </tbody>
                       </Table>
                     ):null}
