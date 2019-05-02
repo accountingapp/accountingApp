@@ -5,7 +5,7 @@ function getAccountByDescription(req, res) {
     .where('description', 'ilike', `%${req.params.description}%`)
     .then(results => {
       if (results) {
-        console.log(`Successfully retrieved results`);
+        console.log(`Successfully retrieved account by description`);
         
       } else {
         console.log(`No account found`);

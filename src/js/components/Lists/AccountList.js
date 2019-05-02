@@ -8,7 +8,7 @@ import Col from 'react-bootstrap/Col';
 const AccountList = ({
   title,
   listType,
-  accounts
+  dependencies
 }) => 
 {
   return (
@@ -16,11 +16,11 @@ const AccountList = ({
       <h2 className="listTitle">{title}</h2>
       <Container>
         <Row>
-          {accounts.length ? (
-            accounts.map((account,i) => (
+          {dependencies && dependencies.length ? (
+            dependencies.map((account,i) => (
               <Col md={2} className="dependency" key={`${i}_${account}`}>
                 <Link to={`/account/${account.id}`}>
-                  <i className="fas fa-balance-scale icon"></i>
+                  <i className="fas fa-balance-scale icon" />                  
                   <div>{account.description}</div>
                   <div>{account.natural}</div>
                 </Link>

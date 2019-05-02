@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ProcessList from './Lists/ProcessList';
+import AccountList from './Lists/AccountList';
+import ApplicationList from './Lists/ApplicationList';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
@@ -45,19 +47,18 @@ class Home extends Component {
                 currentSearch = {this.state.currentSearch}
                 handleChange = {e => this.handleChange(callouts, e)}
               />
-        
         <div className="accountList">
           <ProcessList 
             title="Your Processes" 
             listType="process"
             dependencies={this.state.processes}
           />
-          <ProcessList 
+          <AccountList 
             title="Your Accounts" 
             listType="account"
             dependencies={this.state.accounts}
           />
-          <ProcessList 
+          <ApplicationList 
             title="Your Applications" 
             listType="application"
             dependencies={this.state.applications}

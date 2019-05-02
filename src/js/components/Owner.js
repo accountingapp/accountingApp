@@ -28,9 +28,9 @@ class Owner extends PureComponent {
     this.state = {
       ownerName: '',
       email: '',
-      processes: [],
+      processes: ['Process 1', 'Process 2', 'Process 3', 'Process 4', 'Process 5', 'Process 6'],
       charts: ['Chart 1','Chart 2','Chart 3','Chart 4','Chart 5','Chart 6'],
-      accounts: [],
+      accounts: ['Account 1', 'Account 2', 'Account 3', 'Account 4', 'Account 5', 'Account 6'],
       applications: ['Application 1','Application 2','Application 3','Application 4','Application 5','Application 6'],
     }
     this.ownerId=this.props.match.params.ownerId;
@@ -77,7 +77,7 @@ class Owner extends PureComponent {
     axios.get(`/processOwner/${ownerId}`)
     .then(results => {
       this.setState({
-        processes: results.data
+        processes: results.data.length ? results.data : this.state.processes,
       })
     })
   }
@@ -87,6 +87,36 @@ class Owner extends PureComponent {
       currentSearch: e.target.value
     });
     callouts.getAccounts(e.target.value)
+  }
+
+  // This should be moved elsewhere if it's not being passed as a prop to the account component;
+  // saveToS3(event) {
+  //   event.persist()
+  //   console.log("FILE BEFORE SEND", event.target.value);
+  //   axios.post('/charts', {file: event.target.value})
+  //   .then(results => {
+  //     // const newCharts = this.state.charts;
+  //     console.log('SAVED TO S3 -->', results);
+  //     // newCharts.push(results)
+  //     this.setState({})
+  //   })
+  // }
+  /*eslint-disable*/
+  createExcelWorkbook() {
+    axios.get('/createExcelWorkbook')
+      .then(result => {
+        console.log("THE DATA: ", result.data);
+        const blobb = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const reader = new FileReader();
+        const href = URL.createObjectURL(blobb);
+        window.open(href, 'Excel');
+        // reader.readAsArrayBuffer(blobb);
+        // reader.onloadend = (e) => {
+        //   console.log('THE DATA:', reader.result);
+        //   window.open(reader.result, 'Excel');
+        // }
+      })
+      .catch(e => console.log(e));
   }
 
   render() {
@@ -112,6 +142,7 @@ class Owner extends PureComponent {
                     title="Charts" 
                     listType="chart"
                     dependencies={this.state.charts}
+                    createExcelWorkbook={this.createExcelWorkbook}
                   />
                   <ProcessList 
                     title="Processes" 

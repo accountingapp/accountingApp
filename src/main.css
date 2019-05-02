@@ -337,3 +337,10 @@ i.fas.fa-cog {
   border: none;
   margin: 0.5em;
 }
+
+.createWorkbook {
+  position: relative;
+  margin-left: 10em;
+  background: #378eaf;
+  border: none;
+}

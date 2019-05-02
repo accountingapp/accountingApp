@@ -5,7 +5,7 @@ function getProcesses(req, res) {
   .whereIn('id', req.body.processes)
   .then(results => {
     if (results) {
-      console.log(`Successfully retrieved results`);
+      console.log(`Successfully retrieved processes`);
       res.send({
         status: 1,
         data: results
@@ -26,7 +26,7 @@ function getProcess(req, res) {
   .where('processes.id', req.params.processId)
   .then(results => {
     if (results) {
-      console.log(`Successfully retrieved results`);
+      console.log(`Successfully retrieved process`);
       res.send({
         status: 1,
         data: results
@@ -46,7 +46,7 @@ function getProcessByTitle(req, res) {
   .then(results => {
     console.log("RESULTS: ", results)
     if (results) {
-      console.log(`Successfully retrieved results`);
+      console.log(`Successfully retrieved process by title`);
       res.status(200).send(results);
     } else {
       console.log(`No process found`);
@@ -58,6 +58,7 @@ function getProcessByTitle(req, res) {
 }
 
 function getProcessByOwner(req, res) {
+  console.log("req params!", typeof req.params.ownerId);
   db('processes')
   .where('ownerId',`${req.params.ownerId}`)
   .then(results => {
