@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Subscribe } from 'unstated';
 import {Link, withRouter} from 'react-router-dom';
+import saveAs from 'file-saver';
+import XLSX from 'xlsx';
 
 import AccountList from './Lists/AccountList';
 import ProcessList from './Lists/ProcessList';
@@ -103,20 +105,29 @@ class Owner extends PureComponent {
   // }
   /*eslint-disable*/
   createExcelWorkbook() {
-    axios.get('/createExcelWorkbook')
-      .then(result => {
-        console.log("THE DATA: ", result.data);
-        const blobb = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const reader = new FileReader();
-        const href = URL.createObjectURL(blobb);
-        window.open(href, 'Excel');
-        // reader.readAsArrayBuffer(blobb);
-        // reader.onloadend = (e) => {
-        //   console.log('THE DATA:', reader.result);
-        //   window.open(reader.result, 'Excel');
-        // }
-      })
-      .catch(e => console.log(e));
+    const wb = XLSX.utils.book_new();
+    wb.Props = {
+      Title: "FS excel sheet",
+      Subject: "Test file",
+      Author: "Financially Stated",
+      CreatedDate: new Date()
+    }
+    wb.SheetNames.push("Test Sheet");
+    const ws_data = [["hello", "world"]];
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    wb.Sheets["Test Sheet"] = ws;
+    const wbout = XLSX.write(wb, {
+      bookType: 'xlsx', type: 'binary'
+    });
+
+    const s2ab = (s) => {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
+    saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), 'test.xlsx');
   }
 
   render() {

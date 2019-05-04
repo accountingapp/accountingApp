@@ -1,6 +1,5 @@
 const fs = require('fs');
 const AWS = require('aws-sdk');
-const excel = require('excel4node');
 const config = require('../../config');
 
 const s3 = new AWS.S3({
@@ -30,19 +29,4 @@ function saveToS3(req, res) {
   });
 }
 
-function createExcelWorkbook(req, res) {
-  console.log('\n\nCREATE EXCEL WORKBOOK HIT!\n\n')
-  const workbook = new excel.Workbook();
-  const ws = workbook.addWorksheet('sheet1');
-  // workbook.writeToBuffer().then(buffer => {
-  //   console.log('BUFFER', buffer);
-  //   res.send(buffer)
-  // });
-  workbook.write('specialExcel.xlsx');
-  res.sendFile(__dirname, '../../specialExcel.xlsx');
-}
-
-
-
-
-module.exports = { saveToS3, createExcelWorkbook }
+module.exports = { saveToS3 }
