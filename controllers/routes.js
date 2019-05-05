@@ -3,6 +3,7 @@ const ownerFunctions = require('./routeFunctions/ownerFunctions');
 const processFunctions = require('./routeFunctions/processFunctions');
 const accountFunctions = require('./routeFunctions/accountFunctions');
 const moduleFunctions = require('./routeFunctions/moduleFunctions');
+const resourceFunctions = require('./routeFunctions/resourceFunctions');
 
 module.exports = (server) => {
   server.get('/ownerDependencies/:ownerId', routeFunctions.getDependenciesByOwner);
@@ -34,4 +35,8 @@ module.exports = (server) => {
   //Modules
   server.get('/modules', moduleFunctions.getAllModules);
   server.post('/createModule', moduleFunctions.createModule);
+
+  //Resources
+  server.get('/resources', resourceFunctions.getAllResources);
+  server.get('/resourceDetails/:resourceId', resourceFunctions.getResource);
 }

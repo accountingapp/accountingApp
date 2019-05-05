@@ -5,6 +5,7 @@ import Home from './Home';
 import Owner from './Owner';
 import Account from './Account';
 import Process from './Process';
+import Resource from './Resource';
 import Header from './Header';
 import LandingPage from './LandingPage';
 import Settings from './Settings';
@@ -36,6 +37,10 @@ class App extends Component {
                   <ProtectedRoute 
                     component={Process} 
                     path="/process/:processId"
+                  />
+                  <ProtectedRoute 
+                    component={Resource} 
+                    path="/resource/:resourceId"
                   />
                   <ProtectedRoute 
                     component={Home} 

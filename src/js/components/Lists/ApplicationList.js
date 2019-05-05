@@ -18,8 +18,8 @@ const ApplicationList = ({
           {dependencies.length ? (
             dependencies.map((item,i) => (
               <Col md={2} className="dependency" key={`${i}_${item}`}>
-                <i className="fas fa-cloud icon"></i>
-                <div>{item}</div>
+                <i className={`${item.icon} applicationIcon`}></i>
+                <div>{item.name}</div>
               </Col>
             ))
           ): null}

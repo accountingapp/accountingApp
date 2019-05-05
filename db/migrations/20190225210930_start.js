@@ -30,13 +30,19 @@ exports.up = function(knex, Promise) {
         table.integer('ownerId').notNullable();
 
         table.foreign('ownerId').references('id').inTable('users').onDelete('CASCADE');
+      }),
+      knex.schema.createTable('resources', table => {
+        table.increments('id').primary();
+        table.string('description').notNullable();
+        table.string('link').notNullable();
+        table.text('notes').notNullable();
       })
     ])
 };
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    
+    knex.schema.dropTableIfExists('resources'),
     knex.schema.dropTableIfExists('accounts'),
     knex.schema.dropTableIfExists('processes'),
     knex.schema.dropTableIfExists('users'),
