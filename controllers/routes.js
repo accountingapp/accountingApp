@@ -38,5 +38,5 @@ module.exports = (server) => {
 
   //charts
   server.post('/charts', chartFunctions.saveToS3);
-  server.get('/createExcelWorkbook', chartFunctions.createExcelWorkbook);
+  // server.get('/createExcelWorkbook', chartFunctions.createExcelWorkbook);
 }

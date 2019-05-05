@@ -163,7 +163,7 @@ class Owner extends PureComponent {
                   <AccountList 
                     title="Accounts" 
                     listType="account"
-                    accounts={this.state.accounts}
+                    dependencies={this.state.accounts}
                   />
                   <ApplicationList 
                     title="Applications" 
