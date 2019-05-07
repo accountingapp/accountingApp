@@ -52,6 +52,7 @@ module.exports = {
           },
     ]
   },
+  target: 'node',
   plugins: [
     new HtmlWebPackPlugin({
         template: './src/index.html',

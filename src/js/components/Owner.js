@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Subscribe } from 'unstated';
 import {Link, withRouter} from 'react-router-dom';
+import saveAs from 'file-saver';
+import XLSX from 'xlsx';
 
 import AccountList from './Lists/AccountList';
 import ProcessList from './Lists/ProcessList';
@@ -29,7 +31,7 @@ class Owner extends PureComponent {
     this.state = {
       ownerName: '',
       email: '',
-      processes: [],
+      processes: ['Process 1', 'Process 2', 'Process 3', 'Process 4', 'Process 5', 'Process 6'],
       charts: ['Chart 1','Chart 2','Chart 3','Chart 4','Chart 5','Chart 6'],
       accounts: [],
       resources: [],
@@ -81,7 +83,7 @@ class Owner extends PureComponent {
     axios.get(`/processOwner/${ownerId}`)
     .then(results => {
       this.setState({
-        processes: results.data
+        processes: results.data.length ? results.data : this.state.processes,
       })
     })
   }
@@ -101,6 +103,47 @@ class Owner extends PureComponent {
       currentSearch: e.target.value
     });
     callouts.getAccounts(e.target.value)
+  }
+
+  // This should be moved elsewhere if it's not being passed as a prop to the account component;
+  // saveToS3(event) {
+  //   event.persist()
+  //   console.log("FILE BEFORE SEND", event.target.value);
+  //   axios.post('/charts', {file: event.target.value})
+  //   .then(results => {
+  //     // const newCharts = this.state.charts;
+  //     console.log('SAVED TO S3 -->', results);
+  //     // newCharts.push(results)
+  //     this.setState({})
+  //   })
+  // }
+  /*eslint-disable*/
+  createExcelWorkbook() {
+    const wb = XLSX.utils.book_new();
+
+    wb.Props = {
+      Title: "FS excel sheet",
+      Subject: "Test file",
+      Author: "Financially Stated",
+      CreatedDate: new Date()
+    }
+    
+    wb.SheetNames.push("Test Sheet");
+    const ws_data = [["hello", "world"]];
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    wb.Sheets["Test Sheet"] = ws;
+    const wbOut = XLSX.write(wb, {
+      bookType: 'xlsx', type: 'binary'
+    });
+
+    const s2ab = (s) => {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
+    saveAs(new Blob([s2ab(wbOut)], {type: "application/octet-stream"}), 'test.xlsx');
   }
 
   render() {
@@ -126,6 +169,7 @@ class Owner extends PureComponent {
                     title="Charts" 
                     listType="chart"
                     dependencies={this.state.charts}
+                    createExcelWorkbook={this.createExcelWorkbook}
                   />
                   <ProcessList 
                     title="Processes" 
@@ -135,7 +179,7 @@ class Owner extends PureComponent {
                   <AccountList 
                     title="Accounts" 
                     listType="account"
-                    accounts={this.state.accounts}
+                    dependencies={this.state.accounts}
                   />
                   <ApplicationList 
                     title="Applications" 

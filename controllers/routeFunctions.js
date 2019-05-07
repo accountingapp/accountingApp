@@ -8,7 +8,7 @@ function getDependenciesByAccount(req, res) {
     .where('accounts.id', `${req.params.accountId}`)
     .then(results => {
       if (results) {
-        console.log(`Successfully retrieved results`);
+        console.log(`Successfully retrieved account dependencies`);
         res.send({
           status: 1,
           data: results
@@ -28,7 +28,7 @@ function getDependenciesByOwner(req, res) {
     .where('ownerId', `${req.params.ownerId}`)
     .then(results => {
       if (results) {
-        console.log(`Successfully retrieved results`);
+        console.log(`Successfully retrieved owner dependencies`);
         res.send({
           status: 1,
           data: results
@@ -47,7 +47,7 @@ function getOwner(req, res) {
     .where('id', `${req.params.ownerId}`)
     .then(results => {
       if (results) {
-        console.log(`Successfully retrieved results`);
+        console.log(`Successfully retrieved owner`);
         res.send({
           status: 1,
           data: results
@@ -66,7 +66,7 @@ function getContributors(req, res) {
   .whereIn('id', req.body.contributors)
   .then(results => {
     if (results) {
-      console.log(`Successfully retrieved results`);
+      console.log(`Successfully retrieved contributors`);
       res.send({
         status: 1,
         data: results
