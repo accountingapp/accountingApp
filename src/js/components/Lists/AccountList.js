@@ -20,7 +20,7 @@ const AccountList = ({
             dependencies.map((account,i) => (
               <Col md={2} className="dependency" key={`${i}_${account}`}>
                 <Link to={`/account/${account.id}`}>
-                  <i className="fas fa-balance-scale icon" />                  
+                  <i className="fas fa-balance-scale icon" />
                   <div>{account.description}</div>
                   <div>{account.natural}</div>
                 </Link>

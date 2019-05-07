@@ -8,6 +8,7 @@ import AccountList from './Lists/AccountList';
 import ProcessList from './Lists/ProcessList';
 import ApplicationList from './Lists/ApplicationList';
 import ChartList from './Lists/ChartList';
+import ResourceList from './Lists/ResourceList';
 
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
@@ -32,8 +33,9 @@ class Owner extends PureComponent {
       email: '',
       processes: ['Process 1', 'Process 2', 'Process 3', 'Process 4', 'Process 5', 'Process 6'],
       charts: ['Chart 1','Chart 2','Chart 3','Chart 4','Chart 5','Chart 6'],
-      accounts: ['Account 1', 'Account 2', 'Account 3', 'Account 4', 'Account 5', 'Account 6'],
-      applications: ['Application 1','Application 2','Application 3','Application 4','Application 5','Application 6'],
+      accounts: [],
+      resources: [],
+      applications: [{name: 'slack', icon: 'fab fa-slack'}, {name: 'google', icon: 'fab fa-google'},{name: 'excel', icon: 'fas fa-file-excel'},{name: 'linkedin', icon: 'fab fa-linkedin'},{name: 'reddit', icon: 'fab fa-reddit'},{name: 'stack overflow', icon: 'fab fa-stack-overflow'}],
     }
     this.ownerId=this.props.match.params.ownerId;
   }
@@ -42,6 +44,7 @@ class Owner extends PureComponent {
     this.getOwnerDependencies(this.ownerId);
     this.getOwner(this.ownerId);
     this.getProcesses(this.ownerId);
+    this.getResources();
   }
 
   componentDidUpdate(prevProps) {
@@ -49,6 +52,7 @@ class Owner extends PureComponent {
       this.getOwnerDependencies(this.ownerId);
       this.getOwner(this.ownerId);
       this.getProcesses(this.ownerId);
+      this.getResources();
     }
   }
 
@@ -80,6 +84,16 @@ class Owner extends PureComponent {
     .then(results => {
       this.setState({
         processes: results.data.length ? results.data : this.state.processes,
+      })
+    })
+  }
+
+  getResources() {
+    axios.get(`/resources`)
+    .then(results => {
+      console.log("RESOURCES: ", results.data);
+      this.setState({
+        resources: results.data
       })
     })
   }
@@ -171,6 +185,11 @@ class Owner extends PureComponent {
                     title="Applications" 
                     listType="application"
                     dependencies={this.state.applications}
+                  />
+                  <ResourceList
+                    title="Resources" 
+                    listType="resource"
+                    dependencies={this.state.resources}
                   />
                 </div>
               </div>

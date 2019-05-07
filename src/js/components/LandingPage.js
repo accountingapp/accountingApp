@@ -13,9 +13,9 @@ const LandingPage = () => (
     <div className="section mainSection text-center">
       <Container>
         <Row>
-          <Col md={{ span: 8, offset: 2 }}>
+          <Col md={{ span: 6, offset: 6 }} className="mainSectionText">
             <p>Financially Stated offers a repository, documentation tool, and knowledge hub to streamline corporate accounting processes and empower accountants.</p>
-            <Button size="lg" type="submit" href="/login/google" className="text-center">
+            <Button size="lg" type="submit" href="/login/google" className=" loginButton text-center">
               <i className="glyphicon glyphicon-log-in" />
                 Login
             </Button>
@@ -25,8 +25,6 @@ const LandingPage = () => (
           </Col>
         </Row>
       </Container>
-      
-      
     </div>
     <div className="section section1">
     <Container>
