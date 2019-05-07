@@ -106,17 +106,19 @@ class Owner extends PureComponent {
   /*eslint-disable*/
   createExcelWorkbook() {
     const wb = XLSX.utils.book_new();
+
     wb.Props = {
       Title: "FS excel sheet",
       Subject: "Test file",
       Author: "Financially Stated",
       CreatedDate: new Date()
     }
+    
     wb.SheetNames.push("Test Sheet");
     const ws_data = [["hello", "world"]];
     const ws = XLSX.utils.aoa_to_sheet(ws_data);
     wb.Sheets["Test Sheet"] = ws;
-    const wbout = XLSX.write(wb, {
+    const wbOut = XLSX.write(wb, {
       bookType: 'xlsx', type: 'binary'
     });
 
@@ -127,7 +129,7 @@ class Owner extends PureComponent {
       return buf;
     }
 
-    saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), 'test.xlsx');
+    saveAs(new Blob([s2ab(wbOut)], {type: "application/octet-stream"}), 'test.xlsx');
   }
 
   render() {

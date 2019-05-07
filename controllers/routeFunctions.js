@@ -1,7 +1,6 @@
 const db = require('../db/connection').knex
 
 function getDependenciesByAccount(req, res) {
-  console.log("GET DEPS!");
   db('accounts')
     .select('description', 'natural', 'moduleId', 'ownerId', 'name', 'processes', 'contributors')
     .innerJoin('users', 'accounts.ownerId', 'users.id')
