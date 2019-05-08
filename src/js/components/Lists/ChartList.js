@@ -14,8 +14,8 @@ const ChartList = ({
 {
   return (
     <div className="section">
-      <h2 className="listTitle">{title}</h2>
-      <Button className="createWorkbook" onClick={createExcelWorkbook}>Create New Chart</Button>
+      <h2 className="listTitle">{title}<Button className="createWorkbook" onClick={createExcelWorkbook}><i className="fas fa-plus-square" /></Button></h2>
+      
       <Container>
         <Row>
           {dependencies && dependencies.length ? (

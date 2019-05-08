@@ -4,16 +4,16 @@ import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import paperwork from '../../assets/paperwork-3154814_1920.jpg';
+import paperwork from '../../assets/paperwork.jpg';
+import animatedComptuer from '../../assets/accountant-1794122_1280.png';
 import search from '../../assets/searchImage.png';
-import money from '../../assets/money-2696228_1280.jpg';
+import money from '../../assets/money.jpg';
 
 const LandingPage = () => (
   <div> 
     <div className="section mainSection text-center">
-      <Container>
         <Row>
-          <Col md={{ span: 6, offset: 6 }} className="mainSectionText">
+          <Col md={{ span: 5, offset: 6 }} className="mainSectionText">
             <p>Financially Stated offers a repository, documentation tool, and knowledge hub to streamline corporate accounting processes and empower accountants.</p>
             <Button size="lg" type="submit" href="/login/google" className=" loginButton text-center">
               <i className="glyphicon glyphicon-log-in" />
@@ -24,13 +24,13 @@ const LandingPage = () => (
             
           </Col>
         </Row>
-      </Container>
+
     </div>
     <div className="section section1">
     <Container>
         <Row>
           <Col md={6}>
-            <Image className="paperworkImage" src={paperwork}/>
+            <Image className="paperworkImage" src={animatedComptuer}/>
           </Col>
           <Col md={6}>
             <p>Financially Stated allows your accounting team to realize efficiencies, cross-train with ease, and add value to the team beyond recurring deliverables. Accounting managers can identify top players through the individual contribution dashboards, prioritize process pain points through your team's wishlists, and track the close process within the calendar board.</p>

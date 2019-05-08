@@ -13,7 +13,11 @@ const ResourceList = ({
 {
   return (
     <div className="section">
-      <h2 className="listTitle">{title}</h2>
+      <h2 className="listTitle">{title}
+      <Link to={`/resource/new`}>
+        <i className="fas fa-plus-square" />
+        </Link>
+        </h2>
       <Container>
         <Row>
           {dependencies && dependencies.length ? (dependencies.map(resource => (

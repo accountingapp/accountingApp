@@ -30,7 +30,35 @@ function getResource(req, res) {
   });
 }
 
+function createResource(req, res) {
+  db('resources')
+  .insert(req.body)
+  .then(()=>{
+    console.log("Successfully created a new resource");
+    res.status(200).send("Successfully created a new resource")
+  })
+  .catch(error => {
+    console.log("ERROR: ", error);
+    res.status(400).send({error})
+  })
+}
+
+function updateResource(req, res) {
+  db('resources')
+  .where('id', req.params.resourceId)
+  .update(req.body)
+  .then(results => {
+    console.log("Successfully updated resource")
+    res.status(200).send({data: results});
+  })
+  .catch(error => {
+    console.log("ERROR: ", error);
+  })
+}
+
 module.exports= {
   getAllResources,
-  getResource
+  getResource,
+  createResource,
+  updateResource
 }

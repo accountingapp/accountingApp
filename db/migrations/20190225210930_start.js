@@ -34,8 +34,9 @@ exports.up = function(knex, Promise) {
       knex.schema.createTable('resources', table => {
         table.increments('id').primary();
         table.string('description').notNullable();
-        table.string('link').notNullable();
-        table.text('notes').notNullable();
+        table.string('link');
+        table.text('article');
+        table.text('notes');
       })
     ])
 };
