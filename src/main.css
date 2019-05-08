@@ -379,3 +379,12 @@ i.fas.fa-cog {
   border: none;
   margin: 0.5em;
 }
+
+.createWorkbook {
+  position: relative;
+  /* margin-left: 1em; */
+  background: transparent;
+  border: none;
+  font-size: 1em;
+  padding-left: 0;
+}

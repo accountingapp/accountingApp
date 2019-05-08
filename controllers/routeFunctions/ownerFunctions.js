@@ -6,7 +6,7 @@ function getOwnerByName(req, res) {
   .then(results => {
     console.log("RESULTS: ", results)
     if (results) {
-      console.log(`Successfully retrieved results`);
+      console.log(`Successfully retrieved owner by name`);
       res.status(200).send(results);
     } else {
       console.log(`No user found`);

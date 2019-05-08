@@ -4,6 +4,7 @@ const processFunctions = require('./routeFunctions/processFunctions');
 const accountFunctions = require('./routeFunctions/accountFunctions');
 const moduleFunctions = require('./routeFunctions/moduleFunctions');
 const resourceFunctions = require('./routeFunctions/resourceFunctions');
+const chartFunctions = require('./routeFunctions/chartFunctions');
 
 module.exports = (server) => {
   server.get('/ownerDependencies/:ownerId', routeFunctions.getDependenciesByOwner);
@@ -41,4 +42,8 @@ module.exports = (server) => {
   server.get('/resourceDetails/:resourceId', resourceFunctions.getResource);
   server.post('/resource', resourceFunctions.createResource);
   server.put('/resource', resourceFunctions.updateResource);
+
+  //Charts
+  server.post('/charts', chartFunctions.saveToS3);
+  // server.get('/createExcelWorkbook', chartFunctions.createExcelWorkbook);
 }

@@ -16,11 +16,11 @@ const ProcessList = ({
       <h2 className="listTitle">{title}<i className="fas fa-plus-square" /></h2>
       <Container>
         <Row>
-          {dependencies.length ? (
+          {dependencies && dependencies.length ? (
             dependencies.map((process,i) => (
               <Col md={2} className="dependency" key={`${i}_${process}`}>
                 <Link to={`/process/${process.id}`}>
-                  <i className="fas fa-clipboard-list icon"></i>
+                  <i className="fas fa-clipboard-list icon" />
                   <div>{process.title}</div>
                 </Link>
               </Col>
