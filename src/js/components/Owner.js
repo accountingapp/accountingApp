@@ -135,7 +135,7 @@ class Owner extends PureComponent {
                   <AccountList 
                     title="Accounts" 
                     listType="account"
-                    accounts={this.state.accounts}
+                    accounts={this.state.accounts.slice(0,10)}
                   />
                   <ApplicationList 
                     title="Applications" 
@@ -146,6 +146,7 @@ class Owner extends PureComponent {
                     title="Resources" 
                     listType="resource"
                     dependencies={this.state.resources}
+                    new={false}
                   />
                 </div>
               </div>

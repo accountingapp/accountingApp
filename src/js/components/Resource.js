@@ -20,7 +20,9 @@ class Resource extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      resource: {}
+      resource: {},
+      resourceDescription: '',
+      resourceLink: ''
     }
     this.resourceId=this.props.match.params.resourceId;
   }
@@ -45,8 +47,43 @@ class Resource extends Component {
   }
 
   render() {
-    return(
-      <>
+    return (
+      <div>
+      {this.resourceId === 'new' ? (
+        <div>
+          <h2>NEW Resource</h2>
+            <Row>
+            <Col md={6}>
+            <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">Description</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+                id='resourceDescription'
+                value={this.state.resourceDescription}
+                onChange={(e)=>this.setState({resourceDescription: e.target.value})}
+              />
+          </InputGroup>
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">Link</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+                id='resourceLink'
+                value={this.state.resourceLink}
+                onChange={(e)=>this.setState({resourceLink: e.target.value})}
+              />
+          </InputGroup>
+            </Col>
+            <Col md={6}>
+            Notes
+            </Col>
+              </Row>
+
+          <Button>Find Resource</Button>
+        </div>
+      ) : (
+        <>
         <h2>{this.state.resource.description}</h2>
         <Container>
           <Row>
@@ -59,6 +96,8 @@ class Resource extends Component {
           </Row>
         </Container>
       </>
+      )}
+    </div>
     )
   }
 }

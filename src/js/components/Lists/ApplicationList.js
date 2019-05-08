@@ -12,7 +12,9 @@ const ApplicationList = ({
 {
   return (
     <div className="section">
-      <h2 className="listTitle">{title}</h2>
+      <h2 className="listTitle">{title}
+      <i className="fas fa-plus-square" />
+      </h2>
       <Container>
         <Row>
           {dependencies.length ? (

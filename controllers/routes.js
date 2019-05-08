@@ -39,4 +39,6 @@ module.exports = (server) => {
   //Resources
   server.get('/resources', resourceFunctions.getAllResources);
   server.get('/resourceDetails/:resourceId', resourceFunctions.getResource);
+  server.post('/resource', resourceFunctions.createResource);
+  server.put('/resource', resourceFunctions.updateResource);
 }

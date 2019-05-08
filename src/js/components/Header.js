@@ -10,13 +10,16 @@ function Header(props){
       <Navbar.Brand href='/user-login' className="appName">
         <i className="fas fa-comments-dollar"/>     Financially Stated
       </Navbar.Brand>
-      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+      {props.user ? (
+        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Nav>
           <Nav.Link href={`/settings`}>Settings</Nav.Link>
           <Nav.Link href={`/owner/${props.user}`}>My Profile</Nav.Link>
           <Nav.Link href="/logout">Logout</Nav.Link>
         </Nav>
       </Navbar.Collapse>
+      ) : null}
+      
     </Navbar>
   );
 }

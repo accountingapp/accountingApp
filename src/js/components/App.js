@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Subscribe } from 'unstated';
-import Home from './Home';
 import Owner from './Owner';
 import Account from './Account';
 import Process from './Process';
@@ -43,7 +42,7 @@ class App extends Component {
                     path="/resource/:resourceId"
                   />
                   <ProtectedRoute 
-                    component={Home} 
+                    component={LandingPage} 
                     exact path="/"
                   />
                   <ProtectedRoute 
