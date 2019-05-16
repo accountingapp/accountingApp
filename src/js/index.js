@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'unstated';
 import App from './components/App';
-import '../main.css'
+import '../main.css';
+import '../login.css';
 
 ReactDOM.render(
   <Provider>

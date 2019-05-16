@@ -8,6 +8,8 @@ import Resource from './Resource';
 import Header from './Header';
 import LandingPage from './LandingPage';
 import Settings from './Settings';
+import Login from './Login';
+import Form from './LedgerTool/Form';
 import AppContainer from '../container/AppContainer';
 import ProtectedRoute from '../helpers/ProtectedRoute';
 
@@ -18,12 +20,13 @@ class App extends Component {
   }
 
   render() {
+    const state = this.state;
     return (
       <Subscribe to={[AppContainer]}>
         {(app) => (
           <BrowserRouter>
             <Fragment>
-              <Header user={app.state.userId}/>
+              <Header className="header" user={app.state.userId}/>
               <Switch>
                   <ProtectedRoute 
                     component={Owner} 
@@ -41,16 +44,24 @@ class App extends Component {
                     component={Resource} 
                     path="/resource/:resourceId"
                   />
-                  <ProtectedRoute 
+                  {/* <ProtectedRoute 
                     component={LandingPage} 
                     exact path="/"
-                  />
+                  /> */}
                   <ProtectedRoute 
                     component={Settings} 
                     exact path="/settings"
                   />
-                  <Route
+                  {/* <Route
                     component={LandingPage}
+                    path="/user-login"
+                  /> */}
+                  <ProtectedRoute
+                    component={Form}
+                    exact path="/"
+                  />
+                  <Route
+                    component={Login}
                     path="/user-login"
                   />
               </Switch>
