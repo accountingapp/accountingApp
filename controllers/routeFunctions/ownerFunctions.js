@@ -1,4 +1,5 @@
 const db = require('../../db/connection').knex
+const { createPassword, encryptPassword, emailUser } = require('../authUtils/passwordUtils');
 
 function getOwnerByName(req, res) {
   db('users')
@@ -33,17 +34,25 @@ function getAllUsers(req, res) {
 }
 
 function createUser(req, res) {
+  const { user } = req.body;
+  const password = createPassword();
+  user.password = encryptPassword(password);
+
   db('users')
-  .insert(req.body)
-  .then(()=>{
-    console.log("Successfully created a new user");
-    res.status(200).send("Successfully created a new user")
+  .insert(user)
+  .then(() => {
+    user.password = password;
+    // fire and forget as of now
+   emailUser(user);
   })
-  .catch(error => {
-    console.log("ERROR: ", error);
-    res.status(400).send({error})
+  .then(() => {
+    res.status(200).send('New User Created');
+  })
+  .catch(e => {
+    res.status(400).send(e);
   })
 }
+
 module.exports = {
   getOwnerByName,
   getAllUsers,
