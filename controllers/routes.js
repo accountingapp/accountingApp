@@ -17,15 +17,15 @@ module.exports = (server) => {
 
   // Users
   server.get('/userName/:name', ownerFunctions.getOwnerByName);
-  server.get('/users', ownerFunctions.getAllUsers)
-  server.post('/newUser', ownerFunctions.createUser)
+  server.get('/users', ownerFunctions.getAllUsers);
+  server.post('/newUser', ownerFunctions.createUser);
 
   // Processes
   server.get('/processTitle/:title', processFunctions.getProcessByTitle);
   server.get('/processDetails/:processId', processFunctions.getProcess);
   server.get('/processOwner/:ownerId', processFunctions.getProcessByOwner);
   server.post('/processes', processFunctions.getProcesses);
-  server.patch('/processDetails/:processId/:field', processFunctions.updateProcess)
+  server.patch('/processDetails/:processId/:field', processFunctions.updateProcess);
   
   // Accounts
   server.get('/accounts', accountFunctions.getAllAccounts);

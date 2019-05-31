@@ -1,4 +1,4 @@
-
+/*eslint-disable*/
 exports.up = function(knex, Promise) {
   return Promise.all([
       knex.schema.createTable('modules', table =>{
@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
         table.increments('id').primary();
         table.string('name').notNullable();
         table.string('email').unique();
+        table.string('password').notNullable();
+        table.string('company').notNullable();
       }),
       knex.schema.createTable('accounts', table =>{
         table.increments('id').primary();
