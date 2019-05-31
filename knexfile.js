@@ -1,10 +1,10 @@
 module.exports = {
-  dev: {
+  development: {
     client: 'pg',
     connection: {
       host: 'localhost',
       database: 'accountingapp',
-      user: 'postgres',
+      user: 'landonroberts',
       password: 'dev',
     },
     pool: {

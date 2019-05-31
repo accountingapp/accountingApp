@@ -33,6 +33,22 @@ class Login extends React.Component {
   loginUser(e) {
     console.log('login', e.target.loginEmail.value)
     e.preventDefault();
+    const user = {
+      email: this.state.loginEmail,
+      password: this.state.loginPassword
+    }
+    axios.post('/loginUser', { user })
+      .then(resp => {
+        setTimeout(() => {
+          alert(resp.data);
+        }, 1000);
+      })
+      .catch(e => {
+        setTimeout(() => {
+          alert(e.response.data);
+        }, 1000);
+      })
+
   }
 
   registerUser(e) {

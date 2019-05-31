@@ -53,8 +53,13 @@ function createUser(req, res) {
   })
 }
 
+function loginUser(req, res) {
+  res.status(200).send('OKOK');
+}
+
 module.exports = {
   getOwnerByName,
   getAllUsers,
-  createUser
+  createUser,
+  loginUser
 }

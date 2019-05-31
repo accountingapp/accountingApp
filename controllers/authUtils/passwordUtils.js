@@ -4,13 +4,23 @@ const bcrypt = require('bcryptjs');
 
 function createPassword() {
   const password = generatePassword(12, false);
-  console.log('THE PASSWORD IS =', password);
   return password;
 }
 
 function encryptPassword(password) {
   const encryptedPassword = bcrypt.hashSync(password, 8);
   return encryptedPassword;
+}
+
+function comparePasswords(credentials) {
+  return (user) => {
+    return new Promise((resolve, reject) => {
+      bcrypt.compare(credentials.password, user[0].password, (err, res) => {
+        if (res) resolve(user);
+        else reject();
+      });
+    });
+  }
 }
 
 function emailUser(user) {
@@ -38,4 +48,9 @@ function emailUser(user) {
   });
 }
 
-module.exports = { createPassword, encryptPassword, emailUser }
+module.exports = { 
+  createPassword, 
+  encryptPassword, 
+  emailUser,
+  comparePasswords
+}

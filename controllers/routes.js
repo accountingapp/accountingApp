@@ -19,6 +19,7 @@ module.exports = (server) => {
   server.get('/userName/:name', ownerFunctions.getOwnerByName);
   server.get('/users', ownerFunctions.getAllUsers);
   server.post('/newUser', ownerFunctions.createUser);
+  server.post('/loginUser', ownerFunctions.loginUser);
 
   // Processes
   server.get('/processTitle/:title', processFunctions.getProcessByTitle);
