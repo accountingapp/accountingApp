@@ -31,6 +31,8 @@ class NewEvent extends Component {
       <div>
           <Row>
             <Col md={8} className="mainNewEventPanel">
+
+            <div className="eventHeader">
             <h3>Create a new Event</h3>
               <div className="formGroup">
               <label>Title</label>
@@ -42,7 +44,7 @@ class NewEvent extends Component {
                 />
                 </div>
 
-<div className="formGroup">
+            <div className="formGroup">
               <label>Description</label>
                 <input
                   id='description'
@@ -51,9 +53,24 @@ class NewEvent extends Component {
                   className="inputField"
                 />
                 </div>
+                </div>
+
+            <div className="eventHeader">
+            <h3>Stage 1</h3>
+              <div className="formGroup">
+              <label>Account</label>
+                <input
+                  id='account'
+                  value={this.state.account}
+                  onChange={(e)=>this.handleChange(e)}
+                  className="inputField"
+                />
+                </div>
+                </div>
+
             </Col>
             <Col md={4} className="sideNewEventPanel">
-              Additional Panel Info
+              <h3>Additional Panel Info</h3>
             </Col>
           </Row>
       </div>
