@@ -6,7 +6,8 @@ import Account from './Account';
 import Process from './Process';
 import Resource from './Resource';
 import Header from './Header';
-import LandingPage from './LandingPage';
+import EventsMain from './EventsMain';
+import NewEvent from './NewEvent';
 import Settings from './Settings';
 import Login from './Login';
 import Form from './LedgerTool/Form';
@@ -52,10 +53,14 @@ class App extends Component {
                     component={Settings} 
                     exact path="/settings"
                   />
-                  {/* <Route
-                    component={LandingPage}
-                    path="/user-login"
-                  /> */}
+                  <Route
+                    component={EventsMain}
+                    path="/home"
+                  />
+                  <Route
+                    component={NewEvent}
+                    path="/newEvent"
+                  />
                   <ProtectedRoute
                     component={Form}
                     exact path="/"
