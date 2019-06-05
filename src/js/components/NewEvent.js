@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
+import ButtonToolbar from "react-bootstrap/ButtonToolbar";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
@@ -55,7 +56,7 @@ class NewEvent extends Component {
   addStage() {
     let currentStages = this.state.stages;
     let stageObject = {
-      stageNumber: "",
+      stageNumber: currentStages.length + 1,
       stageDescription: "",
       financialImpact: "",
       accounts: []
@@ -118,21 +119,49 @@ class NewEvent extends Component {
             {this.state.stages.length ? (
               <div>
                 {this.state.stages.map((stage, index) => (
-                  <div key={`stage-${index}`}>
+                  <div key={`stage-${index}`} className="eventHeader">
                     <h3>{`Stage ${stage.stageNumber}`}</h3>
-                    <div className="formGroup">
+                    <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
                       <input
                         id="stageDescription"
                         value={this.state.stages[index].stageDescription}
                         onChange={e => this.handleStageChange(e, index)}
-                        className="inputField"
+                        className="inputField inputFieldStage"
                       />
+
+                      <ButtonToolbar className="financialImpactButtons">
+                        <label>Financial Impact</label>
+                        <Button
+                          className={`financialImpactButton ${
+                            this.state.stages[index].financialImpact !== "Yes"
+                              ? "unselectedButton"
+                              : ""
+                          }`}
+                          onClick={() => this.handleStageChange(e, index)}
+                        >
+                          Yes
+                        </Button>
+                        <Button
+                          className={`financialImpactButton ${
+                            this.state.stages[index].financialImpact !== "No"
+                              ? "unselectedButton"
+                              : ""
+                          }`}
+                          onClick={() => this.handleStageChange(e, index)}
+                        >
+                          No
+                        </Button>
+                      </ButtonToolbar>
                     </div>
                   </div>
                 ))}
               </div>
             ) : null}
+
+            <Button className="newStageButton" onClick={() => this.addStage()}>
+              New Stage
+            </Button>
           </Col>
           <Col md={4} className="sideNewEventPanel">
             <h3>Additional Panel Info</h3>
