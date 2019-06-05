@@ -16,7 +16,14 @@ class NewEvent extends Component {
     this.state = {
       title: "",
       description: "",
-      stages: []
+      stages: [
+        {
+          stageNumber: "1",
+          description: "Test",
+          financialImpact: "yes",
+          accounts: []
+        }
+      ]
     };
   }
 
@@ -26,11 +33,30 @@ class NewEvent extends Component {
     });
   }
 
+  handleStageChange(e, stageIndex) {
+    let currentStages = this.state.stages;
+    currentStages.stageIndex[e.target.id] = e.target.value;
+
+    this.setState({
+      stages: currentStages
+    });
+  }
+
+  handleAccountChange(e, stageIndex, accountNumber) {
+    let currentStages = this.state.stages;
+    currentStages.stageIndex.accounts.accountNumber[e.target.id] =
+      e.target.value;
+
+    this.setState({
+      stages: currentStages
+    });
+  }
+
   addStage() {
     let currentStages = this.state.stages;
     let stageObject = {
-      stage: "",
-      description: "",
+      stageNumber: "",
+      stageDescription: "",
       financialImpact: "",
       accounts: []
     };
@@ -44,6 +70,7 @@ class NewEvent extends Component {
   addAccount(stageNumber) {
     let currentStages = this.state.stages;
     let accountObject = {
+      accountNumber: "",
       accountDescription: "",
       debitCredit: "",
       amount: "",
@@ -60,12 +87,13 @@ class NewEvent extends Component {
   }
 
   render() {
+    console.log(this.state.stages[0].stageNumber);
     return (
       <div>
         <Row>
           <Col md={8} className="mainNewEventPanel">
             <div className="eventHeader">
-              <h3>Create a new Event</h3>
+              <h3>Create a New Event</h3>
               <div className="formGroup">
                 <label>Title</label>
                 <input
@@ -87,18 +115,24 @@ class NewEvent extends Component {
               </div>
             </div>
 
-            <div className="eventHeader">
-              <h3>Stage 1</h3>
-              <div className="formGroup">
-                <label>Account</label>
-                <input
-                  id="account"
-                  value={this.state.account}
-                  onChange={e => this.handleChange(e)}
-                  className="inputField"
-                />
+            {this.state.stages.length ? (
+              <div>
+                {this.state.stages.map((stage, index) => (
+                  <div key={`stage-${index}`}>
+                    <h3>{`Stage ${stage.stageNumber}`}</h3>
+                    <div className="formGroup">
+                      <label>Stage Description</label>
+                      <input
+                        id="stageDescription"
+                        value={this.state.stages[index].stageDescription}
+                        onChange={e => this.handleStageChange(e, index)}
+                        className="inputField"
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
+            ) : null}
           </Col>
           <Col md={4} className="sideNewEventPanel">
             <h3>Additional Panel Info</h3>
