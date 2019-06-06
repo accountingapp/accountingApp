@@ -53,8 +53,12 @@ class NewEvent extends Component {
   }
 
   handleStageChange(e, stageIndex) {
+    console.log("VALUE: ", e.target.value);
+    console.log("ID: ", e.target.id);
+    console.log("STAGE INDEX: ", stageIndex);
     let currentStages = this.state.stages;
-    currentStages.stageIndex[e.target.id] = e.target.value;
+    console.log("test: ", currentStages[stageIndex]);
+    currentStages[stageIndex][e.target.id] = e.target.value;
 
     this.setState({
       stages: currentStages
@@ -95,7 +99,7 @@ class NewEvent extends Component {
     });
   }
 
-  addAccount(stageNumber) {
+  addAccount(stageIndex) {
     let currentStages = this.state.stages;
     let accountObject = {
       accountDescription: "",
@@ -106,7 +110,7 @@ class NewEvent extends Component {
       increaseDecrease: ""
     };
 
-    currentStages[stageNumber].accounts.push(accountObject);
+    currentStages[stageIndex].accounts.push(accountObject);
 
     this.setState({
       stages: currentStages
@@ -114,7 +118,6 @@ class NewEvent extends Component {
   }
 
   render() {
-    console.log(this.state.stages[0].stageNumber);
     return (
       <div>
         <Row>
@@ -159,22 +162,26 @@ class NewEvent extends Component {
                       <ButtonToolbar className="financialImpactButtons">
                         <label>Financial Impact</label>
                         <Button
+                          value="yes"
+                          id="financialImpact"
                           className={`financialImpactButton ${
-                            this.state.stages[index].financialImpact !== "Yes"
+                            this.state.stages[index].financialImpact !== "yes"
                               ? "unselectedButton"
                               : ""
                           }`}
-                          onClick={() => this.handleStageChange(e, index)}
+                          onClick={e => this.handleStageChange(e, index)}
                         >
                           Yes
                         </Button>
                         <Button
+                          value="no"
+                          id="financialImpact"
                           className={`financialImpactButton ${
-                            this.state.stages[index].financialImpact !== "No"
+                            this.state.stages[index].financialImpact !== "no"
                               ? "unselectedButton"
                               : ""
                           }`}
-                          onClick={() => this.handleStageChange(e, index)}
+                          onClick={e => this.handleStageChange(e, index)}
                         >
                           No
                         </Button>
@@ -182,7 +189,7 @@ class NewEvent extends Component {
                     </div>
 
                     <div className="accountTable">
-                      <Table striped hover borderless>
+                      <Table striped hover borderless="true">
                         <thead className="accountTableHeader">
                           <tr>
                             <th className="glAccountHeader">GL Account</th>
@@ -283,6 +290,12 @@ class NewEvent extends Component {
                         </tbody>
                       </Table>
                     </div>
+                    <Button
+                      className="newAccountButton"
+                      onClick={() => this.addAccount(index)}
+                    >
+                      <i className="fas fa-plus" />
+                    </Button>
                   </div>
                 ))}
               </div>
