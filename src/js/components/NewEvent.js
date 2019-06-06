@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
 import FormControl from "react-bootstrap/FormControl";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
@@ -22,7 +23,24 @@ class NewEvent extends Component {
           stageNumber: "1",
           description: "Test",
           financialImpact: "yes",
-          accounts: []
+          accounts: [
+            {
+              accountDescription: "Cost of Goods Sold",
+              debitCredit: "Debit",
+              amount: "4,500.00",
+              currency: "USD",
+              accountType: "Expense",
+              increaseDecrease: "Increase"
+            },
+            {
+              accountDescription: "Inventory",
+              debitCredit: "Credit",
+              amount: "(4,500.00)",
+              currency: "USD",
+              accountType: "Asset",
+              increaseDecrease: "Decrease"
+            }
+          ]
         }
       ]
     };
@@ -43,9 +61,9 @@ class NewEvent extends Component {
     });
   }
 
-  handleAccountChange(e, stageIndex, accountNumber) {
+  handleAccountChange(e, stageIndex, accountIndex) {
     let currentStages = this.state.stages;
-    currentStages.stageIndex.accounts.accountNumber[e.target.id] =
+    currentStages.stageIndex.accounts.accountIndex[e.target.id] =
       e.target.value;
 
     this.setState({
@@ -59,7 +77,16 @@ class NewEvent extends Component {
       stageNumber: currentStages.length + 1,
       stageDescription: "",
       financialImpact: "",
-      accounts: []
+      accounts: [
+        {
+          accountDescription: "",
+          debitCredit: "",
+          amount: "",
+          currency: "",
+          accountType: "",
+          increaseDecrease: ""
+        }
+      ]
     };
     currentStages.push(stageObject);
 
@@ -71,7 +98,6 @@ class NewEvent extends Component {
   addAccount(stageNumber) {
     let currentStages = this.state.stages;
     let accountObject = {
-      accountNumber: "",
       accountDescription: "",
       debitCredit: "",
       amount: "",
@@ -153,6 +179,109 @@ class NewEvent extends Component {
                           No
                         </Button>
                       </ButtonToolbar>
+                    </div>
+
+                    <div className="accountTable">
+                      <Table striped hover borderless>
+                        <thead className="accountTableHeader">
+                          <tr>
+                            <th className="glAccountHeader">GL Account</th>
+                            <th className="debitCreditHeader">Debit/Credit</th>
+                            <th className="amountHeader">Amount</th>
+                            <th className="currencyHeader">Currency</th>
+                            <th className="accountTypeHeader">Account Type</th>
+                            <th className="increaseDecreaseHeader">
+                              Increase/Decrease
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {this.state.stages[index].accounts.map(
+                            (account, i) => (
+                              <tr key={`account-${i}`}>
+                                <td>
+                                  <input
+                                    id="accountDescription"
+                                    value={
+                                      this.state.stages[index].accounts[i]
+                                        .accountDescription
+                                    }
+                                    onChange={e =>
+                                      this.handleAccountChange(e, index, i)
+                                    }
+                                    className="inputField accountTableInput"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    id="debitCredit"
+                                    value={
+                                      this.state.stages[index].accounts[i]
+                                        .debitCredit
+                                    }
+                                    onChange={e =>
+                                      this.handleAccountChange(e, index, i)
+                                    }
+                                    className="inputField accountTableInput"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    id="amount"
+                                    value={
+                                      this.state.stages[index].accounts[i]
+                                        .amount
+                                    }
+                                    onChange={e =>
+                                      this.handleAccountChange(e, index, i)
+                                    }
+                                    className="inputField accountTableInput"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    id="currency"
+                                    value={
+                                      this.state.stages[index].accounts[i]
+                                        .currency
+                                    }
+                                    onChange={e =>
+                                      this.handleAccountChange(e, index, i)
+                                    }
+                                    className="inputField accountTableInput"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    id="accountType"
+                                    value={
+                                      this.state.stages[index].accounts[i]
+                                        .accountType
+                                    }
+                                    onChange={e =>
+                                      this.handleAccountChange(e, index, i)
+                                    }
+                                    className="inputField accountTableInput"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    id="increaseDecrease"
+                                    value={
+                                      this.state.stages[index].accounts[i]
+                                        .increaseDecrease
+                                    }
+                                    onChange={e =>
+                                      this.handleAccountChange(e, index, i)
+                                    }
+                                    className="inputField accountTableInput"
+                                  />
+                                </td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </Table>
                     </div>
                   </div>
                 ))}
