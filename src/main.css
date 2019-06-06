@@ -465,18 +465,16 @@ input.inputField:focus {
   display: inline;
 }
 
-.unselectedButton {
-  background-color: lightgrey;
-  border-color: lightgrey;
-}
-
 button.financialImpactButton.btn.btn-primary {
   margin: 0 0.5%;
   width: 6%;
   background-color: #007bff;
   border-color: #007bff;
 }
-
+button.unselectedButton.btn.btn-primary {
+  background-color: #b5b5b5;
+  border-color: #b5b5b5;
+}
 .newStageButton {
   margin-top: 3%;
 }
