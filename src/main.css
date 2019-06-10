@@ -443,6 +443,7 @@ label {
   border-bottom: 2px solid #afafaf;
   width: 84%;
   margin-left: 2%;
+  background: transparent;
 }
 
 .inputFieldStage {

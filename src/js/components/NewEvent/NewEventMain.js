@@ -10,14 +10,26 @@ import Table from "react-bootstrap/Table";
 import FormControl from "react-bootstrap/FormControl";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
+import AccountTable from "./AccountTable";
+import SidePanel from "./SidePanel";
 import axios from "axios";
 
-class NewEvent extends Component {
+class NewEventMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      description: "",
+      sectionType: "event",
+      event: {
+        title: "",
+        description: "",
+        company: "",
+        date: "",
+        documentNumber: "",
+        customer: "",
+        vendor: "",
+        invoice: "",
+        localCurrency: ""
+      },
       stages: [
         {
           stageNumber: "1",
@@ -47,31 +59,32 @@ class NewEvent extends Component {
   }
 
   handleChange(e) {
+    let eventObject = this.state.event;
+    eventObject[e.target.id] = e.target.value;
     this.setState({
-      [e.target.id]: e.target.value
+      event: eventObject,
+      sectionType: "event"
     });
   }
 
   handleStageChange(e, stageIndex) {
-    console.log("VALUE: ", e.target.value);
-    console.log("ID: ", e.target.id);
-    console.log("STAGE INDEX: ", stageIndex);
     let currentStages = this.state.stages;
-    console.log("test: ", currentStages[stageIndex]);
     currentStages[stageIndex][e.target.id] = e.target.value;
 
     this.setState({
-      stages: currentStages
+      stages: currentStages,
+      sectionType: "stage"
     });
   }
 
-  handleAccountChange(e, stageIndex, accountIndex) {
+  handleAccountChange(stageIndex, e, accountIndex) {
     let currentStages = this.state.stages;
-    currentStages.stageIndex.accounts.accountIndex[e.target.id] =
+    currentStages[stageIndex].accounts[accountIndex][e.target.id] =
       e.target.value;
 
     this.setState({
-      stages: currentStages
+      stages: currentStages,
+      sectionType: "account"
     });
   }
 
@@ -188,108 +201,13 @@ class NewEvent extends Component {
                       </ButtonToolbar>
                     </div>
 
-                    <div className="accountTable">
-                      <Table striped hover borderless="true">
-                        <thead className="accountTableHeader">
-                          <tr>
-                            <th className="glAccountHeader">GL Account</th>
-                            <th className="debitCreditHeader">Debit/Credit</th>
-                            <th className="amountHeader">Amount</th>
-                            <th className="currencyHeader">Currency</th>
-                            <th className="accountTypeHeader">Account Type</th>
-                            <th className="increaseDecreaseHeader">
-                              Increase/Decrease
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {this.state.stages[index].accounts.map(
-                            (account, i) => (
-                              <tr key={`account-${i}`}>
-                                <td>
-                                  <input
-                                    id="accountDescription"
-                                    value={
-                                      this.state.stages[index].accounts[i]
-                                        .accountDescription
-                                    }
-                                    onChange={e =>
-                                      this.handleAccountChange(e, index, i)
-                                    }
-                                    className="inputField accountTableInput"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    id="debitCredit"
-                                    value={
-                                      this.state.stages[index].accounts[i]
-                                        .debitCredit
-                                    }
-                                    onChange={e =>
-                                      this.handleAccountChange(e, index, i)
-                                    }
-                                    className="inputField accountTableInput"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    id="amount"
-                                    value={
-                                      this.state.stages[index].accounts[i]
-                                        .amount
-                                    }
-                                    onChange={e =>
-                                      this.handleAccountChange(e, index, i)
-                                    }
-                                    className="inputField accountTableInput"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    id="currency"
-                                    value={
-                                      this.state.stages[index].accounts[i]
-                                        .currency
-                                    }
-                                    onChange={e =>
-                                      this.handleAccountChange(e, index, i)
-                                    }
-                                    className="inputField accountTableInput"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    id="accountType"
-                                    value={
-                                      this.state.stages[index].accounts[i]
-                                        .accountType
-                                    }
-                                    onChange={e =>
-                                      this.handleAccountChange(e, index, i)
-                                    }
-                                    className="inputField accountTableInput"
-                                  />
-                                </td>
-                                <td>
-                                  <input
-                                    id="increaseDecrease"
-                                    value={
-                                      this.state.stages[index].accounts[i]
-                                        .increaseDecrease
-                                    }
-                                    onChange={e =>
-                                      this.handleAccountChange(e, index, i)
-                                    }
-                                    className="inputField accountTableInput"
-                                  />
-                                </td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </Table>
-                    </div>
+                    <AccountTable
+                      accounts={stage.accounts}
+                      handleAccountChange={(e, accountIndex) =>
+                        this.handleAccountChange(index, e, accountIndex)
+                      }
+                    />
+
                     <Button
                       className="newAccountButton"
                       onClick={() => this.addAccount(index)}
@@ -307,6 +225,11 @@ class NewEvent extends Component {
           </Col>
           <Col md={4} className="sideNewEventPanel">
             <h3>Additional Panel Info</h3>
+            <SidePanel
+              sectionType={this.state.sectionType}
+              event={this.state.event}
+              handleChange={e => this.handleChange(e)}
+            />
           </Col>
         </Row>
       </div>
@@ -314,4 +237,4 @@ class NewEvent extends Component {
   }
 }
 
-export default NewEvent;
+export default NewEventMain;
