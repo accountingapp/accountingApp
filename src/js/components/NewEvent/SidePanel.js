@@ -12,22 +12,36 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+const translate = {
+  title: "*Title",
+  description: "*Description",
+  company: "Company",
+  date: "Date",
+  documentNumber: "Document Number",
+  customer: "Customer",
+  vendor: "Vendor",
+  invoice: "Invoice",
+  localCurrency: "Local Currency"
+};
+
 const SidePanel = ({ sectionType, event, handleChange }) => (
   <div>
     {sectionType === "event" ? (
       <div>
         {Object.keys(event).map((eventKey, i) => (
-          <div key={eventKey}>
-            <label>{eventKey}</label>
+          <div key={eventKey} className="formGroup">
+            <label>{translate[eventKey]}</label>
             <input
-              id="eventKey"
-              value={event.eventKey}
+              id={eventKey}
+              value={event[eventKey]}
               onChange={e => handleChange(e)}
-              className="inputField"
+              className="inputField sidePanelInput"
             />
           </div>
         ))}
       </div>
+    ) : sectionType === "stage" ? (
+      <div>Side panel for editing stage!</div>
     ) : null}
   </div>
 );

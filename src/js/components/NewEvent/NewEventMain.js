@@ -18,7 +18,7 @@ class NewEventMain extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sectionType: "event",
+      sectionType: "",
       event: {
         title: "",
         description: "",
@@ -62,8 +62,8 @@ class NewEventMain extends Component {
     let eventObject = this.state.event;
     eventObject[e.target.id] = e.target.value;
     this.setState({
-      event: eventObject,
-      sectionType: "event"
+      event: eventObject
+      // sectionType: "event"
     });
   }
 
@@ -144,6 +144,7 @@ class NewEventMain extends Component {
                   value={this.state.title}
                   onChange={e => this.handleChange(e)}
                   className="inputField"
+                  onClick={() => this.setState({ sectionType: "event" })}
                 />
               </div>
 
@@ -154,6 +155,7 @@ class NewEventMain extends Component {
                   value={this.state.description}
                   onChange={e => this.handleChange(e)}
                   className="inputField"
+                  onClick={() => this.setState({ sectionType: "event" })}
                 />
               </div>
             </div>
@@ -170,6 +172,7 @@ class NewEventMain extends Component {
                         value={this.state.stages[index].stageDescription}
                         onChange={e => this.handleStageChange(e, index)}
                         className="inputField inputFieldStage"
+                        onClick={() => this.setState({ sectionType: "stage" })}
                       />
 
                       <ButtonToolbar className="financialImpactButtons">
