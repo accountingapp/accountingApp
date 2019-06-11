@@ -429,8 +429,12 @@ label {
 
 .formGroup {
   margin-top: 1%;
-  text-align: right;
+  /* text-align: right; */
   margin-right: 6%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .formGroupStage {
@@ -441,12 +445,16 @@ label {
   box-shadow: none;
   border: none;
   border-bottom: 2px solid #afafaf;
-  width: 84%;
+  /* width: 84%; */
   margin-left: 2%;
+  background: transparent;
+  flex: 0.92;
 }
 
 .inputFieldStage {
-  width: 44%;
+  /* width: 44%; */
+  flex: 0.65;
+  margin: 0 1%;
 }
 
 input.inputField:focus {
@@ -462,14 +470,16 @@ input.inputField:focus {
 }
 
 .financialImpactButtons {
-  display: inline;
+  /* display: inline; */
+  flex: 0.3;
 }
 
 button.financialImpactButton.btn.btn-primary {
-  margin: 0 0.5%;
-  width: 6%;
+  margin: 0 1.5%;
+  /* width: 6%; */
   background-color: #007bff;
   border-color: #007bff;
+  flex: 0.4;
 }
 button.unselectedButton.btn.btn-primary {
   background-color: #b5b5b5;
@@ -513,4 +523,8 @@ th.amountHeader {
 }
 th.glAccountHeader {
   width: 25%;
+}
+
+.sidePanelInput {
+  width: 70%;
 }
