@@ -1,6 +1,6 @@
 /* Global */
 html {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .dependency a {
@@ -23,7 +23,7 @@ html {
 }
 
 .mainSection {
-  background-image: url('./assets/accounting-analysis-analytics.jpg');
+  background-image: url("./assets/accounting-analysis-analytics.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -45,7 +45,7 @@ html {
 }
 .section1 p {
   padding: 16px;
-  font-family: 'Slabo 27px', serif;
+  font-family: "Slabo 27px", serif;
   /* background: #73944c; */
   color: #191818;
   /* border-radius: 1em; */
@@ -56,7 +56,7 @@ html {
 }
 
 .section3 {
-  font-family: 'Slabo 27px', serif;
+  font-family: "Slabo 27px", serif;
 }
 
 .section2 {
@@ -68,7 +68,8 @@ img.searchImage {
   /* display: block; */
 }
 
-img.paperworkImage, img.moneyImage {
+img.paperworkImage,
+img.moneyImage {
   /* display: block; */
   width: inherit;
 }
@@ -90,8 +91,8 @@ a.appName.navbar-brand,
 a.appName.navbar-brand:hover {
   color: white;
   text-decoration: none;
-  font-family: 'Slabo 27px', serif;
-  font-size: 2.0rem;
+  font-family: "Slabo 27px", serif;
+  font-size: 2rem;
 }
 
 .section {
@@ -99,8 +100,8 @@ a.appName.navbar-brand:hover {
 }
 
 .listTitle {
-  font-size: 2.0rem;
-  font-family: 'Slabo 27px', serif;
+  font-size: 2rem;
+  font-family: "Slabo 27px", serif;
   margin: 2rem 10rem;
   border-bottom: lightgrey solid 2px;
 }
@@ -127,7 +128,6 @@ a.appName.navbar-brand:hover {
 .dependency {
   text-align: center;
 }
-
 
 /* Search Bar */
 .searchContainer {
@@ -187,7 +187,7 @@ button.btn.btn-outline-secondary {
 
 .pageInfo {
   padding: 1rem 2.5rem;
-  font-family: 'Slabo 27px', serif;
+  font-family: "Slabo 27px", serif;
 }
 
 .pageInfoText {
@@ -197,10 +197,11 @@ button.btn.btn-outline-secondary {
 
 /* Process */
 
-.processHeader, .settingsHeader {
+.processHeader,
+.settingsHeader {
   background: #f1f1f1;
   padding: 1rem 2rem;
-  font-family: 'Slabo 27px', serif;
+  font-family: "Slabo 27px", serif;
 }
 
 .processBody {
@@ -229,7 +230,8 @@ button.btn.btn-outline-secondary {
   background-color: #f1f1f1;
 }
 
-.editProcessInfo h2, .addProcessStep h2 {
+.editProcessInfo h2,
+.addProcessStep h2 {
   font-size: 1.5rem;
 }
 .editProcessInfo .input-group {
@@ -305,7 +307,7 @@ i.fa.fa-user.ownerGlyph {
   color: #f5d491;
 }
 
-.icon{
+.icon {
   font-size: 8rem;
   margin: 0;
   color: #378eaf;
@@ -349,7 +351,8 @@ i.fas.fa-cog {
   font-size: 1.4em;
 }
 
-.settingsPage .nav-pills .nav-link.active, .settingsPage .nav-pills .show>.nav-link {
+.settingsPage .nav-pills .nav-link.active,
+.settingsPage .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #378eaf;
 }
@@ -361,7 +364,8 @@ i.fas.fa-cog {
   margin: 0 1rem;
 }
 
-.accountSettings, .moduleSettings {
+.accountSettings,
+.moduleSettings {
   height: 77vh;
   overflow-y: scroll;
 }
@@ -375,7 +379,9 @@ i.fas.fa-cog {
   padding: 0 1rem;
 }
 
-.createNewSettingButton, .submitNewItem, .cancelNewItem {
+.createNewSettingButton,
+.submitNewItem,
+.cancelNewItem {
   background: #378eaf;
   font-size: 1.3em;
   border: none;
@@ -415,7 +421,7 @@ input {
 
 label {
   display: inline-block;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   color: #6b6b6b;
   /* font-family: 'Source Sans Pro', sans-serif; */
   font-size: 1.2em;
@@ -423,26 +429,102 @@ label {
 
 .formGroup {
   margin-top: 1%;
-  text-align: right;
+  /* text-align: right; */
   margin-right: 6%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.formGroupStage {
+  text-align: center;
 }
 
 .inputField {
   box-shadow: none;
-  border:none;
+  border: none;
   border-bottom: 2px solid #afafaf;
-  width: 84%;
+  /* width: 84%; */
   margin-left: 2%;
+  background: transparent;
+  flex: 0.92;
+}
+
+.inputFieldStage {
+  /* width: 44%; */
+  flex: 0.65;
+  margin: 0 1%;
 }
 
 input.inputField:focus {
   outline: none;
   border: none;
   box-shadow: none;
-  border-bottom: 2px solid #378eaf;
+  border-bottom: 2px solid #42acd4;
 }
 
 .eventHeader {
   padding: 2% 0 4% 0;
   border-bottom: 1px lightgrey solid;
+}
+
+.financialImpactButtons {
+  /* display: inline; */
+  flex: 0.3;
+}
+
+button.financialImpactButton.btn.btn-primary {
+  margin: 0 1.5%;
+  /* width: 6%; */
+  background-color: #007bff;
+  border-color: #007bff;
+  flex: 0.4;
+}
+button.unselectedButton.btn.btn-primary {
+  background-color: #b5b5b5;
+  border-color: #b5b5b5;
+}
+.newStageButton {
+  margin-top: 3%;
+}
+
+/* Table for Accounts */
+.accountTable {
+  margin: 2%;
+  border: 1px solid #dee2e6;
+}
+
+.table td,
+.table th {
+  padding: 0.75rem 0.3rem;
+  vertical-align: top;
+  border-top: none;
+}
+thead.accountTableHeader {
+  background: #42acd4;
+  color: white;
+}
+
+.accountTableInput {
+  text-align: center;
+  background: transparent;
+}
+
+th.currencyHeader {
+  width: 5%;
+}
+
+th.accountTypeHeader {
+  width: 14%;
+}
+th.amountHeader {
+  width: 15%;
+}
+th.glAccountHeader {
+  width: 25%;
+}
+
+.sidePanelInput {
+  width: 70%;
 }
