@@ -26,7 +26,7 @@ class App extends Component {
         {app => (
           <BrowserRouter>
             <Fragment>
-              <Header className="header" user={app.state.userId} />
+              <Header className="header" user={app.state.email} />
               <Switch>
                 <ProtectedRoute component={Owner} path="/owner/:ownerId" />
                 <ProtectedRoute
