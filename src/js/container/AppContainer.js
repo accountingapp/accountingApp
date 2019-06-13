@@ -6,7 +6,13 @@ function getAuthInfoFromCookies() {
   }
   const cookieString = decodeURIComponent(document.cookie);
   const cookieArray = cookieString.split('; ');
-  const email = cookieArray[1].slice(cookieArray[1].indexOf('=') + 1);
+  const emailIdx = cookieArray.reduce((index, cookie, currentIndex) => {
+    if (cookie.includes('email')) {
+      index = currentIndex;
+    }
+    return index;
+  }, -1);
+  const email = cookieArray[emailIdx].slice(cookieArray[emailIdx].indexOf('=') + 1);
   return { email };
 }
 
