@@ -21,13 +21,12 @@ class App extends Component {
   }
 
   render() {
-    const state = this.state;
     return (
       <Subscribe to={[AppContainer]}>
         {(app) => (
           <BrowserRouter>
             <Fragment>
-              <Header className="header" user={app.state.userId}/>
+              <Header className="header" user={app.state.email}/>
               <Switch>
                   <ProtectedRoute 
                     component={Owner} 
@@ -53,18 +52,18 @@ class App extends Component {
                     component={Settings} 
                     exact path="/settings"
                   />
-                  <Route
+                  <ProtectedRoute
                     component={EventsMain}
-                    path="/home"
+                    exact path="/"
                   />
-                  <Route
+                  <ProtectedRoute
                     component={NewEvent}
                     path="/newEvent"
                   />
-                  <ProtectedRoute
+                  {/* <ProtectedRoute
                     component={Form}
                     exact path="/"
-                  />
+                  /> */}
                   <Route
                     component={Login}
                     path="/user-login"

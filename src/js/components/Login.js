@@ -1,8 +1,11 @@
 /*eslint-disable*/
 import React from 'react';
 import {Row, Container, Form} from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import AppContainer from '../container/AppContainer'
 import forbiddenDomains from './Lists/forbiddenDomains';
+import { Subscribe } from 'unstated';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,7 +17,8 @@ class Login extends React.Component {
       company: '',
       loginEmail: '',
       loginPassword: '',
-      needsValidation: false,
+      loginNeedsValidation: false,
+      registrationNeedsValidation: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.loginUser = this.loginUser.bind(this);
@@ -30,56 +34,57 @@ class Login extends React.Component {
     });
   }
 
-  loginUser(e) {
-    console.log('login', e.target.loginEmail.value)
+  loginUser(e, app) {
     e.preventDefault();
-    const user = {
-      email: this.state.loginEmail,
-      password: this.state.loginPassword
-    }
-    axios.post('/loginUser', { user })
-      .then(resp => {
-        setTimeout(() => {
-          alert(resp.data);
-        }, 1000);
-      })
-      .catch(e => {
-        setTimeout(() => {
+    this.setState({
+      loginNeedsValidation: true
+    }, () => {
+      if (this.checkAllValuesForValidity('loginEmail')) {
+      const credentials = {
+        email: this.state.loginEmail.toLowerCase(),
+        password: this.state.loginPassword
+      }
+      axios.post('/loginUser', { credentials })
+        .then(resp => {
+          console.log('SUCCESSFUL LOGIN', resp);
+          app.updateAuthenticationStatus();
+        })
+        .catch(e => {
           alert(e.response.data);
-        }, 1000);
-      })
-
+          location.reload('/');
+        })
+      }
+    })
   }
 
   registerUser(e) {
     e.preventDefault();
 
     this.setState({
-      needsValidation: true
+      registrationNeedsValidation: true
     }, () => {
-      if (this.checkAllValuesForValidity('firstName', 'lastName', 'registerEmail', 'company')) {
-        const { firstName, lastName, registerEmail, company } = this.state;
-        const user = {
-          name: `${firstName} ${lastName}`,
-          email: registerEmail,
-          company
+        if (this.checkAllValuesForValidity('firstName', 'lastName', 'registerEmail', 'company')) {
+          const { firstName, lastName, registerEmail, company } = this.state;
+          const user = {
+            name: `${firstName} ${lastName}`,
+            email: registerEmail.toLowerCase(),
+            company
+          }
+        
+          axios.post('/newUser', { user })
+            .then(resp => {
+              setTimeout(() => {
+                alert(resp.response.data.detail);
+              }, 1000);
+            })
+            .catch(error => {
+              console.log('registration error =', error.response);
+              setTimeout(() => {
+                alert(error.response.data.detail);
+              }, 1000);
+            });
         }
-        axios.post('/newUser', { user })
-          .then(resp => {
-            console.log('front end resp\n', resp)
-            setTimeout(() => {
-              alert(resp.data);
-              location.reload(false);
-            }, 1000);
-          })
-          .catch(error => {
-            console.log('registration error =', error.response);
-            setTimeout(() => {
-              alert(error.response.data.detail);
-            }, 1000);
-          });
-      }
-    });
+    })
   }
 
   checkAllValuesForValidity() {
@@ -87,7 +92,6 @@ class Login extends React.Component {
   }
 
   isValid(value) {
-    if (this.state.needsValidation) {
       const inputVal = this.state[value];
 
       if (value.includes('Email')) {
@@ -96,8 +100,7 @@ class Login extends React.Component {
 
       // this is just a 'required' field check
       return inputVal ? 'is-valid' : 'is-invalid';
-    }
-    return '';
+    
   }
 
   isValidEmail(email) {
@@ -113,129 +116,137 @@ class Login extends React.Component {
   }
 
   render() {
+    const { loginNeedsValidation, registrationNeedsValidation } = this.state;
     return (
-      <div className="top-content">
-        <div className="inner-bg">
-          <Container className="container">
-            <Row className="row">
-              <div className="col-sm-5">
-                <div className="form-box">
-                  <div className="form-top">
-                    <div className="form-top-left">
-                      <h3>Login to our site</h3>
-                      <p>Enter email and password to log on:</p>
-                    </div>
-                    <div className="form-top-right">
-                      <i className="fa fa-key"></i>
-                    </div>
-                  </div>
-                  <div className="form-bottom">
-  {/************ LOGIN FORM ************/}
-                    <form onSubmit={this.loginUser} className="login-form">
-                      <div className="form-group">
-                        <label className="sr-only">Email</label>
-                        <input
-                          onChange={this.handleChange}
-                          type="text" 
-                          name="loginEmail" 
-                          placeholder="Email..." 
-                          className="loginEmail form-control" 
-                          id="loginEmail"
-                          value={this.state.loginEmail}/>
-                      </div>
-                      <div className="form-group">
-                        <label className="sr-only">Password</label>
-                        <input 
-                          onChange={this.handleChange}
-                          type="password" 
-                          name="loginPassword" 
-                          placeholder="Password..." 
-                          className="loginPassword form-control" 
-                          id="loginPassword"
-                          value={this.state.loginPassword}/>
-                      </div>
-                      <input type="submit" className="btn" value="Sign In!"/>
-                    </form>
-  {/**************************************/}
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-1 middle-border"></div>
-              <div className="col-sm-1"></div>
-              <div className="col-sm-5">
-                <div className="form-box">
-                  <div className="form-top">
-                    <div className="form-top-left">
-                      <h3>Sign up now</h3>
-                      <p>Fill in the form below to get instant access:</p>
-                    </div>
-                    <div className="form-top-right">
-                      <i className="fa fa-pencil"></i>
-                    </div>
-                  </div>
-                  <div className="form-bottom">
-  {/************ REGISTRATION FORM ************/}
-                    <form onSubmit={this.registerUser} className="registration-form">
-                      <div className="form-group">
-                        <label className="sr-only">First name</label>
-                        <input 
-                          type="text" 
-                          name="firstName" 
-                          onChange={this.handleChange}
-                          placeholder="First name..." 
-                          className={`form-first-name form-control ${this.isValid('firstName')}`} 
-                          id="form-first-name"
-                          />
-                      </div>
-                      <div className="form-group">
-                        <label className="sr-only">Last name</label>
-                        <input 
-                          type="text" 
-                          name="lastName" 
-                          onChange={this.handleChange}
-                          placeholder="Last name..." 
-                          className={`form-last-name form-control ${this.isValid('lastName')}`}
-                          id="form-last-name"
-                          />
-                      </div>
-                      <div className="form-group">
-                        <label className="sr-only">Email</label>
-                        <input 
-                          type="text" 
-                          name="registerEmail"
-                          onChange={this.handleChange}
-                          placeholder="Email..." 
-                          className={`form-email-register form-control ${this.isValid('registerEmail')}`}
-                          id="form-email-register"
-                          />
-                          <div className="invalid-feedback">
-                            <div>
-                              Please enter a valid company or school email address.
+      <Subscribe to={[AppContainer]}>
+        {(app) => { 
+          return app.isAuthenticated() ? 
+            (<Redirect to="/" />) : 
+            (<div className="top-content">
+                <div className="inner-bg">
+                  <Container className="container">
+                    <Row className="row">
+                      <div className="col-sm-5">
+                        <div className="form-box">
+                          <div className="form-top">
+                            <div className="form-top-left">
+                              <h3>Login to our site</h3>
+                              <p>Enter email and password to log on:</p>
+                            </div>
+                            <div className="form-top-right">
+                              <i className="fa fa-key"></i>
                             </div>
                           </div>
+                          <div className="form-bottom">
+          {/************ LOGIN FORM ************/}
+                            <form onSubmit={(e) => this.loginUser(e, app)} className="login-form">
+                              <div className="form-group">
+                                <label className="sr-only">Email</label>
+                                <input
+                                  onChange={this.handleChange}
+                                  type="text" 
+                                  name="loginEmail" 
+                                  placeholder="Email..." 
+                                  className={`loginEmail form-control ${loginNeedsValidation && this.isValid('loginEmail')}`} 
+                                  id="loginEmail"
+                                  value={this.state.loginEmail}/>
+                                <div className="invalid-feedback">
+                                  Please enter a valid email address.
+                                </div>
+                              </div>
+                              <div className="form-group">
+                                <label className="sr-only">Password</label>
+                                <input 
+                                  onChange={this.handleChange}
+                                  type="password" 
+                                  name="loginPassword" 
+                                  placeholder="Password..." 
+                                  className="loginPassword form-control" 
+                                  id="loginPassword"
+                                  value={this.state.loginPassword}/>
+                              </div>
+                              <input type="submit" className="btn" value="Sign In!"/>
+                            </form>
+          {/**************************************/}
+                          </div>
+                        </div>
                       </div>
-                      <div className="form-group">
-                        <label className="sr-only">Your Company Name</label>
-                        <input 
-                          type="text"
-                          name="company"
-                          onChange={this.handleChange}
-                          placeholder="Your Company Name..."
-                          className={`"form-your-company form-control ${this.isValid('company')}`} 
-                          id="form-your-company"
-                          />
+                      <div className="col-sm-1 middle-border"></div>
+                      <div className="col-sm-1"></div>
+                      <div className="col-sm-5">
+                        <div className="form-box">
+                          <div className="form-top">
+                            <div className="form-top-left">
+                              <h3>Sign up now</h3>
+                              <p>Fill in the form below to get instant access:</p>
+                            </div>
+                            <div className="form-top-right">
+                              <i className="fa fa-pencil"></i>
+                            </div>
+                          </div>
+                          <div className="form-bottom">
+          {/************ REGISTRATION FORM ************/}
+                            <form onSubmit={this.registerUser} className="registration-form">
+                              <div className="form-group">
+                                <label className="sr-only">First name</label>
+                                <input 
+                                  type="text" 
+                                  name="firstName" 
+                                  onChange={this.handleChange}
+                                  placeholder="First name..." 
+                                  className={`form-first-name form-control ${registrationNeedsValidation && this.isValid('firstName')}`} 
+                                  id="form-first-name"
+                                  />
+                              </div>
+                              <div className="form-group">
+                                <label className="sr-only">Last name</label>
+                                <input 
+                                  type="text" 
+                                  name="lastName" 
+                                  onChange={this.handleChange}
+                                  placeholder="Last name..." 
+                                  className={`form-last-name form-control ${registrationNeedsValidation && this.isValid('lastName')}`}
+                                  id="form-last-name"
+                                  />
+                              </div>
+                              <div className="form-group">
+                                <label className="sr-only">Email</label>
+                                <input 
+                                  type="text" 
+                                  name="registerEmail"
+                                  onChange={this.handleChange}
+                                  placeholder="Email..." 
+                                  className={`form-email-register form-control ${registrationNeedsValidation && this.isValid('registerEmail')}`}
+                                  id="form-email-register"
+                                  />
+                                  <div className="invalid-feedback">
+                                    Please enter a valid company or school email address.
+                                  </div>
+                              </div>
+                              <div className="form-group">
+                                <label className="sr-only">Your Company Name</label>
+                                <input 
+                                  type="text"
+                                  name="company"
+                                  onChange={this.handleChange}
+                                  placeholder="Your Company Name..."
+                                  className={`"form-your-company form-control ${registrationNeedsValidation && this.isValid('company')}`} 
+                                  id="form-your-company"
+                                  />
+                              </div>
+                              <input type="submit" className="btn" value="Sign Me Up!"/>
+                            </form>
+          {/**************************************/}
+                          </div>
+                        </div>    
                       </div>
-                      <input type="submit" className="btn" value="Sign Me Up!"/>
-                    </form>
-  {/**************************************/}
-                  </div>
-                </div>    
-              </div>
-            </Row>
-          </Container>
-        </div>
+                    </Row>
+                  </Container>
+                </div>
 
-      </div>
+            </div>)
+        }}
+      </Subscribe>
     )
   }
 }

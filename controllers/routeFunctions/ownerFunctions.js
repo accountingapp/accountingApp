@@ -1,5 +1,11 @@
 const db = require('../../db/connection').knex
-const { createPassword, encryptPassword, emailUser } = require('../authUtils/passwordUtils');
+const { 
+  createPassword, 
+  encryptPassword, 
+  emailUser, 
+  comparePasswords, 
+  createJWT 
+} = require('../authUtils/passwordUtils');
 
 function getOwnerByName(req, res) {
   db('users')
@@ -46,7 +52,7 @@ function createUser(req, res) {
    emailUser(user);
   })
   .then(() => {
-    res.status(200).send('New User Created');
+    res.status(201).send('New User Created');
   })
   .catch(e => {
     res.status(400).send(e);
@@ -54,7 +60,25 @@ function createUser(req, res) {
 }
 
 function loginUser(req, res) {
-  res.status(200).send('OKOK');
+  const { credentials } = req.body;
+  db('users')
+  .where('email', credentials.email)
+  .then(user => {
+    if (user[0]) return user[0];
+    throw new Error('This email address is not associated with an account.  Please register to create one!');
+  })
+  .then(comparePasswords(credentials))
+  .then(createJWT)
+  .then(user => {
+    res.cookie('JWT', user.token);
+    res.cookie('email', user.email);
+  })
+  .then(() => {
+    res.status(200).send('Login Successful');
+  })
+  .catch(e => {
+    res.status(400).send(e.message);
+  });
 }
 
 module.exports = {
