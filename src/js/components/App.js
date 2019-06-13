@@ -26,7 +26,7 @@ class App extends Component {
         {(app) => (
           <BrowserRouter>
             <Fragment>
-              <Header className="header" user={app.state.userId}/>
+              <Header className="header" user={app.state.email}/>
               <Switch>
                   <ProtectedRoute 
                     component={Owner} 
@@ -48,11 +48,26 @@ class App extends Component {
                     component={LandingPage} 
                     exact path="/"
                   /> */}
-                <ProtectedRoute component={Settings} exact path="/settings" />
-                <Route component={EventsMain} path="/home" />
-                <Route component={NewEvent} path="/newEvent" />
-                <ProtectedRoute component={Form} exact path="/" />
-                <Route component={Login} path="/user-login" />
+                <ProtectedRoute
+                  component={Settings}
+                  exact path="/settings"
+                />
+                <ProtectedRoute
+                  component={EventsMain}
+                  exact path="/"
+                />
+                <ProtectedRoute
+                  component={NewEvent}
+                  path="/newEvent"
+                />
+                {/* <ProtectedRoute
+                    component={Form}
+                    exact path="/"
+                  /> */}
+                <Route
+                  component={Login}
+                  path="/user-login"
+                />
               </Switch>
             </Fragment>
           </BrowserRouter>
