@@ -9,16 +9,16 @@ const { verifyJWT } = require('../controllers/authUtils/passwordUtils');
 const unprotectedRoutes = ['loginUser', 'user-login', 'logout', 'assets'];
 
 const isAuthenticated = (req, res, next) => {
-  const { cookies, URL } = req;
-  const { token, email } = cookies;
+  const { cookies, url } = req;
+  const { JWT:token , email } = cookies;
 
   if (!req.headers) {
-    console.log("\n\nNO HEADERS PRESENT\n\n");
+    console.log("\nNo headers present\n");
     res.redirect('/logout');
     return;
   }
 
-  if (unprotectedRoutes.some(route => URL.includes(route))) {
+  if (unprotectedRoutes.some(route => url.includes(route))) {
     next();
     return;
   }
@@ -28,11 +28,11 @@ const isAuthenticated = (req, res, next) => {
     res.redirect('/logout');
   } else {
     verifyJWT(token, email)
+    .then(() => next())
     .catch((e) => {
       console.log("JWT verification failed: ", e);
       res.redirect('/logout');
     })
-    next();
   }
 }
 
@@ -116,7 +116,7 @@ module.exports = server => {
   server.get(
     '/logout',
     (req, res) => {
-      req.logout();
+
       res.clearCookie('email');
       res.clearCookie('JWT');
       res.clearCookie('id');
