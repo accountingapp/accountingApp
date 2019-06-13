@@ -58,7 +58,6 @@ function getProcessByTitle(req, res) {
 }
 
 function getProcessByOwner(req, res) {
-  console.log("req params!", typeof req.params.ownerId);
   db('processes')
   .where('ownerId',`${req.params.ownerId}`)
   .then(results => {

@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   render() {
-    const state = this.state;
     return (
       <Subscribe to={[AppContainer]}>
         {app => (
