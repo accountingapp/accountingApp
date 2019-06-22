@@ -12,7 +12,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const AccountTable = ({ accounts, handleAccountChange }) => (
+const AccountTable = ({ accounts, handleAccountChange, onClick }) => (
   <div className="accountTable">
     <Table striped hover borderless="true">
       <thead className="accountTableHeader">
@@ -34,6 +34,7 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].accountDescription}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
@@ -42,6 +43,7 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].debitCredit}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
@@ -50,6 +52,7 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].amount}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
@@ -58,6 +61,7 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].currency}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
@@ -66,6 +70,7 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].accountType}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
@@ -74,6 +79,7 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].increaseDecrease}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
           </tr>

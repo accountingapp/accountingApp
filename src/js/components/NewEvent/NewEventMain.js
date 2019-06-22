@@ -32,8 +32,7 @@ class NewEventMain extends Component {
       },
       stages: [
         {
-          stageNumber: "1",
-          description: "Test",
+          stageDescription: "Test",
           financialImpact: "yes",
           accounts: [
             {
@@ -91,7 +90,6 @@ class NewEventMain extends Component {
   addStage() {
     let currentStages = this.state.stages;
     let stageObject = {
-      stageNumber: currentStages.length + 1,
       stageDescription: "",
       financialImpact: "",
       accounts: [
@@ -164,7 +162,7 @@ class NewEventMain extends Component {
               <div>
                 {this.state.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
-                    <h3>{`Stage ${stage.stageNumber}`}</h3>
+                    <h3>{`Stage ${index + 1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
                       <input
@@ -172,7 +170,9 @@ class NewEventMain extends Component {
                         value={this.state.stages[index].stageDescription}
                         onChange={e => this.handleStageChange(e, index)}
                         className="inputField inputFieldStage"
-                        onClick={() => this.setState({ sectionType: "stage" })}
+                        onClick={() =>
+                          this.setState({ sectionType: `stage_${index}` })
+                        }
                       />
 
                       <ButtonToolbar className="financialImpactButtons">
@@ -185,7 +185,10 @@ class NewEventMain extends Component {
                               ? "unselectedButton"
                               : ""
                           }`}
-                          onClick={e => this.handleStageChange(e, index)}
+                          onClick={e => {
+                            this.handleStageChange(e, index);
+                            this.setState({ sectionType: `stage_${index}` });
+                          }}
                         >
                           Yes
                         </Button>
@@ -197,7 +200,10 @@ class NewEventMain extends Component {
                               ? "unselectedButton"
                               : ""
                           }`}
-                          onClick={e => this.handleStageChange(e, index)}
+                          onClick={e => {
+                            this.handleStageChange(e, index);
+                            this.setState({ sectionType: `stage_${index}` });
+                          }}
                         >
                           No
                         </Button>
@@ -208,6 +214,9 @@ class NewEventMain extends Component {
                       accounts={stage.accounts}
                       handleAccountChange={(e, accountIndex) =>
                         this.handleAccountChange(index, e, accountIndex)
+                      }
+                      onClick={() =>
+                        this.setState({ sectionType: `stage_${index}` })
                       }
                     />
 
@@ -222,7 +231,13 @@ class NewEventMain extends Component {
               </div>
             ) : null}
 
-            <Button className="newStageButton" onClick={() => this.addStage()}>
+            <Button
+              className="newStageButton"
+              onClick={() => {
+                this.addStage();
+                this.setState({ sectionType: `stage_${index}` });
+              }}
+            >
               New Stage
             </Button>
           </Col>
@@ -231,7 +246,11 @@ class NewEventMain extends Component {
             <SidePanel
               sectionType={this.state.sectionType}
               event={this.state.event}
+              stages={this.state.stages}
               handleChange={e => this.handleChange(e)}
+              handleStageChange={(e, stageIndex) =>
+                this.handleStageChange(e, stageIndex)
+              }
             />
           </Col>
         </Row>
