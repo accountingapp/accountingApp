@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const translate = {
+  //event
   title: "*Title",
   description: "*Description",
   company: "Company",
@@ -21,29 +22,65 @@ const translate = {
   customer: "Customer",
   vendor: "Vendor",
   invoice: "Invoice",
-  localCurrency: "Local Currency"
-};
+  localCurrency: "Local Currency",
 
-const SidePanel = ({ sectionType, event, handleChange }) => (
-  <div>
-    {sectionType === "event" ? (
-      <div>
-        {Object.keys(event).map((eventKey, i) => (
-          <div key={eventKey} className="formGroup">
-            <label>{translate[eventKey]}</label>
-            <input
-              id={eventKey}
-              value={event[eventKey]}
-              onChange={e => handleChange(e)}
-              className="inputField sidePanelInput"
-            />
-          </div>
-        ))}
-      </div>
-    ) : sectionType === "stage" ? (
-      <div>Side panel for editing stage!</div>
-    ) : null}
-  </div>
-);
+  //stages
+  stageDescription: "Stage Description",
+  financialImpact: "Financial Impact",
+  owner: "Owner",
+  department: "Department",
+  application: "Application",
+  issues: ""
+};
+const SidePanel = ({
+  sectionType,
+  event,
+  stages,
+  handleChange,
+  handleStageChange
+}) => {
+  let stageIndex =
+    sectionType && sectionType.slice(0, 5) === "stage"
+      ? parseInt(sectionType.slice(6))
+      : null;
+  return (
+    <div>
+      {sectionType === "event" ? (
+        <div>
+          {Object.keys(event).map((eventKey, i) => (
+            <div key={eventKey} className="formGroup">
+              <label>{translate[eventKey]}</label>
+              <input
+                id={eventKey}
+                value={event[eventKey]}
+                onChange={e => handleChange(e)}
+                className="inputField sidePanelInput"
+              />
+            </div>
+          ))}
+        </div>
+      ) : sectionType.slice(0, 5) === "stage" ? (
+        <div>
+          <h3>{`Stage ${stageIndex + 1}`}</h3>
+          {Object.keys(stages[stageIndex]).map((eventKey, i) => (
+            <div key={eventKey}>
+              {translate[eventKey] && (
+                <div className="formGroup">
+                  <label>{translate[eventKey]}</label>
+                  <input
+                    id={eventKey}
+                    value={stages[stageIndex][eventKey]}
+                    onChange={e => handleStageChange(e, stageIndex)}
+                    className="inputField sidePanelInput"
+                  />
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+};
 
 export default SidePanel;

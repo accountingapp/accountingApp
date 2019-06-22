@@ -12,7 +12,12 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const AccountTable = ({ accounts, handleAccountChange }) => (
+const AccountTable = ({
+  accounts,
+  accountSearchResults,
+  handleAccountChange,
+  onClick
+}) => (
   <div className="accountTable">
     <Table striped hover borderless="true">
       <thead className="accountTableHeader">
@@ -34,47 +39,55 @@ const AccountTable = ({ accounts, handleAccountChange }) => (
                 value={accounts[i].accountDescription}
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
+              {/* <ListGroup className="listSearchResults">
+                {accountSearchResults.length ? accountSearchResults.map((result,i) => (
+                  <div 
+                    key={`${i}-${result[description]}`}
+                    onClick={(e)=> handleAccountChange(e, i)}
+                  >
+                    <ListGroup.Item>{result.description}</ListGroup.Item>
+                  </div>
+                )): null}
+              </ListGroup> */}
             </td>
             <td>
               <input
                 id="debitCredit"
                 value={accounts[i].debitCredit}
-                onChange={e => handleAccountChange(e, i)}
+                onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
               <input
                 id="amount"
                 value={accounts[i].amount}
-                onChange={e => handleAccountChange(e, i)}
+                onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
               <input
                 id="currency"
                 value={accounts[i].currency}
-                onChange={e => handleAccountChange(e, i)}
+                onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
+                onClick={onClick}
               />
             </td>
             <td>
-              <input
-                id="accountType"
-                value={accounts[i].accountType}
-                onChange={e => handleAccountChange(e, i)}
-                className="inputField accountTableInput"
-              />
+              <div id="accountType" className="accountType">
+                {accounts[i].accountType}
+              </div>
             </td>
             <td>
-              <input
-                id="increaseDecrease"
-                value={accounts[i].increaseDecrease}
-                onChange={e => handleAccountChange(e, i)}
-                className="inputField accountTableInput"
-              />
+              <div id="increaseDecrease" className="increaseDecrease">
+                {accounts[i].increaseDecrease}
+              </div>
             </td>
           </tr>
         ))}

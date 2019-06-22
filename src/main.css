@@ -489,6 +489,16 @@ button.unselectedButton.btn.btn-primary {
   margin-top: 3%;
 }
 
+i.far.fa-times-circle {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.6em;
+}
+
+i.far.fa-times-circle:hover {
+  cursor: pointer;
+}
+
 /* Table for Accounts */
 .accountTable {
   margin: 2%;
@@ -512,11 +522,11 @@ thead.accountTableHeader {
 }
 
 th.currencyHeader {
-  width: 5%;
+  width: 10%;
 }
 
 th.accountTypeHeader {
-  width: 14%;
+  width: 15%;
 }
 th.amountHeader {
   width: 15%;
@@ -527,4 +537,13 @@ th.glAccountHeader {
 
 .sidePanelInput {
   width: 70%;
+}
+
+div#accountType,
+div#increaseDecrease {
+  background: #2fa25f;
+  color: white;
+  width: 75%;
+  margin: 0 auto;
+  border-radius: 1em;
 }
