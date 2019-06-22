@@ -32,7 +32,6 @@ class NewEventMain extends Component {
       },
       stages: [
         {
-          stageNumber: "1",
           description: "Test",
           financialImpact: "yes",
           accounts: [
@@ -91,7 +90,6 @@ class NewEventMain extends Component {
   addStage() {
     let currentStages = this.state.stages;
     let stageObject = {
-      stageNumber: currentStages.length + 1,
       stageDescription: "",
       financialImpact: "",
       accounts: [
@@ -110,6 +108,14 @@ class NewEventMain extends Component {
     this.setState({
       stages: currentStages
     });
+  }
+
+  deleteStage(e, index) {
+    let currentStages = this.state.stages;
+    currentStages.splice(index, 1);
+    this.setState({
+      stages: currentStages
+    })
   }
 
   addAccount(stageIndex) {
@@ -141,7 +147,7 @@ class NewEventMain extends Component {
                 <label>Title</label>
                 <input
                   id="title"
-                  value={this.state.title}
+                  value={this.state.event.title}
                   onChange={e => this.handleChange(e)}
                   className="inputField"
                   onClick={() => this.setState({ sectionType: "event" })}
@@ -152,7 +158,7 @@ class NewEventMain extends Component {
                 <label>Description</label>
                 <input
                   id="description"
-                  value={this.state.description}
+                  value={this.state.event.description}
                   onChange={e => this.handleChange(e)}
                   className="inputField"
                   onClick={() => this.setState({ sectionType: "event" })}
@@ -164,7 +170,13 @@ class NewEventMain extends Component {
               <div>
                 {this.state.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
-                    <h3>{`Stage ${stage.stageNumber}`}</h3>
+                    <i 
+                      className="fa fa-trash trashcan" 
+                      aria-hidden="false" 
+                      onClick={e => this.deleteStage(e, index)}
+                      // TODO: Make this trigger a modal to confirm user wants to delete stage
+                      />
+                    <h3>{`Stage ${index + 1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
                       <input

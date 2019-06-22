@@ -47,7 +47,7 @@ function createJWT(user) {
 function verifyJWT(token, email) {
   return new Promise((resolve, reject) => {
     JWT.verify(token, config.jwtSecret, (err, decoded) => {
-      if (err || decoded.email !== email) {
+      if (err || decoded.user.email !== email) {
         reject(new Error(err));
       }
       resolve();

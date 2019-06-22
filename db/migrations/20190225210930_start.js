@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
         table.increments('id').primary();
         table.string('name').notNullable();
         table.string('email').unique();
-        table.string('password').notNullable();
-        table.string('company').notNullable();
+        table.string('password');
+        table.string('company');
       }),
       knex.schema.createTable('accounts', table =>{
         table.increments('id').primary();
@@ -39,6 +39,15 @@ exports.up = function(knex, Promise) {
         table.string('link');
         table.text('article');
         table.text('notes');
+      }),
+      knex.schema.createTable('events', table => {
+        table.increments('id').primary();
+        table.string('user');
+        table.string('sectionType');
+        table.specificType('event', 'json');
+        table.specificType('stages', 'json[]')
+
+        table.foreign('user').references('email').inTable('users').onDelete('CASCADE');
       })
     ])
 };
@@ -49,6 +58,7 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTableIfExists('accounts'),
     knex.schema.dropTableIfExists('processes'),
     knex.schema.dropTableIfExists('users'),
-    knex.schema.dropTableIfExists('modules')
+    knex.schema.dropTableIfExists('modules'),
+    knex.schema.dropTableIfExists('events')
   ]);
 };
