@@ -489,6 +489,16 @@ button.unselectedButton.btn.btn-primary {
   margin-top: 3%;
 }
 
+i.far.fa-times-circle {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.6em;
+}
+
+i.far.fa-times-circle:hover {
+  cursor: pointer;
+}
+
 /* Table for Accounts */
 .accountTable {
   margin: 2%;

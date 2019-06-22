@@ -32,7 +32,7 @@ class NewEventMain extends Component {
       },
       stages: [
         {
-          stageDescription: "Test",
+          description: "Test",
           financialImpact: "yes",
           date: new Date(),
           documentNumber: "",
@@ -62,7 +62,8 @@ class NewEventMain extends Component {
             }
           ]
         }
-      ]
+      ],
+      accountSearchResults: []
     };
   }
 
@@ -71,7 +72,6 @@ class NewEventMain extends Component {
     eventObject[e.target.id] = e.target.value;
     this.setState({
       event: eventObject
-      // sectionType: "event"
     });
   }
 
@@ -94,6 +94,17 @@ class NewEventMain extends Component {
       stages: currentStages,
       sectionType: "account"
     });
+
+    this.getAccountByDescription(e.target.value);
+  }
+
+  getAccountByDescription(searchCriteria) {
+    axios.get(`/accountDescription/${searchCriteria}`).then(results => {
+      console.log("ACCOUNT SEARCH: ", results.data.slice(0, 2));
+      this.setState({
+        accountSearchResults: searchCriteria ? results.data.slice(0, 2) : []
+      });
+    });
   }
 
   addStage() {
@@ -114,6 +125,14 @@ class NewEventMain extends Component {
     };
     currentStages.push(stageObject);
 
+    this.setState({
+      stages: currentStages
+    });
+  }
+
+  deleteStage(e, index) {
+    let currentStages = this.state.stages;
+    currentStages.splice(index, 1);
     this.setState({
       stages: currentStages
     });
@@ -148,7 +167,7 @@ class NewEventMain extends Component {
                 <label>Title</label>
                 <input
                   id="title"
-                  value={this.state.title}
+                  value={this.state.event.title}
                   onChange={e => this.handleChange(e)}
                   className="inputField"
                   onClick={() => this.setState({ sectionType: "event" })}
@@ -159,7 +178,7 @@ class NewEventMain extends Component {
                 <label>Description</label>
                 <input
                   id="description"
-                  value={this.state.description}
+                  value={this.state.event.description}
                   onChange={e => this.handleChange(e)}
                   className="inputField"
                   onClick={() => this.setState({ sectionType: "event" })}
@@ -171,6 +190,12 @@ class NewEventMain extends Component {
               <div>
                 {this.state.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
+                    <i
+                      className="far fa-times-circle"
+                      aria-hidden="false"
+                      onClick={e => this.deleteStage(e, index)}
+                      // TODO: Make this trigger a modal to confirm user wants to delete stage
+                    />
                     <h3>{`Stage ${index + 1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
@@ -221,6 +246,7 @@ class NewEventMain extends Component {
 
                     <AccountTable
                       accounts={stage.accounts}
+                      accountSearchResults={this.state.accountSearchResults}
                       handleAccountChange={(e, accountIndex) =>
                         this.handleAccountChange(index, e, accountIndex)
                       }

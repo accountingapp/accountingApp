@@ -12,7 +12,12 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const AccountTable = ({ accounts, handleAccountChange, onClick }) => (
+const AccountTable = ({
+  accounts,
+  accountSearchResults,
+  handleAccountChange,
+  onClick
+}) => (
   <div className="accountTable">
     <Table striped hover borderless="true">
       <thead className="accountTableHeader">
@@ -36,12 +41,22 @@ const AccountTable = ({ accounts, handleAccountChange, onClick }) => (
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
+              {/* <ListGroup className="listSearchResults">
+                {accountSearchResults.length ? accountSearchResults.map((result,i) => (
+                  <div 
+                    key={`${i}-${result[description]}`}
+                    onClick={(e)=> handleAccountChange(e, i)}
+                  >
+                    <ListGroup.Item>{result.description}</ListGroup.Item>
+                  </div>
+                )): null}
+              </ListGroup> */}
             </td>
             <td>
               <input
                 id="debitCredit"
                 value={accounts[i].debitCredit}
-                onChange={e => handleAccountChange(e, i)}
+                onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
@@ -50,7 +65,7 @@ const AccountTable = ({ accounts, handleAccountChange, onClick }) => (
               <input
                 id="amount"
                 value={accounts[i].amount}
-                onChange={e => handleAccountChange(e, i)}
+                onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
@@ -59,7 +74,7 @@ const AccountTable = ({ accounts, handleAccountChange, onClick }) => (
               <input
                 id="currency"
                 value={accounts[i].currency}
-                onChange={e => handleAccountChange(e, i)}
+                onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
