@@ -1,9 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const path = require("path")
+const path = require("path");
 const app = express();
-const auth = require('./server/auth');
+const auth = require("./server/auth");
 const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
@@ -11,17 +11,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(cookieParser());
-app.use(express.static(path.resolve(__dirname, './dist')));
+app.use(express.static(path.resolve(__dirname, "./dist")));
 
-auth(app);
+// auth(app);
 
-require('./controllers/routes')(app);
+require("./controllers/routes")(app);
 
-
-app.get('*', function(request, response) {
-   response.sendFile(path.resolve(__dirname, './dist/index.html'));
- });
+app.get("*", function(request, response) {
+  response.sendFile(path.resolve(__dirname, "./dist/index.html"));
+});
 
 app.listen(PORT, function() {
-   console.log("App listening on PORT " + PORT);
+  console.log("App listening on PORT " + PORT);
 });

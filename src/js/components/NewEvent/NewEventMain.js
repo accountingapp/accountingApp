@@ -23,7 +23,7 @@ class NewEventMain extends Component {
         title: "",
         description: "",
         company: "",
-        date: "",
+        date: new Date(),
         documentNumber: "",
         customer: "",
         vendor: "",
@@ -34,6 +34,15 @@ class NewEventMain extends Component {
         {
           stageDescription: "Test",
           financialImpact: "yes",
+          date: new Date(),
+          documentNumber: "",
+          customer: "",
+          vendor: "",
+          invoice: "",
+          owner: "",
+          department: "",
+          application: "",
+          issues: "",
           accounts: [
             {
               accountDescription: "Cost of Goods Sold",
@@ -72,7 +81,7 @@ class NewEventMain extends Component {
 
     this.setState({
       stages: currentStages,
-      sectionType: "stage"
+      sectionType: `stage_${stageIndex}`
     });
   }
 
@@ -228,18 +237,17 @@ class NewEventMain extends Component {
                     </Button>
                   </div>
                 ))}
+                <Button
+                  className="newStageButton"
+                  onClick={() => {
+                    this.addStage();
+                    this.setState({ sectionType: `stage_0` });
+                  }}
+                >
+                  New Stage
+                </Button>
               </div>
             ) : null}
-
-            <Button
-              className="newStageButton"
-              onClick={() => {
-                this.addStage();
-                this.setState({ sectionType: `stage_${index}` });
-              }}
-            >
-              New Stage
-            </Button>
           </Col>
           <Col md={4} className="sideNewEventPanel">
             <h3>Additional Panel Info</h3>

@@ -512,11 +512,11 @@ thead.accountTableHeader {
 }
 
 th.currencyHeader {
-  width: 5%;
+  width: 10%;
 }
 
 th.accountTypeHeader {
-  width: 14%;
+  width: 15%;
 }
 th.amountHeader {
   width: 15%;
@@ -527,4 +527,13 @@ th.glAccountHeader {
 
 .sidePanelInput {
   width: 70%;
+}
+
+div#accountType,
+div#increaseDecrease {
+  background: #2fa25f;
+  color: white;
+  width: 75%;
+  margin: 0 auto;
+  border-radius: 1em;
 }

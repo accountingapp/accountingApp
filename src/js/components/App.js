@@ -45,26 +45,14 @@ class App extends Component {
                     component={LandingPage} 
                     exact path="/"
                   /> */}
-                <ProtectedRoute
-                  component={Settings}
-                  exact path="/settings"
-                />
-                <ProtectedRoute
-                  component={EventsMain}
-                  exact path="/"
-                />
-                <ProtectedRoute
-                  component={NewEvent}
-                  path="/newEvent"
-                />
+                <ProtectedRoute component={Settings} exact path="/settings" />
+                <Route component={EventsMain} exact path="/" />
+                <Route component={NewEvent} path="/newEvent" />
                 {/* <ProtectedRoute
                     component={Form}
                     exact path="/"
                   /> */}
-                <Route
-                  component={Login}
-                  path="/user-login"
-                />
+                <Route component={Login} path="/user-login" />
               </Switch>
             </Fragment>
           </BrowserRouter>

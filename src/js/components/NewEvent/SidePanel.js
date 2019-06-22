@@ -27,7 +27,10 @@ const translate = {
   //stages
   stageDescription: "Stage Description",
   financialImpact: "Financial Impact",
-  accounts: "Accounts"
+  owner: "Owner",
+  department: "Department",
+  application: "Application",
+  issues: ""
 };
 const SidePanel = ({
   sectionType,
@@ -36,7 +39,10 @@ const SidePanel = ({
   handleChange,
   handleStageChange
 }) => {
-  console.log("STAGE NUMBER: ", parseInt(sectionType.slice(6)));
+  let stageIndex =
+    sectionType && sectionType.slice(0, 5) === "stage"
+      ? parseInt(sectionType.slice(6))
+      : null;
   return (
     <div>
       {sectionType === "event" ? (
@@ -55,17 +61,21 @@ const SidePanel = ({
         </div>
       ) : sectionType.slice(0, 5) === "stage" ? (
         <div>
-          <h3>{`Stage ${parseInt(sectionType.slice(6) + 1)}`}</h3>
-          {Object.keys(stages[sectionType.slice(6)]).map((eventKey, i) => (
-            <div key={eventKey} className="formGroup">
-              <label>{translate[eventKey]}</label>
-              <input
-                id={eventKey}
-                value={stages[sectionType.slice(6)][eventKey]}
-                onChange={e => handleStageChange(e, sectionType.slice(6))}
-                className="inputField sidePanelInput"
-              />
-            </div>
+          <h3>{`Stage ${stageIndex + 1}`}</h3>
+          {Object.keys(stages[stageIndex]).map((eventKey, i) => (
+            <>
+              {translate[eventKey] && (
+                <div key={eventKey} className="formGroup">
+                  <label>{translate[eventKey]}</label>
+                  <input
+                    id={eventKey}
+                    value={stages[stageIndex][eventKey]}
+                    onChange={e => handleStageChange(e, stageIndex)}
+                    className="inputField sidePanelInput"
+                  />
+                </div>
+              )}
+            </>
           ))}
         </div>
       ) : null}

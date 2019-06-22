@@ -65,22 +65,14 @@ const AccountTable = ({ accounts, handleAccountChange, onClick }) => (
               />
             </td>
             <td>
-              <input
-                id="accountType"
-                value={accounts[i].accountType}
-                onChange={e => handleAccountChange(e, i)}
-                className="inputField accountTableInput"
-                onClick={onClick}
-              />
+              <div id="accountType" className="accountType">
+                {accounts[i].accountType}
+              </div>
             </td>
             <td>
-              <input
-                id="increaseDecrease"
-                value={accounts[i].increaseDecrease}
-                onChange={e => handleAccountChange(e, i)}
-                className="inputField accountTableInput"
-                onClick={onClick}
-              />
+              <div id="increaseDecrease" className="increaseDecrease">
+                {accounts[i].increaseDecrease}
+              </div>
             </td>
           </tr>
         ))}
