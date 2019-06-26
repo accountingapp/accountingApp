@@ -63,8 +63,24 @@ class NewEventMain extends Component {
           ]
         }
       ],
-      accountSearchResults: []
+      allAccounts: [],
+      accountSearchResults: {}
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleStageChange = this.handleStageChange.bind(this);
+    this.handleAccountChange = this.handleAccountChange.bind(this);
+    this.getAccountByDescription = this.getAccountByDescription.bind(this);
+    this.addStage = this.addStage.bind(this);
+    this.deleteStage = this.deleteStage.bind(this);
+    this.addAccount = this.addAccount.bind(this);
+  }
+
+  componentDidMount() {
+    //TODO: fetch accounts by userId or company instead of all accounts?
+    axios
+      .get("/accounts")
+      .then(results => this.setState({ allAccounts: results.data }))
+      .catch(console.log);
   }
 
   handleChange(e) {
@@ -86,24 +102,41 @@ class NewEventMain extends Component {
   }
 
   handleAccountChange(stageIndex, e, accountIndex) {
-    let currentStages = this.state.stages;
+    const currentStages = this.state.stages;
     currentStages[stageIndex].accounts[accountIndex][e.target.id] =
       e.target.value;
 
-    this.setState({
-      stages: currentStages,
-      sectionType: "account"
-    });
-
-    this.getAccountByDescription(e.target.value);
+    this.setState(
+      {
+        stages: currentStages,
+        sectionType: "account"
+      },
+      this.getAccountByDescription(stageIndex, e.target.value, accountIndex)
+    );
   }
 
-  getAccountByDescription(searchCriteria) {
-    axios.get(`/accountDescription/${searchCriteria}`).then(results => {
-      console.log("ACCOUNT SEARCH: ", results.data.slice(0, 2));
-      this.setState({
-        accountSearchResults: searchCriteria ? results.data.slice(0, 2) : []
-      });
+  getAccountByDescription(stageIndex, searchCriteria, accountIndex) {
+    const { allAccounts, accountSearchResults } = this.state;
+
+    const filteredByDescription = allAccounts.filter(acct =>
+      acct.description.toLowerCase().includes(searchCriteria.toLowerCase())
+    );
+
+    if (
+      filteredByDescription.length &&
+      filteredByDescription[0].description === searchCriteria
+    ) {
+      searchCriteria = null;
+      // ^ this is so that when a user clicks an account option, the dropdown will go away
+    }
+
+    accountSearchResults[stageIndex] = accountSearchResults[stageIndex] || {};
+    accountSearchResults[stageIndex][accountIndex] = searchCriteria
+      ? filteredByDescription
+      : [];
+
+    this.setState({
+      accountSearchResults
     });
   }
 
@@ -246,7 +279,9 @@ class NewEventMain extends Component {
 
                     <AccountTable
                       accounts={stage.accounts}
-                      accountSearchResults={this.state.accountSearchResults}
+                      accountSearchResults={
+                        this.state.accountSearchResults[index]
+                      }
                       handleAccountChange={(e, accountIndex) =>
                         this.handleAccountChange(index, e, accountIndex)
                       }
