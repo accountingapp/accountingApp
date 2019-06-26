@@ -40,53 +40,60 @@ const AccountTable = ({
                 onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
+                autoComplete="off"
               />
-              {/* <ListGroup className="listSearchResults">
-                {accountSearchResults.length ? accountSearchResults.map((result,i) => (
-                  <div 
-                    key={`${i}-${result[description]}`}
-                    onClick={(e)=> handleAccountChange(e, i)}
-                  >
-                    <ListGroup.Item>{result.description}</ListGroup.Item>
-                  </div>
-                )): null}
-              </ListGroup> */}
+              <ListGroup className="listSearchResults">
+                {accountSearchResults && accountSearchResults[i]
+                  ? accountSearchResults[i].map((result, resIdx) => (
+                      <div
+                        key={`${resIdx}-${result.description}`}
+                        onClick={e => {
+                          e.target.id = "accountDescription";
+                          e.target.value = e.target.innerHTML;
+                          handleAccountChange(e, i);
+                        }}
+                      >
+                        <ListGroup.Item>{result.description}</ListGroup.Item>
+                      </div>
+                    ))
+                  : null}
+              </ListGroup>
             </td>
             <td>
-              <input
+              {/* <input
                 id="debitCredit"
                 value={accounts[i].debitCredit}
                 onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
-              />
+              /> */}
             </td>
             <td>
-              <input
+              {/* <input
                 id="amount"
                 value={accounts[i].amount}
                 onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
-              />
+              /> */}
             </td>
             <td>
-              <input
+              {/* <input
                 id="currency"
                 value={accounts[i].currency}
                 onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
-              />
+              /> */}
             </td>
             <td>
               <div id="accountType" className="accountType">
-                {accounts[i].accountType}
+                {/* {accounts[i].accountType} */}
               </div>
             </td>
             <td>
               <div id="increaseDecrease" className="increaseDecrease">
-                {accounts[i].increaseDecrease}
+                {/* {accounts[i].increaseDecrease} */}
               </div>
             </td>
           </tr>
