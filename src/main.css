@@ -406,6 +406,10 @@ a.newEventButton {
 }
 
 /* New Event Page */
+.listSearchResults:hover {
+  cursor: pointer;
+}
+
 .mainNewEventPanel.col-md-8 {
   height: 100vh;
 }
@@ -547,4 +551,3 @@ div#increaseDecrease {
   margin: 0 auto;
   border-radius: 1em;
 }
-

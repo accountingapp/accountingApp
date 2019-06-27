@@ -92,23 +92,22 @@ class NewEventMain extends Component {
   }
 
   handleStageChange(e, stageIndex) {
-    let currentStages = this.state.stages;
-    currentStages[stageIndex][e.target.id] = e.target.value;
+    const { stages } = this.state;
+    stages[stageIndex][e.target.id] = e.target.value;
 
     this.setState({
-      stages: currentStages,
+      stages,
       sectionType: `stage_${stageIndex}`
     });
   }
 
   handleAccountChange(stageIndex, e, accountIndex) {
-    const currentStages = this.state.stages;
-    currentStages[stageIndex].accounts[accountIndex][e.target.id] =
-      e.target.value;
+    const { stages } = this.state;
+    stages[stageIndex].accounts[accountIndex][e.target.id] = e.target.value;
 
     this.setState(
       {
-        stages: currentStages,
+        stages,
         sectionType: "account"
       },
       this.getAccountByDescription(stageIndex, e.target.value, accountIndex)
@@ -141,7 +140,7 @@ class NewEventMain extends Component {
   }
 
   addStage() {
-    let currentStages = this.state.stages;
+    const { stages } = this.state;
     let stageObject = {
       stageDescription: "",
       financialImpact: "",
@@ -156,23 +155,23 @@ class NewEventMain extends Component {
         }
       ]
     };
-    currentStages.push(stageObject);
+    stages.push(stageObject);
 
     this.setState({
-      stages: currentStages
+      stages
     });
   }
 
   deleteStage(e, index) {
-    let currentStages = this.state.stages;
-    currentStages.splice(index, 1);
+    const { stages } = this.state;
+    stages.splice(index, 1);
     this.setState({
-      stages: currentStages
+      stages
     });
   }
 
   addAccount(stageIndex) {
-    let currentStages = this.state.stages;
+    const { stages } = this.state;
     let accountObject = {
       accountDescription: "",
       debitCredit: "",
@@ -182,7 +181,16 @@ class NewEventMain extends Component {
       increaseDecrease: ""
     };
 
-    currentStages[stageIndex].accounts.push(accountObject);
+    stages[stageIndex].accounts.push(accountObject);
+
+    this.setState({
+      stages
+    });
+  }
+
+  deleteAccount(stageIndex, accountIndex) {
+    const currentStages = this.state.stages;
+    currentStages[stageIndex].accounts.splice(accountIndex, 1);
 
     this.setState({
       stages: currentStages
@@ -284,6 +292,9 @@ class NewEventMain extends Component {
                       }
                       handleAccountChange={(e, accountIndex) =>
                         this.handleAccountChange(index, e, accountIndex)
+                      }
+                      deleteAccount={accountIndex =>
+                        this.deleteAccount(index, accountIndex)
                       }
                       onClick={() =>
                         this.setState({ sectionType: `stage_${index}` })
