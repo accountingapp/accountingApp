@@ -16,6 +16,7 @@ const AccountTable = ({
   accounts,
   accountSearchResults,
   handleAccountChange,
+  deleteAccount,
   onClick
 }) => (
   <div className="accountTable">
@@ -28,6 +29,7 @@ const AccountTable = ({
           <th className="currencyHeader">Currency</th>
           <th className="accountTypeHeader">Account Type</th>
           <th className="increaseDecreaseHeader">Increase/Decrease</th>
+          <th className="deleteAccountCol" />
         </tr>
       </thead>
       <tbody>
@@ -60,42 +62,47 @@ const AccountTable = ({
               </ListGroup>
             </td>
             <td>
-              {/* <input
+              <input
                 id="debitCredit"
                 value={accounts[i].debitCredit}
                 onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
-              /> */}
+              />
             </td>
             <td>
-              {/* <input
+              <input
                 id="amount"
                 value={accounts[i].amount}
                 onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
-              /> */}
+              />
             </td>
             <td>
-              {/* <input
+              <input
                 id="currency"
                 value={accounts[i].currency}
                 onChange={e => handleAccountChange(e.target.value, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
-              /> */}
+              />
             </td>
             <td>
               <div id="accountType" className="accountType">
-                {/* {accounts[i].accountType} */}
+                {accounts[i].accountType}
               </div>
             </td>
             <td>
               <div id="increaseDecrease" className="increaseDecrease">
-                {/* {accounts[i].increaseDecrease} */}
+                {accounts[i].increaseDecrease}
               </div>
             </td>
+            <i
+              className="fa fa-times"
+              aria-hidden="false"
+              onClick={() => deleteAccount(i)}
+            />
           </tr>
         ))}
       </tbody>
