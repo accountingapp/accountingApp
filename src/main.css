@@ -410,8 +410,9 @@ a.newEventButton {
   cursor: pointer;
 }
 
-.mainNewEventPanel.col-md-8 {
-  height: 100vh;
+.mainNewEventPanel {
+  height: 92vh;
+  overflow-y: scroll;
 }
 
 .sideNewEventPanel {
@@ -469,12 +470,22 @@ input.inputField:focus {
 }
 
 .eventHeader {
-  padding: 2% 0 4% 0;
+  padding-bottom: 4%;
   border-bottom: 1px lightgrey solid;
 }
 
+h3.heading,
+h3.stageHeading {
+  font-weight: 500;
+  margin-top: 1.5rem;
+  letter-spacing: 0.08rem;
+}
+
+h3.stageHeading {
+  margin: 0 0 3rem 0;
+}
+
 .financialImpactButtons {
-  /* display: inline; */
   flex: 0.3;
 }
 
@@ -493,10 +504,20 @@ button.unselectedButton.btn.btn-primary {
   margin-top: 3%;
 }
 
+button.createEvent.btn.btn-primary {
+  background: #007bfe;
+  border-color: #007bfe;
+  width: 50%;
+  position: absolute;
+  bottom: 5%;
+  left: 25%;
+}
+
 i.far.fa-times-circle {
   display: flex;
   justify-content: flex-end;
   font-size: 1.6em;
+  margin-top: 0.5rem;
 }
 
 i.far.fa-times-circle:hover {

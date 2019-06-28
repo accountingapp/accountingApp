@@ -197,13 +197,24 @@ class NewEventMain extends Component {
     });
   }
 
+  createEvent() {
+    let newEvent = this.state.event;
+    newEvent.stages = this.state.stages;
+    return axios
+      .post("/event", newEvent)
+      .then(() => {
+        console.log("successfully created a new event!!");
+      })
+      .catch(error => console.log("ERROR: ", error));
+  }
+
   render() {
     return (
       <div>
         <Row>
           <Col md={8} className="mainNewEventPanel">
+            <h3 className="heading">Create a New Event</h3>
             <div className="eventHeader">
-              <h3>Create a New Event</h3>
               <div className="formGroup">
                 <label>Title</label>
                 <input
@@ -237,7 +248,7 @@ class NewEventMain extends Component {
                       onClick={e => this.deleteStage(e, index)}
                       // TODO: Make this trigger a modal to confirm user wants to delete stage
                     />
-                    <h3>{`Stage ${index + 1}`}</h3>
+                    <h3 className="stageHeading">{`Stage ${index + 1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
                       <input
@@ -322,7 +333,7 @@ class NewEventMain extends Component {
             ) : null}
           </Col>
           <Col md={4} className="sideNewEventPanel">
-            <h3>Additional Panel Info</h3>
+            <h3 className="heading">Additional Panel Info</h3>
             <SidePanel
               sectionType={this.state.sectionType}
               event={this.state.event}
@@ -331,6 +342,7 @@ class NewEventMain extends Component {
               handleStageChange={(e, stageIndex) =>
                 this.handleStageChange(e, stageIndex)
               }
+              createEvent={() => this.createEvent()}
             />
           </Col>
         </Row>

@@ -37,16 +37,17 @@ const SidePanel = ({
   event,
   stages,
   handleChange,
-  handleStageChange
+  handleStageChange,
+  createEvent
 }) => {
   let stageIndex =
     sectionType && sectionType.slice(0, 5) === "stage"
       ? parseInt(sectionType.slice(6))
       : null;
   return (
-    <div>
+    <div className="entireSidePanel">
       {sectionType === "event" ? (
-        <div>
+        <div className="eventSidePanel">
           {Object.keys(event).map((eventKey, i) => (
             <div key={eventKey} className="formGroup">
               <label>{translate[eventKey]}</label>
@@ -58,9 +59,12 @@ const SidePanel = ({
               />
             </div>
           ))}
+          <Button className="createEvent" onClick={() => createEvent()}>
+            Save Event
+          </Button>
         </div>
       ) : sectionType.slice(0, 5) === "stage" ? (
-        <div>
+        <div className="stageSidePanel">
           <h3>{`Stage ${stageIndex + 1}`}</h3>
           {Object.keys(stages[stageIndex]).map((eventKey, i) => (
             <div key={eventKey}>
@@ -77,6 +81,9 @@ const SidePanel = ({
               )}
             </div>
           ))}
+          <Button className="createEvent" onClick={() => createEvent()}>
+            Save Event
+          </Button>
         </div>
       ) : null}
     </div>
