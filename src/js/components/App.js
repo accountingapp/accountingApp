@@ -58,7 +58,7 @@ class App extends Component {
                   exact
                   path="/"
                 />
-                <ProtectedRoute
+                <Route
                   component={TChart}
                   user={app.state.email}
                   exact

@@ -53,10 +53,18 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable("events", table => {
       table.increments("id").primary();
+      table.string("title").notNullable();
+      table.string("description").notNullable();
       table.string("user");
-      table.string("sectionType");
-      table.specificType("event", "json");
+      table.string("company");
+      table.string("date");
+      table.string("documentNumber");
+      table.string("customer");
+      table.string("vendor");
+      table.string("invoice");
+      table.string("localCurrency");
       table.specificType("stages", "json[]");
+      table.timestamps();
 
       table
         .foreign("user")

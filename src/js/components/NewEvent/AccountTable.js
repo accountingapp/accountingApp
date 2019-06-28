@@ -98,11 +98,13 @@ const AccountTable = ({
                 {accounts[i].increaseDecrease}
               </div>
             </td>
-            <i
-              className="fa fa-times"
-              aria-hidden="false"
-              onClick={() => deleteAccount(i)}
-            />
+            <td>
+              <i
+                className="fa fa-times"
+                aria-hidden="false"
+                onClick={() => deleteAccount(i)}
+              />
+            </td>
           </tr>
         ))}
       </tbody>
