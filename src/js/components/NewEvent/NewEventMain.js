@@ -73,6 +73,7 @@ class NewEventMain extends Component {
     this.addStage = this.addStage.bind(this);
     this.deleteStage = this.deleteStage.bind(this);
     this.addAccount = this.addAccount.bind(this);
+    this.deleteAccount = this.deleteAccount.bind(this);
   }
 
   componentDidMount() {
@@ -110,7 +111,9 @@ class NewEventMain extends Component {
         stages,
         sectionType: "account"
       },
-      this.getAccountByDescription(stageIndex, e.target.value, accountIndex)
+      e.target.id === "accountDescription"
+        ? this.getAccountByDescription(stageIndex, e.target.value, accountIndex)
+        : () => {}
     );
   }
 
