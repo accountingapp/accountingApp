@@ -12,6 +12,7 @@ import Settings from "./Settings";
 import Login from "./Login";
 import Form from "./LedgerTool/Form";
 import TChart from "./TCharts/TChart";
+import TChartMain from "./TCharts/TChartMain";
 import AppContainer from "../container/AppContainer";
 import ProtectedRoute from "../helpers/ProtectedRoute";
 
@@ -59,7 +60,7 @@ class App extends Component {
                   path="/"
                 />
                 <Route
-                  component={TChart}
+                  component={TChartMain}
                   user={app.state.email}
                   exact
                   path="/tChart"

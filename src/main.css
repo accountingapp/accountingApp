@@ -491,7 +491,7 @@ h3.stageHeading {
 
 button.financialImpactButton.btn.btn-primary {
   margin: 0 1.5%;
-  /* width: 6%; */
+  width: 5%;
   background-color: #007bff;
   border-color: #007bff;
   flex: 0.4;
@@ -566,9 +566,41 @@ th.glAccountHeader {
 
 div#accountType,
 div#increaseDecrease {
-  background: #2fa25f;
+  background: #44bb3fb8;
   color: white;
+  font-weight: 500;
   width: 75%;
   margin: 0 auto;
-  border-radius: 1em;
+  border-radius: 1rem;
+  letter-spacing: 0.03rem;
+}
+
+/* T-Chart */
+td.credit,
+td.debit,
+td.total {
+  width: 50%;
+  font-size: 1.2rem;
+}
+
+.tChartHeader {
+  background: #378eaf;
+  padding: 0.5rem;
+}
+
+.tChartHeader > h3 {
+  color: white;
+}
+
+tbody.tChartBody {
+  border: solid 2px;
+}
+
+td.debit {
+  border-right: solid 2px;
+}
+
+td.total {
+  border: solid 2px;
+  background: #efefef;
 }

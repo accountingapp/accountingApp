@@ -333,7 +333,6 @@ class NewEventMain extends Component {
             ) : null}
           </Col>
           <Col md={4} className="sideNewEventPanel">
-            <h3 className="heading">Additional Panel Info</h3>
             <SidePanel
               sectionType={this.state.sectionType}
               event={this.state.event}

@@ -17,28 +17,27 @@ class TChart extends React.Component {
       <div className="tChart">
         <br />
         <div className="tChartHeader">
-          <h5 style={{ color: "LightBlue", fontWeight: "bold" }}>2</h5>
           <h3>GL account from props</h3>
         </div>
         <Table>
-          <thead>
+          {/* <thead>
             <tr>
-              <th />
-              <th />
+              <th>Debit</th>
+              <th>Credit</th>
             </tr>
-          </thead>
-          <tbody>
+          </thead> */}
+          <tbody className="tChartBody">
             <tr>
               <td className="debit">4500</td>
               <td className="credit border-left" />
             </tr>
             <tr>
               <td className="debit" />
-              <td className="credit border-left">(1300)</td>
+              <td className="credit border-left">1300</td>
             </tr>
             <tr>
-              <td className="border-top" />
-              <td className="border-top" />
+              <td className="total" />
+              <td className="total">3200</td>
             </tr>
           </tbody>
         </Table>
