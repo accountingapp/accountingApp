@@ -594,8 +594,6 @@ td.total {
 
 tbody.tChartBody {
   border: solid 2px;
-  border-right: none;
-  border-left: none;
 }
 
 td.debit {
