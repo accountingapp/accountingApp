@@ -4,17 +4,17 @@
 // const db = require('../db/connection').knex;
 // const JWT = require('jsonwebtoken');
 // const config = require('../config');
-const { verifyJWT } = require('../controllers/authUtils/passwordUtils');
+const { verifyJWT } = require("../controllers/authUtils/passwordUtils");
 
-const unprotectedRoutes = ['loginUser', 'user-login', 'logout', 'assets'];
+const unprotectedRoutes = ["loginUser", "user-login", "logout", "assets"];
 
 const isAuthenticated = (req, res, next) => {
   const { cookies, url } = req;
-  const { JWT:token , email } = cookies;
+  const { JWT: token, email } = cookies;
 
   if (!req.headers) {
     console.log("\nNo headers present\n");
-    res.redirect('/logout');
+    res.redirect("/logout");
     return;
   }
 
@@ -24,21 +24,19 @@ const isAuthenticated = (req, res, next) => {
   }
 
   if (!token || !email) {
-    console.log('\nNo cookies present\n');
-    res.redirect('/logout');
+    console.log("\nNo cookies present\n");
+    res.redirect("/logout");
   } else {
     verifyJWT(token, email)
-    .then(() => next())
-    .catch((e) => {
-      console.log("JWT verification failed: ", e);
-      res.redirect('/logout');
-    })
+      .then(next)
+      .catch(e => {
+        console.log("JWT verification failed: ", e);
+        res.redirect("/logout");
+      });
   }
-}
+};
 
 module.exports = server => {
-
-
   server.use(isAuthenticated);
   // passport.use(
   //   new Strategy({
@@ -65,10 +63,10 @@ module.exports = server => {
   // server.get(
   //   '/login/google',
   //   passport.authenticate(
-  //     'google', 
-  //     { 
+  //     'google',
+  //     {
   //       scope: ['profile', 'email'],
-  //       failureRedirect: '404'   
+  //       failureRedirect: '404'
   //     }
   //   ),
   //   () => {}
@@ -80,7 +78,7 @@ module.exports = server => {
   //     .then(results => {
   //       if (results) {
   //         return results
-  //       } 
+  //       }
   //       console.log(`Owner not found by email ${email}`);
   //     })
   //     .catch(e => console.log('ERROR', e));
@@ -113,15 +111,10 @@ module.exports = server => {
   //   }
   // )
 
-  server.get(
-    '/logout',
-    (req, res) => {
-
-      res.clearCookie('email');
-      res.clearCookie('JWT');
-      res.clearCookie('id');
-      res.redirect('/user-login');
-    }
-  )
-
-}
+  server.get("/logout", (req, res) => {
+    res.clearCookie("JWT");
+    res.clearCookie("email");
+    res.clearCookie("id");
+    res.redirect("/user-login");
+  });
+};

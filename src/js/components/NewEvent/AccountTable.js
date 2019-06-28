@@ -65,7 +65,7 @@ const AccountTable = ({
               <input
                 id="debitCredit"
                 value={accounts[i].debitCredit}
-                onChange={e => handleAccountChange(e.target.value, i)}
+                onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
@@ -74,7 +74,7 @@ const AccountTable = ({
               <input
                 id="amount"
                 value={accounts[i].amount}
-                onChange={e => handleAccountChange(e.target.value, i)}
+                onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
@@ -83,7 +83,7 @@ const AccountTable = ({
               <input
                 id="currency"
                 value={accounts[i].currency}
-                onChange={e => handleAccountChange(e.target.value, i)}
+                onChange={e => handleAccountChange(e, i)}
                 className="inputField accountTableInput"
                 onClick={onClick}
               />
