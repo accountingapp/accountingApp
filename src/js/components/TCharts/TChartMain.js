@@ -32,6 +32,17 @@ class TChartMain extends React.Component {
               <TChart />
             </Col>
           </Row>
+          <Row>
+            <Col md={4}>
+              <TChart />
+            </Col>
+            <Col md={4}>
+              <TChart />
+            </Col>
+            <Col md={4}>
+              <TChart />
+            </Col>
+          </Row>
         </Container>
       </div>
     );
