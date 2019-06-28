@@ -48,6 +48,7 @@ const SidePanel = ({
     <div className="entireSidePanel">
       {sectionType === "event" ? (
         <div className="eventSidePanel">
+          <h3 className="heading">Event Details</h3>
           {Object.keys(event).map((eventKey, i) => (
             <div key={eventKey} className="formGroup">
               <label>{translate[eventKey]}</label>
@@ -65,7 +66,7 @@ const SidePanel = ({
         </div>
       ) : sectionType.slice(0, 5) === "stage" ? (
         <div className="stageSidePanel">
-          <h3>{`Stage ${stageIndex + 1}`}</h3>
+          <h3 className="heading">{`Stage ${stageIndex + 1} Details`}</h3>
           {Object.keys(stages[stageIndex]).map((eventKey, i) => (
             <div key={eventKey}>
               {translate[eventKey] && (
