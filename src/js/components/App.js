@@ -11,8 +11,6 @@ import NewEvent from "./NewEvent/NewEventMain";
 import Settings from "./Settings";
 import Login from "./Login";
 import Form from "./LedgerTool/Form";
-import TChart from "./TCharts/TChart";
-import TChartMain from "./TCharts/TChartMain";
 import AppContainer from "../container/AppContainer";
 import ProtectedRoute from "../helpers/ProtectedRoute";
 
@@ -49,21 +47,10 @@ class App extends Component {
                   /> */}
                 <ProtectedRoute component={Settings} exact path="/settings" />
                 <Route
-                  component={NewEvent}
-                  user={app.state.email}
-                  path="/newEvent"
-                />
-                <Route
                   component={EventsMain}
                   user={app.state.email}
                   exact
                   path="/"
-                />
-                <Route
-                  component={TChartMain}
-                  user={app.state.email}
-                  exact
-                  path="/tChart"
                 />
                 {/* <ProtectedRoute
                     component={Form}
