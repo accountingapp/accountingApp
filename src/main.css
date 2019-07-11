@@ -397,6 +397,28 @@ i.fas.fa-cog {
   padding-left: 0;
 }
 
+/* Navigation */
+.nav {
+  padding-top: 5px;
+}
+
+a.nav-item:hover,
+a.nav-item:focus {
+  color: #929292;
+}
+
+a#tabNavigation-tab-t-charts,
+a#tabNavigation-tab-newEvent,
+a#tabNavigation-tab-events {
+  color: #969696;
+  font-weight: 400;
+}
+
+a#tabNavigation-tab-newEvent.active,
+a#tabNavigation-tab-t-charts.active,
+a#tabNavigation-tab-events.active {
+  color: #378eaf;
+}
 /* Events Home*/
 a.newEventButton {
   background: #19b9e7;
