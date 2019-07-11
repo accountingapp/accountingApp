@@ -18,6 +18,18 @@ html {
   padding-bottom: 20px;
 }
 
+.forgotPassword {
+  cursor: pointer;
+  color: rgb(68, 119, 206);
+  text-decoration: underline;
+}
+
+.divider {
+  width: 5px;
+  height: auto;
+  display: inline-block;
+}
+
 .section {
   font-size: 1.5em;
 }

@@ -6,7 +6,13 @@
 // const config = require('../config');
 const { verifyJWT } = require("../controllers/authUtils/passwordUtils");
 
-const unprotectedRoutes = ["loginUser", "user-login", "logout", "assets"];
+const unprotectedRoutes = [
+  "loginUser",
+  "user-login",
+  "logout",
+  "assets",
+  "forgotPassword"
+];
 
 const isAuthenticated = (req, res, next) => {
   const { cookies, url } = req;
@@ -17,7 +23,6 @@ const isAuthenticated = (req, res, next) => {
     res.redirect("/logout");
     return;
   }
-
   if (unprotectedRoutes.some(route => url.includes(route))) {
     next();
     return;
@@ -37,7 +42,6 @@ const isAuthenticated = (req, res, next) => {
 };
 
 module.exports = server => {
-  server.use(isAuthenticated);
   // passport.use(
   //   new Strategy({
   //     clientID: config.googleAuth.clientID,
@@ -117,4 +121,5 @@ module.exports = server => {
     res.clearCookie("id");
     res.redirect("/user-login");
   });
+  server.use(isAuthenticated);
 };

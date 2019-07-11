@@ -48,12 +48,12 @@ class App extends Component {
                     exact path="/"
                   /> */}
                 <ProtectedRoute component={Settings} exact path="/settings" />
-                <Route
+                <ProtectedRoute
                   component={NewEvent}
                   user={app.state.email}
                   path="/newEvent"
                 />
-                <Route
+                <ProtectedRoute
                   component={EventsMain}
                   user={app.state.email}
                   exact
