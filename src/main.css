@@ -409,12 +409,39 @@ i.fas.fa-cog {
   padding-left: 0;
 }
 
+/* Navigation */
+.nav {
+  padding-top: 5px;
+}
+
+a.nav-item:hover,
+a.nav-item:focus {
+  color: #929292;
+}
+
+a#tabNavigation-tab-t-charts,
+a#tabNavigation-tab-newEvent,
+a#tabNavigation-tab-events {
+  color: #969696;
+  font-weight: 400;
+}
+
+a#tabNavigation-tab-newEvent.active,
+a#tabNavigation-tab-t-charts.active,
+a#tabNavigation-tab-events.active {
+  color: #378eaf;
+}
 /* Events Home*/
 a.newEventButton {
   background: #19b9e7;
   color: white;
   padding: 1%;
   font-weight: bold;
+}
+
+.eventsList {
+  width: 90%;
+  margin: 1rem auto;
 }
 
 /* New Event Page */
@@ -548,7 +575,8 @@ i.far.fa-times-circle:hover {
   vertical-align: top;
   border-top: none;
 }
-thead.accountTableHeader {
+thead.accountTableHeader,
+thead.eventsListTableHead {
   background: #42acd4;
   color: white;
 }
@@ -596,8 +624,9 @@ td.total {
 }
 
 .tChartHeader {
-  background: #378eaf;
+  background: #19b9e7;
   padding: 0.5rem;
+  border-radius: 1rem 1rem 0 0;
 }
 
 .tChartHeader > h3 {
@@ -605,14 +634,24 @@ td.total {
 }
 
 tbody.tChartBody {
-  border: solid 2px;
+  background: #efefef;
 }
 
 td.debit {
   border-right: solid 2px;
 }
 
-td.total {
-  border: solid 2px;
-  background: #efefef;
+td.totalLeft,
+td.totalRight {
+  background: lightgrey;
+  color: black;
+  font-size: 1.2rem;
+}
+
+td.totalLeft {
+  border-bottom-left-radius: 1rem;
+}
+
+td.totalRight {
+  border-bottom-right-radius: 1rem;
 }

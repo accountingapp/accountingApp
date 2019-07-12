@@ -36,8 +36,8 @@ class TChart extends React.Component {
               <td className="credit border-left">1300</td>
             </tr>
             <tr>
-              <td className="total">3200</td>
-              <td className="total" />
+              <td className="totalLeft">3200</td>
+              <td className="totalRight" />
             </tr>
           </tbody>
         </Table>
