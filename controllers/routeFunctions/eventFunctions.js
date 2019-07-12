@@ -15,6 +15,21 @@ function createEvent(req, res) {
     });
 }
 
+function getEvents(req, res) {
+  db("events")
+    .then(results => {
+      if (results) {
+        console.log(`Successfully retrieved events`);
+        res.status(200).send(results);
+      } else {
+        console.log(`No events found`);
+      }
+    })
+    .catch(error => {
+      console.log("Error retrieving events: ", error);
+    });
+}
 module.exports = {
-  createEvent
+  createEvent,
+  getEvents
 };

@@ -60,6 +60,7 @@ module.exports = server => {
 
   //Events
   server.post("/event", eventFunctions.createEvent);
+  server.get("/events", eventFunctions.getEvents);
 
   //Charts
   server.post("/charts", chartFunctions.saveToS3);
