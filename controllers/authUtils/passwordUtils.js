@@ -67,8 +67,8 @@ function emailUser(user) {
   const mailOptions = {
     from: config.nodemailer.email,
     to: user.email,
-    subject: "Welcome to Financially Stated!",
-    text: `Here are your login credentials\n\nUsername: ${
+    subject: user.emailSubject || "Welcome to Financially Stated!",
+    text: `Here are your login credentials!\n\nUsername: ${
       user.email
     }\nPassword: ${user.password}`
   };

@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import React from "react";
-import { Row, Container, Form } from "react-bootstrap";
+import { Button, Row, Container, Form, Modal } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import AppContainer from "../container/AppContainer";
@@ -14,11 +14,17 @@ class Login extends React.Component {
       firstName: "",
       lastName: "",
       registerEmail: "",
-      company: "",
+      company: "FINSTATED ADMIN",
       loginEmail: "",
       loginPassword: "",
+      showModal: false,
+      modalEmail1: "",
+      modalEmail2: "",
+      modalInvalidFeedback: "",
       loginNeedsValidation: false,
-      registrationNeedsValidation: false
+      registrationNeedsValidation: false,
+      spinner: false,
+      forgotPasswordResults: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.loginUser = this.loginUser.bind(this);
@@ -26,11 +32,19 @@ class Login extends React.Component {
     this.isValid = this.isValid.bind(this);
     this.isValidEmail = this.isValidEmail.bind(this);
     this.checkAllValuesForValidity = this.checkAllValuesForValidity.bind(this);
+    this.handleModal = this.handleModal.bind(this);
+    this.toggleShowModal = this.toggleShowModal.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
   }
 
   handleChange(e) {
+    let { modalInvalidFeedback } = this.state;
+    if (e.target.name.includes("modal")) {
+      modalInvalidFeedback = "";
+    }
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value.trim(),
+      modalInvalidFeedback
     });
   }
 
@@ -49,12 +63,18 @@ class Login extends React.Component {
           axios
             .post("/loginUser", { credentials })
             .then(resp => {
-              console.log("SUCCESSFUL LOGIN", resp);
               app.updateAuthenticationStatus();
             })
             .catch(e => {
-              alert(e.response.data);
-              location.reload("/");
+              const message = e.response.data;
+              if (message === "Incorrect Password") {
+                this.setState({
+                  loginPassword: "is-invalid"
+                });
+              } else {
+                alert(e.response.data);
+                location.reload("/");
+              }
             });
         }
       }
@@ -104,17 +124,79 @@ class Login extends React.Component {
     );
   }
 
+  handleModal(e) {
+    if (!e || e.target.id === "cancel") {
+      this.toggleShowModal();
+      return;
+    }
+
+    if (e.target.id === "send") {
+      const { modalEmail1, modalEmail2 } = this.state;
+      if (modalEmail1 === modalEmail2) {
+        if (this.checkAllValuesForValidity("modalEmail1", "modalEmail2")) {
+          this.setState(
+            {
+              modalInvalidFeedback: "",
+              spinner: true
+            },
+            this.forgotPassword()
+          );
+        } else {
+          this.setState({
+            modalInvalidFeedback:
+              "Please enter a valid company or school email address."
+          });
+        }
+      } else {
+        this.setState({
+          modalInvalidFeedback: "Emails do not match"
+        });
+      }
+    }
+  }
+
+  toggleShowModal() {
+    const { showModal } = this.state;
+    this.setState({
+      showModal: !showModal,
+      modalEmail1: "",
+      modalEmail2: "",
+      spinner: false,
+      modalInvalidFeedback: "",
+      forgotPasswordResults: ""
+    });
+  }
+
+  forgotPassword(e) {
+    axios
+      .post("/forgotPassword", { email: this.state.modalEmail1 })
+      .then(resp => {
+        this.setState({ forgotPasswordResults: resp.data });
+      })
+      .catch(error => {
+        console.log("FORGOT PASSWORD ERROR\n", error.response);
+        this.setState({
+          forgotPasswordResults: error.response.data
+        });
+      });
+  }
+
   checkAllValuesForValidity() {
     return [...arguments].every(value =>
       this.isValid(value).includes("is-valid")
     );
   }
 
+  // Add notes for these functions --> how these accept REFERENCES to the values in state, not the values themselves.
   isValid(value) {
     const inputVal = this.state[value];
 
     if (value.includes("Email")) {
       return this.isValidEmail(inputVal) ? "is-valid" : "is-invalid";
+    }
+
+    if (value.includes("Password")) {
+      return this.state.loginPassword;
     }
 
     // this is just a 'required' field check
@@ -146,6 +228,79 @@ class Login extends React.Component {
             <Redirect to="/" />
           ) : (
             <div className="top-content">
+              <Modal show={this.state.showModal} onHide={this.toggleShowModal}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Forgot Password</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  {this.state.forgotPasswordResults ? (
+                    <div>{this.state.forgotPasswordResults}</div>
+                  ) : this.state.spinner ? (
+                    <div className="spinner-border" role="status" />
+                  ) : (
+                    <div>
+                      <p>Enter your email address</p>
+                      <div className="form-group">
+                        <input
+                          className={`modalEmail1 form-control ${
+                            this.state.modalInvalidFeedback ? "is-invalid" : ""
+                          }`}
+                          onChange={this.handleChange}
+                          type="text"
+                          name="modalEmail1"
+                          placeholder="Email..."
+                          value={this.state.modalEmail1}
+                        />
+                        <div className="invalid-feedback" />
+                      </div>
+                      <div className="form-group">
+                        <input
+                          className={`modalEmail2 form-control ${
+                            this.state.modalInvalidFeedback ? "is-invalid" : ""
+                          }`}
+                          onChange={this.handleChange}
+                          type="text"
+                          name="modalEmail2"
+                          placeholder="Confirm Email..."
+                          value={this.state.modalEmail2}
+                        />
+                        <div className="invalid-feedback">
+                          {this.state.modalInvalidFeedback}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </Modal.Body>
+                <Modal.Footer>
+                  {this.state.forgotPasswordResults ? (
+                    <Button
+                      variant="primary"
+                      id="close"
+                      onClick={this.toggleShowModal}
+                    >
+                      Close
+                    </Button>
+                  ) : (
+                    <div className="form-group">
+                      <Button
+                        variant="secondary"
+                        id="cancel"
+                        onClick={this.toggleShowModal}
+                      >
+                        Cancel
+                      </Button>
+                      <div className="divider" />
+                      <Button
+                        variant="primary"
+                        id="send"
+                        onClick={this.handleModal}
+                      >
+                        Send
+                      </Button>
+                    </div>
+                  )}
+                </Modal.Footer>
+              </Modal>
               <div className="inner-bg">
                 <Container className="container">
                   <Row className="row">
@@ -189,10 +344,22 @@ class Login extends React.Component {
                                 type="password"
                                 name="loginPassword"
                                 placeholder="Password..."
-                                className="loginPassword form-control"
+                                className={`loginPassword form-control ${loginNeedsValidation &&
+                                  this.isValid("loginPassword")}`}
                                 id="loginPassword"
                                 value={this.state.loginPassword}
                               />
+                              <div className="invalid-feedback">
+                                Incorrect Password.{" "}
+                                {
+                                  <span
+                                    className="forgotPassword"
+                                    onClick={this.toggleShowModal}
+                                  >
+                                    Forgot your password?
+                                  </span>
+                                }
+                              </div>
                             </div>
                             <input
                               type="submit"
