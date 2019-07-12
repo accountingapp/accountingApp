@@ -53,7 +53,7 @@ class App extends Component {
                   user={app.state.email}
                   path="/newEvent"
                 />
-                <ProtectedRoute
+                <Route
                   component={EventsMain}
                   user={app.state.email}
                   exact
