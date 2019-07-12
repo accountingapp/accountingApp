@@ -427,6 +427,11 @@ a.newEventButton {
   font-weight: bold;
 }
 
+.eventsList {
+  width: 90%;
+  margin: 1rem auto;
+}
+
 /* New Event Page */
 .listSearchResults:hover {
   cursor: pointer;
@@ -558,7 +563,8 @@ i.far.fa-times-circle:hover {
   vertical-align: top;
   border-top: none;
 }
-thead.accountTableHeader {
+thead.accountTableHeader,
+thead.eventsListTableHead {
   background: #42acd4;
   color: white;
 }
@@ -606,8 +612,9 @@ td.total {
 }
 
 .tChartHeader {
-  background: #378eaf;
+  background: #19b9e7;
   padding: 0.5rem;
+  border-radius: 1rem 1rem 0 0;
 }
 
 .tChartHeader > h3 {
@@ -615,14 +622,24 @@ td.total {
 }
 
 tbody.tChartBody {
-  border: solid 2px;
+  background: #efefef;
 }
 
 td.debit {
   border-right: solid 2px;
 }
 
-td.total {
-  border: solid 2px;
-  background: #efefef;
+td.totalLeft,
+td.totalRight {
+  background: lightgrey;
+  color: black;
+  font-size: 1.2rem;
+}
+
+td.totalLeft {
+  border-bottom-left-radius: 1rem;
+}
+
+td.totalRight {
+  border-bottom-right-radius: 1rem;
 }
