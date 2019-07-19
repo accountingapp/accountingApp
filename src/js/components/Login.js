@@ -14,7 +14,7 @@ class Login extends React.Component {
       firstName: "",
       lastName: "",
       registerEmail: "",
-      company: "FINSTATED ADMIN",
+      company: "",
       loginEmail: "",
       loginPassword: "",
       showModal: false,
