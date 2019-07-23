@@ -12,7 +12,6 @@ function getOwnerByName(req, res) {
   db("users")
     .where("name", "ilike", `%${req.params.name}%`)
     .then(results => {
-      console.log("RESULTS: ", results);
       if (results) {
         console.log(`Successfully retrieved owner by name`);
         res.status(200).send(results);
@@ -49,13 +48,11 @@ function registerUser(req, res) {
   db("users")
     .insert(user)
     .then(insertRes => {
-      console.log("insert Results", insertRes);
       user.password = password;
       // fire and forget as of now
       emailUser(user);
     })
     .then(() => {
-      console.log("registration successful");
       res.status(201).send("New User Created");
     })
     .catch(e => {
