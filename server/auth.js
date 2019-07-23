@@ -9,6 +9,7 @@ const { verifyJWT } = require("../controllers/authUtils/passwordUtils");
 const unprotectedRoutes = [
   "loginUser",
   "user-login",
+  "registerUser",
   "logout",
   "assets",
   "forgotPassword"
@@ -17,12 +18,12 @@ const unprotectedRoutes = [
 const isAuthenticated = (req, res, next) => {
   const { cookies, url } = req;
   const { JWT: token, email } = cookies;
-
   if (!req.headers) {
     console.log("\nNo headers present\n");
     res.redirect("/logout");
     return;
   }
+
   if (unprotectedRoutes.some(route => url.includes(route))) {
     next();
     return;
@@ -116,10 +117,12 @@ module.exports = server => {
   // )
 
   server.get("/logout", (req, res) => {
+    console.log("user being logged out");
     res.clearCookie("JWT");
     res.clearCookie("email");
     res.clearCookie("id");
     res.redirect("/user-login");
   });
+
   server.use(isAuthenticated);
 };
