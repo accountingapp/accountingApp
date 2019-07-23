@@ -11,6 +11,8 @@ exports.up = function(knex, Promise) {
       table.string("email").unique();
       table.string("password");
       table.string("company");
+
+      table.index("email");
     }),
     knex.schema.createTable("accounts", table => {
       table.increments("id").primary();
