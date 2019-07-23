@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const generatePassword = require("password-generator");
 const bcrypt = require("bcryptjs");
 const JWT = require("jsonwebtoken");
+const UUID = require("uuid/v4");
 const config = require("../../config");
 
 function createPassword() {
@@ -23,6 +24,10 @@ function comparePasswords(credentials) {
       });
     });
   };
+}
+
+function createUUID() {
+  return UUID();
 }
 
 function createJWT(user) {
@@ -85,6 +90,7 @@ function emailUser(user) {
 module.exports = {
   createPassword,
   encryptPassword,
+  createUUID,
   emailUser,
   comparePasswords,
   createJWT,

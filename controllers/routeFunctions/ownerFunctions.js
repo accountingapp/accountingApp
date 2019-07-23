@@ -2,6 +2,7 @@ const db = require("../../db/connection").knex;
 const {
   createPassword,
   encryptPassword,
+  createUUID,
   emailUser,
   comparePasswords,
   createJWT
@@ -39,22 +40,26 @@ function getAllUsers(req, res) {
     });
 }
 
-function createUser(req, res) {
+function registerUser(req, res) {
   const { user } = req.body;
+  const uuid = createUUID();
   const password = createPassword();
   user.password = encryptPassword(password);
-
+  user.id = uuid;
   db("users")
     .insert(user)
-    .then(() => {
+    .then(insertRes => {
+      console.log("insert Results", insertRes);
       user.password = password;
       // fire and forget as of now
       emailUser(user);
     })
     .then(() => {
+      console.log("registration successful");
       res.status(201).send("New User Created");
     })
     .catch(e => {
+      console.log("Registration error", e);
       res.status(400).send(e);
     });
 }
@@ -122,7 +127,7 @@ function forgotPassword(req, res) {
 module.exports = {
   getOwnerByName,
   getAllUsers,
-  createUser,
+  registerUser,
   loginUser,
   forgotPassword
 };

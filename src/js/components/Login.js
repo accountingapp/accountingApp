@@ -105,8 +105,9 @@ class Login extends React.Component {
           };
 
           axios
-            .post("/newUser", { user })
+            .post("/registerUser", { user })
             .then(resp => {
+              console.log("resp", resp.data);
               setTimeout(() => {
                 alert(
                   `${resp.data}\nLogin credentials have been sent to your email`
@@ -387,7 +388,7 @@ class Login extends React.Component {
                         <div className="form-bottom">
                           {/************ REGISTRATION FORM ************/}
                           <form
-                            onSubmit={this.registerUser}
+                            onSubmit={e => this.registerUser(e)}
                             className="registration-form"
                           >
                             <div className="form-group">
