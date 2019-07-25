@@ -14,58 +14,16 @@ import AccountTable from "./AccountTable";
 import SidePanel from "./SidePanel";
 import axios from "axios";
 
-class NewEventMain extends Component {
+class Event extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sectionType: "",
-      event: {
-        title: "",
-        description: "",
-        company: "",
-        date: new Date(),
-        documentNumber: "",
-        customer: "",
-        vendor: "",
-        invoice: "",
-        localCurrency: ""
-      },
-      stages: [
-        {
-          description: "Test",
-          financialImpact: "yes",
-          date: new Date(),
-          documentNumber: "",
-          customer: "",
-          vendor: "",
-          invoice: "",
-          owner: "",
-          department: "",
-          application: "",
-          issues: "",
-          accounts: [
-            {
-              accountDescription: "Cost of Goods Sold",
-              debitCredit: "Debit",
-              amount: "4,500.00",
-              currency: "USD",
-              accountType: "Expense",
-              increaseDecrease: "Increase"
-            },
-            {
-              accountDescription: "Inventory",
-              debitCredit: "Credit",
-              amount: "(4,500.00)",
-              currency: "USD",
-              accountType: "Asset",
-              increaseDecrease: "Decrease"
-            }
-          ]
-        }
-      ],
+      event: {},
       allAccounts: [],
       accountSearchResults: {}
     };
+    console.log("EVENT PROPS: ", props);
     this.handleChange = this.handleChange.bind(this);
     this.handleStageChange = this.handleStageChange.bind(this);
     this.handleAccountChange = this.handleAccountChange.bind(this);
@@ -93,22 +51,23 @@ class NewEventMain extends Component {
   }
 
   handleStageChange(e, stageIndex) {
-    const { stages } = this.state;
-    stages[stageIndex][e.target.id] = e.target.value;
+    const { event } = this.state;
+    event.stages[stageIndex][e.target.id] = e.target.value;
 
     this.setState({
-      stages,
+      event,
       sectionType: `stage_${stageIndex}`
     });
   }
 
   handleAccountChange(stageIndex, e, accountIndex) {
-    const { stages } = this.state;
-    stages[stageIndex].accounts[accountIndex][e.target.id] = e.target.value;
+    const { event } = this.state;
+    event.stages[stageIndex].accounts[accountIndex][e.target.id] =
+      e.target.value;
 
     this.setState(
       {
-        stages,
+        event,
         sectionType: "account"
       },
       e.target.id === "accountDescription"
@@ -143,7 +102,7 @@ class NewEventMain extends Component {
   }
 
   addStage() {
-    const { stages } = this.state;
+    const { event } = this.state;
     let stageObject = {
       stageDescription: "",
       financialImpact: "",
@@ -158,23 +117,23 @@ class NewEventMain extends Component {
         }
       ]
     };
-    stages.push(stageObject);
+    event.stages.push(stageObject);
 
     this.setState({
-      stages
+      event
     });
   }
 
   deleteStage(e, index) {
-    const { stages } = this.state;
-    stages.splice(index, 1);
+    const { event } = this.state;
+    event.stages.splice(index, 1);
     this.setState({
-      stages
+      event
     });
   }
 
   addAccount(stageIndex) {
-    const { stages } = this.state;
+    const { event } = this.state.event;
     let accountObject = {
       accountDescription: "",
       debitCredit: "",
@@ -184,25 +143,24 @@ class NewEventMain extends Component {
       increaseDecrease: ""
     };
 
-    stages[stageIndex].accounts.push(accountObject);
+    event.stages[stageIndex].accounts.push(accountObject);
 
     this.setState({
-      stages
+      event
     });
   }
 
   deleteAccount(stageIndex, accountIndex) {
-    const currentStages = this.state.stages;
-    currentStages[stageIndex].accounts.splice(accountIndex, 1);
+    const { event } = this.state;
+    event.stages[stageIndex].accounts.splice(accountIndex, 1);
 
     this.setState({
-      stages: currentStages
+      event
     });
   }
 
   createEvent() {
     let newEvent = this.state.event;
-    newEvent.stages = this.state.stages;
     return axios
       .post("/event", newEvent)
       .then(() => {
@@ -240,10 +198,8 @@ class NewEventMain extends Component {
                 />
               </div>
             </div>
-
-            {this.state.stages.length ? (
-              <div>
-                {this.state.stages.map((stage, index) => (
+            {this.state.stages && this.state.stages.length
+              ? this.state.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
                     <i
                       className="far fa-times-circle"
@@ -322,18 +278,17 @@ class NewEventMain extends Component {
                       <i className="fas fa-plus" />
                     </Button>
                   </div>
-                ))}
-                <Button
-                  className="newStageButton"
-                  onClick={() => {
-                    this.addStage();
-                    this.setState({ sectionType: `stage_0` });
-                  }}
-                >
-                  New Stage
-                </Button>
-              </div>
-            ) : null}
+                ))
+              : null}
+            <Button
+              className="newStageButton"
+              onClick={() => {
+                this.addStage();
+                this.setState({ sectionType: `stage_0` });
+              }}
+            >
+              New Stage
+            </Button>
           </Col>
           <Col md={4} className="sideNewEventPanel">
             <SidePanel
@@ -353,4 +308,4 @@ class NewEventMain extends Component {
   }
 }
 
-export default NewEventMain;
+export default Event;
