@@ -13,24 +13,25 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 const translate = {
-  //event
-  title: "*Title",
-  description: "*Description",
-  company: "Company",
-  date: "Date",
-  documentNumber: "Document Number",
-  customer: "Customer",
-  vendor: "Vendor",
-  invoice: "Invoice",
-  localCurrency: "Local Currency",
-
-  //stages
-  stageDescription: "Stage Description",
-  financialImpact: "Financial Impact",
-  owner: "Owner",
-  department: "Department",
-  application: "Application",
-  issues: ""
+  event: {
+    title: "*Title",
+    description: "*Description",
+    company: "Company",
+    date: "Date",
+    documentNumber: "Document Number",
+    customer: "Customer",
+    vendor: "Vendor",
+    invoice: "Invoice",
+    localCurrency: "Local Currency"
+  },
+  stages: {
+    stageDescription: "Stage Description",
+    financialImpact: "Financial Impact",
+    owner: "Owner",
+    department: "Department",
+    application: "Application",
+    issues: ""
+  }
 };
 const SidePanel = ({
   sectionType,
@@ -43,18 +44,18 @@ const SidePanel = ({
   let stageIndex =
     sectionType && sectionType.slice(0, 5) === "stage"
       ? parseInt(sectionType.slice(6))
-      : null;
+      : 0;
   return (
     <div className="entireSidePanel">
       {sectionType === "event" ? (
         <div className="eventSidePanel">
           <h3 className="heading">Event Details</h3>
-          {Object.keys(event).map((eventKey, i) => (
+          {Object.keys(translate.event).map((eventKey, i) => (
             <div key={eventKey} className="formGroup">
-              <label>{translate[eventKey]}</label>
+              <label>{translate.event[eventKey]}</label>
               <input
                 id={eventKey}
-                value={event[eventKey]}
+                value={event[eventKey] || ""}
                 onChange={e => handleChange(e)}
                 className="inputField sidePanelInput"
               />
@@ -67,11 +68,11 @@ const SidePanel = ({
       ) : sectionType.slice(0, 5) === "stage" ? (
         <div className="stageSidePanel">
           <h3 className="heading">{`Stage ${stageIndex + 1} Details`}</h3>
-          {Object.keys(stages[stageIndex]).map((eventKey, i) => (
+          {Object.keys(translate.stages).map((eventKey, i) => (
             <div key={eventKey}>
-              {translate[eventKey] && (
+              {translate.stages[eventKey] && (
                 <div className="formGroup">
-                  <label>{translate[eventKey]}</label>
+                  <label>{translate.stages[eventKey]}</label>
                   <input
                     id={eventKey}
                     value={stages[stageIndex][eventKey]}
