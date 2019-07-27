@@ -19,11 +19,10 @@ class Event extends Component {
     super(props);
     this.state = {
       sectionType: "",
-      event: {},
+      event: props.selectedEvent || {},
       allAccounts: [],
       accountSearchResults: {}
     };
-    console.log("EVENT PROPS: ", props);
     this.handleChange = this.handleChange.bind(this);
     this.handleStageChange = this.handleStageChange.bind(this);
     this.handleAccountChange = this.handleAccountChange.bind(this);
@@ -103,6 +102,7 @@ class Event extends Component {
 
   addStage() {
     const { event } = this.state;
+    event.stages = [];
     let stageObject = {
       stageDescription: "",
       financialImpact: "",
@@ -174,7 +174,7 @@ class Event extends Component {
       <div>
         <Row>
           <Col md={8} className="mainNewEventPanel">
-            <h3 className="heading">Create a New Event</h3>
+            <h3 className="heading">Overview</h3>
             <div className="eventHeader">
               <div className="formGroup">
                 <label>Title</label>
@@ -198,8 +198,8 @@ class Event extends Component {
                 />
               </div>
             </div>
-            {this.state.stages && this.state.stages.length
-              ? this.state.stages.map((stage, index) => (
+            {this.state.event.stages && this.state.event.stages.length
+              ? this.state.event.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
                     <i
                       className="far fa-times-circle"
@@ -212,7 +212,7 @@ class Event extends Component {
                       <label>Stage Description</label>
                       <input
                         id="stageDescription"
-                        value={this.state.stages[index].stageDescription}
+                        value={this.state.event.stages[index].stageDescription}
                         onChange={e => this.handleStageChange(e, index)}
                         className="inputField inputFieldStage"
                         onClick={() =>
@@ -226,7 +226,8 @@ class Event extends Component {
                           value="yes"
                           id="financialImpact"
                           className={`financialImpactButton ${
-                            this.state.stages[index].financialImpact !== "yes"
+                            this.state.event.stages[index].financialImpact !==
+                            "yes"
                               ? "unselectedButton"
                               : ""
                           }`}
@@ -241,7 +242,8 @@ class Event extends Component {
                           value="no"
                           id="financialImpact"
                           className={`financialImpactButton ${
-                            this.state.stages[index].financialImpact !== "no"
+                            this.state.event.stages[index].financialImpact !==
+                            "no"
                               ? "unselectedButton"
                               : ""
                           }`}
@@ -294,7 +296,7 @@ class Event extends Component {
             <SidePanel
               sectionType={this.state.sectionType}
               event={this.state.event}
-              stages={this.state.stages}
+              stages={this.state.event.stages}
               handleChange={e => this.handleChange(e)}
               handleStageChange={(e, stageIndex) =>
                 this.handleStageChange(e, stageIndex)

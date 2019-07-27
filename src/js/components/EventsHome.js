@@ -22,7 +22,6 @@ class EventsHome extends Component {
   }
 
   handleRowClick(event) {
-    console.log("clicked on: ", event);
     this.props.history.push(`/event-details/${event.id}`);
   }
 
@@ -78,6 +77,9 @@ class EventsHome extends Component {
               : null}
           </tbody>
         </Table>
+        <Button onClick={() => this.props.history.push(`/event-details/new`)}>
+          Create Event
+        </Button>
       </div>
     );
   }

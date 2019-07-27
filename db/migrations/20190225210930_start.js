@@ -6,18 +6,20 @@ exports.up = function(knex, Promise) {
       table.string("module").notNullable();
     }),
     knex.schema.createTable("users", table => {
-      table.increments("id").primary();
+      table.uuid("id").primary();
       table.string("name").notNullable();
       table.string("email").unique();
       table.string("password");
       table.string("company");
+
+      table.index("email");
     }),
     knex.schema.createTable("accounts", table => {
       table.increments("id").primary();
       table.string("description").notNullable();
       table.string("natural").notNullable();
       table.integer("moduleId").notNullable();
-      table.integer("ownerId").notNullable();
+      table.uuid("ownerId");
       table.specificType("processes", "text[]");
       table.specificType("contributors", "text[]");
 
@@ -36,7 +38,7 @@ exports.up = function(knex, Promise) {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.specificType("process", "json[]");
-      table.integer("ownerId").notNullable();
+      table.uuid("ownerId").notNullable();
 
       table
         .foreign("ownerId")
@@ -55,7 +57,7 @@ exports.up = function(knex, Promise) {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.string("description").notNullable();
-      table.string("user");
+      table.string("user").unique();
       table.string("company");
       table.string("date");
       table.string("documentNumber");
@@ -80,8 +82,8 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTableIfExists("resources"),
     knex.schema.dropTableIfExists("accounts"),
     knex.schema.dropTableIfExists("processes"),
-    knex.schema.dropTableIfExists("users"),
     knex.schema.dropTableIfExists("modules"),
-    knex.schema.dropTableIfExists("events")
+    knex.schema.dropTableIfExists("events"),
+    knex.schema.dropTableIfExists("users")
   ]);
 };

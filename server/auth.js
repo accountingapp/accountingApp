@@ -6,12 +6,18 @@
 // const config = require('../config');
 const { verifyJWT } = require("../controllers/authUtils/passwordUtils");
 
-const unprotectedRoutes = ["loginUser", "user-login", "logout", "assets"];
+const unprotectedRoutes = [
+  "loginUser",
+  "user-login",
+  "registerUser",
+  "logout",
+  "assets",
+  "forgotPassword"
+];
 
 const isAuthenticated = (req, res, next) => {
   const { cookies, url } = req;
   const { JWT: token, email } = cookies;
-
   if (!req.headers) {
     console.log("\nNo headers present\n");
     res.redirect("/logout");
@@ -37,7 +43,6 @@ const isAuthenticated = (req, res, next) => {
 };
 
 module.exports = server => {
-  server.use(isAuthenticated);
   // passport.use(
   //   new Strategy({
   //     clientID: config.googleAuth.clientID,
@@ -112,9 +117,12 @@ module.exports = server => {
   // )
 
   server.get("/logout", (req, res) => {
+    console.log("user being logged out");
     res.clearCookie("JWT");
     res.clearCookie("email");
     res.clearCookie("id");
     res.redirect("/user-login");
   });
+
+  server.use(isAuthenticated);
 };

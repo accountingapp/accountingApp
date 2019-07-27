@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import Event from "./EditEvent/Event";
 import TChartMain from "./TCharts/TChartMain";
 import axios from "axios";
-import { NullableBoolean } from "aws-sdk/clients/xray";
 
 class EventTabs extends Component {
   constructor(props) {
@@ -18,31 +17,39 @@ class EventTabs extends Component {
       selectedEvent: {}
     };
     this.event = props.match.params.eventId;
-    console.log("event id: ", this.event);
   }
 
   componentDidMount() {
-    axios
-      .get(`/event/${this.event}`)
-      .then(results => {
-        console.log("EVENT: ", results.data);
-        this.setState({ selectedEvent: results.data });
-      })
-      .catch(error => console.log("ERROR: ", error));
+    if (this.event !== "new") {
+      return axios
+        .get(`/event/${this.event}`)
+        .then(results => {
+          this.setState({ selectedEvent: results.data });
+        })
+        .catch(error => console.log("ERROR: ", error));
+    } else {
+      let newEvent = { id: "new" };
+      this.setState({ selectedEvent: newEvent });
+    }
   }
 
   render() {
     return (
       <div>
-        {this.state.selectedEvent ? (
+        {this.state.selectedEvent.id ? (
           <div>
-            <h2>Event Title</h2>
-
+            <h2 className="eventTitle">
+              {this.state.selectedEvent.title || "Create a new Event"}
+            </h2>
+            <Link to={`/`}>
+              <Button className="allEventsButton">
+                <i className="fas fa-arrow-left" />
+                All Events
+              </Button>
+            </Link>
             <Tabs defaultActiveKey="event" id="tabNavigation">
               <Tab className="navItem" eventKey="event" title="Event">
-                {/* <Event 
-                selectedEvent={this.state.selectedEvent}
-              /> */}
+                <Event selectedEvent={this.state.selectedEvent} />
               </Tab>
               <Tab eventKey="t-charts" title="T-Charts">
                 <TChartMain />
