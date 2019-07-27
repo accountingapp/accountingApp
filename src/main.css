@@ -420,17 +420,34 @@ a.nav-item:focus {
 }
 
 a#tabNavigation-tab-t-charts,
-a#tabNavigation-tab-newEvent,
-a#tabNavigation-tab-events {
+a#tabNavigation-tab-event,
+a#tabNavigation-tab-summary {
   color: #969696;
   font-weight: 400;
 }
 
-a#tabNavigation-tab-newEvent.active,
+a#tabNavigation-tab-event.active,
 a#tabNavigation-tab-t-charts.active,
-a#tabNavigation-tab-events.active {
+a#tabNavigation-tab-summary.active {
   color: #378eaf;
 }
+
+i.fas.fa-arrow-left {
+  padding-right: 7px;
+}
+
+button.allEventsButton.btn.btn-primary {
+  background: transparent;
+  color: #007bff;
+  border: none;
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  letter-spacing: 2px;
+  font-weight: bold;
+  padding: 6px 12px;
+}
+
 /* Events Home*/
 a.newEventButton {
   background: #19b9e7;

@@ -29,7 +29,25 @@ function getEvents(req, res) {
       console.log("Error retrieving events: ", error);
     });
 }
+
+function getEvent(req, res) {
+  console.log("getting here");
+  db("events")
+    .where("id", req.params.eventId)
+    .then(results => {
+      if (results) {
+        console.log(`Successfully retrieved event`, results);
+        res.status(200).send(results[0]);
+      } else {
+        console.log(`No event found`);
+      }
+    })
+    .catch(error => {
+      console.log("Error retrieving events: ", error);
+    });
+}
 module.exports = {
   createEvent,
-  getEvents
+  getEvents,
+  getEvent
 };
