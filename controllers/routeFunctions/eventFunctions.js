@@ -1,6 +1,7 @@
 const db = require("../../db/connection").knex;
 function createEvent(req, res) {
   const event = req.body;
+  console.log("SERVER EVENT: ", event);
   if (!event || !event.title || !event.description) {
     res.status(400).send("Make sure your event has a title and description");
   }
