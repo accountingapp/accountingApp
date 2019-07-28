@@ -1,7 +1,6 @@
 const db = require("../../db/connection").knex;
 function createEvent(req, res) {
   const event = req.body;
-  console.log("SERVER EVENT: ", event);
   if (!event || !event.title || !event.description) {
     res.status(400).send("Make sure your event has a title and description");
   }
@@ -32,7 +31,6 @@ function getEvents(req, res) {
 }
 
 function getEvent(req, res) {
-  console.log("getting here");
   db("events")
     .where("id", req.params.eventId)
     .then(results => {

@@ -14,7 +14,19 @@ class EventTabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedEvent: {},
+      selectedEvent: {
+        title: "",
+        description: "",
+        user: "",
+        company: "",
+        date: "",
+        documentNumber: "",
+        customer: "",
+        vendor: "",
+        invoice: "",
+        localCurrency: "",
+        stages: []
+      },
       status: ""
     };
     this.event = props.match.params.eventId;
@@ -39,7 +51,7 @@ class EventTabs extends Component {
         {this.state.status ? (
           <div>
             <h2 className="eventTitle">
-              {this.state.selectedEvent.title || "Create a new Event"}
+              {this.state.selectedEvent.title || "Create a New Event"}
             </h2>
             <Link to={`/`}>
               <Button className="allEventsButton">
