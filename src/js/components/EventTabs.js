@@ -14,7 +14,8 @@ class EventTabs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedEvent: {}
+      selectedEvent: {},
+      status: ""
     };
     this.event = props.match.params.eventId;
   }
@@ -24,19 +25,18 @@ class EventTabs extends Component {
       return axios
         .get(`/event/${this.event}`)
         .then(results => {
-          this.setState({ selectedEvent: results.data });
+          this.setState({ selectedEvent: results.data, status: "RETRIEVED" });
         })
         .catch(error => console.log("ERROR: ", error));
     } else {
-      let newEvent = { id: "new" };
-      this.setState({ selectedEvent: newEvent });
+      this.setState({ status: "NEW" });
     }
   }
 
   render() {
     return (
       <div>
-        {this.state.selectedEvent.id ? (
+        {this.state.status ? (
           <div>
             <h2 className="eventTitle">
               {this.state.selectedEvent.title || "Create a new Event"}

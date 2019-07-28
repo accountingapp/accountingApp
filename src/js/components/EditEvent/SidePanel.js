@@ -55,7 +55,7 @@ const SidePanel = ({
               <label>{translate.event[eventKey]}</label>
               <input
                 id={eventKey}
-                value={event[eventKey] || ""}
+                value={event[eventKey]}
                 onChange={e => handleChange(e)}
                 className="inputField sidePanelInput"
               />
