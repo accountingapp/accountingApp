@@ -7,9 +7,18 @@ html {
   color: #545454;
 }
 
-.btn.btn-primary.btn-lg {
-  background: #378eaf;
-  border: none;
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus {
+  color: #fff;
+  background-color: #4468d5;
+  border-color: #4468d5;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
 }
 
 /* Landing */
@@ -429,7 +438,7 @@ a#tabNavigation-tab-summary {
 a#tabNavigation-tab-event.active,
 a#tabNavigation-tab-t-charts.active,
 a#tabNavigation-tab-summary.active {
-  color: #378eaf;
+  color: #4468d5;
 }
 
 i.fas.fa-arrow-left {
@@ -458,7 +467,7 @@ button.allEventsButton.btn.btn-primary {
 button.allEventsButton.btn.btn-primary:hover,
 button.allEventsButton.btn.btn-primary:active,
 button.allEventsButton.btn.btn-primary:focus {
-  color: #007bff;
+  color: #4468d5;
   font-style: italic;
   background: transparent;
   border: none;
@@ -565,8 +574,8 @@ h3.stageHeading {
 button.financialImpactButton.btn.btn-primary {
   margin: 0 1.5%;
   width: 5%;
-  background-color: #007bff;
-  border-color: #007bff;
+  /* background-color: #007bff;
+  border-color: #007bff; */
   flex: 0.4;
 }
 button.unselectedButton.btn.btn-primary {
@@ -578,8 +587,8 @@ button.unselectedButton.btn.btn-primary {
 }
 
 button.createEvent.btn.btn-primary {
-  background: #007bfe;
-  border-color: #007bfe;
+  /* background: #007bfe;
+  border-color: #007bfe; */
   width: 50%;
   position: absolute;
   bottom: 5%;
