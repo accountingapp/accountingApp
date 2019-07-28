@@ -19,7 +19,7 @@ class Event extends Component {
     super(props);
     this.state = {
       sectionType: "",
-      event: props.selectedEvent || {},
+      event: props.selectedEvent,
       allAccounts: [],
       accountSearchResults: {}
     };
@@ -102,7 +102,6 @@ class Event extends Component {
 
   addStage() {
     const { event } = this.state;
-    event.stages = [];
     let stageObject = {
       stageDescription: "",
       financialImpact: "",

@@ -438,7 +438,7 @@ i.fas.fa-arrow-left {
 
 button.allEventsButton.btn.btn-primary {
   background: transparent;
-  color: #007bff;
+  color: grey;
   border: none;
   align-items: center;
   justify-content: flex-start;
@@ -446,6 +446,23 @@ button.allEventsButton.btn.btn-primary {
   letter-spacing: 2px;
   font-weight: bold;
   padding: 6px 12px;
+  box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+button.allEventsButton.btn.btn-primary:hover,
+button.allEventsButton.btn.btn-primary:active,
+button.allEventsButton.btn.btn-primary:focus {
+  color: #007bff;
+  font-style: italic;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 /* Events Home*/
