@@ -17,7 +17,7 @@ class EventTabs extends Component {
       selectedEvent: {
         title: "",
         description: "",
-        user: "",
+        // user: "",
         company: "",
         date: "",
         documentNumber: "",
@@ -64,7 +64,7 @@ class EventTabs extends Component {
                 <Event selectedEvent={this.state.selectedEvent} />
               </Tab>
               <Tab eventKey="t-charts" title="T-Charts">
-                <TChartMain />
+                <TChartMain selectedEvent={this.state.selectedEvent} />
               </Tab>
               <Tab eventKey="summary" title="Summary" />
             </Tabs>

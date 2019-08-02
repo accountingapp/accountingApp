@@ -39,7 +39,7 @@ class EventsHome extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.events.length
+            {this.state.events && this.state.events.length
               ? this.state.events.map((event, i) => (
                   <tr key={`event-${event.id}`} className="eventsListRow">
                     <td

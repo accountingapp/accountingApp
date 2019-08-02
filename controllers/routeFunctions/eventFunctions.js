@@ -1,6 +1,7 @@
 const db = require("../../db/connection").knex;
 function createEvent(req, res) {
   const event = req.body;
+  console.log("EVENT: ", event);
   if (!event || !event.title || !event.description) {
     res.status(400).send("Make sure your event has a title and description");
   }
@@ -11,6 +12,7 @@ function createEvent(req, res) {
       res.status(200).send("New Event Created");
     })
     .catch(e => {
+      console.log("Error creating event: ", e);
       res.status(400).send(e);
     });
 }

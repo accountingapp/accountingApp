@@ -11,14 +11,95 @@ class TChartMain extends React.Component {
 
     this.state = {
       credits: [],
-      debits: []
+      debits: [],
+      accounts: []
     };
+    // console.log("T CHART PROPS: ", props);
+    this.transformAccountArray = this.transformAccountArray.bind(this);
+  }
+
+  componentDidMount() {
+    this.transformAccountArray(this.props.selectedEvent);
+  }
+
+  transformAccountArray(selectedEvent) {
+    console.log("SELECTED EVENT: ", selectedEvent);
+    // let example = {
+    //   "Cost of Goods Sold": {
+    //     "stages": [
+    //       {
+    //         "stage": 2,
+    //         "debitCredit": "debit",
+    //         "amount": "4,500.00"
+    //       }
+    //     ],
+    //     "total": "4,500.00"
+    //   },
+    //   "Inventory": {
+    //     "stages": [
+    //       {
+    //         "stage": 2,
+    //         "debitCredit": "credit",
+    //         "amount": "4,500.00"
+    //       }
+    //     ],
+    //     "total": "4,500.00"
+    //   },
+    //   "AccountReceivable": {
+    //     "stages": [
+    //       {
+    //         "stage": 2,
+    //         "debitCredit": "debit",
+    //         "amount": "9742.50"
+    //       },
+    //       {
+    //         "stage": 3,
+    //         "debitCredit": "credit",
+    //         "amount": "9742.50"
+    //       }
+    //     ],
+    //     "total": "0"
+    //   }
+    // }
+    let transformedAccountObject = {};
+    selectedEvent.stages.forEach((stage, stageIndex) => {
+      if (stage.financialImpact === "no") return;
+      stage.accounts.forEach((account, accountIndex) => {
+        let stageInfo = {
+          stage: stageIndex + 1,
+          debitCredit: account.debitCredit,
+          amount: account.amount
+        };
+        if (!transformedAccountObject[account.accountDescription]) {
+          transformedAccountObject[account.accountDescription] = {
+            stages: [stageInfo],
+            total: stageInfo.amount
+          };
+        } else {
+          transformedAccountObject[
+            account.accountDescription
+          ].stages = transformedAccountObject[
+            account.accountDescription
+          ].stages.concat(stageInfo);
+          transformedAccountObject[account.accountDescription].total +=
+            stageInfo.amount;
+        }
+      });
+    });
+    console.log("TRANSFORMED: ", transformedAccountObject);
+    return transformedAccountObject;
   }
 
   render() {
-    const { props } = this.props;
+    const { selectedEvent } = this.props;
+
     return (
       <div>
+        <ol className="stageDescriptionList">
+          {selectedEvent.stages.map(stage => (
+            <li>{stage.stageDescription}</li>
+          ))}
+        </ol>
         <Container>
           <Row>
             <Col md={4}>
