@@ -203,12 +203,14 @@ class Event extends Component {
             {this.state.event.stages && this.state.event.stages.length
               ? this.state.event.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
-                    <i
-                      className="far fa-times-circle"
-                      aria-hidden="false"
-                      onClick={e => this.deleteStage(e, index)}
-                      // TODO: Make this trigger a modal to confirm user wants to delete stage
-                    />
+                    <div className="deleteContainer">
+                      <i
+                        className="far fa-times-circle"
+                        aria-hidden="false"
+                        onClick={e => this.deleteStage(e, index)}
+                        // TODO: Make this trigger a modal to confirm user wants to delete stage
+                      />
+                    </div>
                     <h3 className="stageHeading">{`Stage ${index + 1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>

@@ -12,10 +12,11 @@ class TChartMain extends React.Component {
     this.state = {
       credits: [],
       debits: [],
-      accounts: []
+      charts: {}
     };
     // console.log("T CHART PROPS: ", props);
     this.transformAccountArray = this.transformAccountArray.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
   }
 
   componentDidMount() {
@@ -23,44 +24,6 @@ class TChartMain extends React.Component {
   }
 
   transformAccountArray(selectedEvent) {
-    console.log("SELECTED EVENT: ", selectedEvent);
-    // let example = {
-    //   "Cost of Goods Sold": {
-    //     "stages": [
-    //       {
-    //         "stage": 2,
-    //         "debitCredit": "debit",
-    //         "amount": "4,500.00"
-    //       }
-    //     ],
-    //     "total": "4,500.00"
-    //   },
-    //   "Inventory": {
-    //     "stages": [
-    //       {
-    //         "stage": 2,
-    //         "debitCredit": "credit",
-    //         "amount": "4,500.00"
-    //       }
-    //     ],
-    //     "total": "4,500.00"
-    //   },
-    //   "AccountReceivable": {
-    //     "stages": [
-    //       {
-    //         "stage": 2,
-    //         "debitCredit": "debit",
-    //         "amount": "9742.50"
-    //       },
-    //       {
-    //         "stage": 3,
-    //         "debitCredit": "credit",
-    //         "amount": "9742.50"
-    //       }
-    //     ],
-    //     "total": "0"
-    //   }
-    // }
     let transformedAccountObject = {};
     selectedEvent.stages.forEach((stage, stageIndex) => {
       if (stage.financialImpact === "no") return;
@@ -73,7 +36,7 @@ class TChartMain extends React.Component {
         if (!transformedAccountObject[account.accountDescription]) {
           transformedAccountObject[account.accountDescription] = {
             stages: [stageInfo],
-            total: stageInfo.amount
+            total: this.calculateTotal(stageInfo)
           };
         } else {
           transformedAccountObject[
@@ -81,47 +44,53 @@ class TChartMain extends React.Component {
           ].stages = transformedAccountObject[
             account.accountDescription
           ].stages.concat(stageInfo);
-          transformedAccountObject[account.accountDescription].total +=
-            stageInfo.amount;
+          transformedAccountObject[
+            account.accountDescription
+          ].total = this.calculateTotal(
+            stageInfo,
+            transformedAccountObject[account.accountDescription].total
+          );
         }
       });
     });
-    console.log("TRANSFORMED: ", transformedAccountObject);
+    this.setState({ charts: transformedAccountObject });
     return transformedAccountObject;
+  }
+
+  calculateTotal(newStage, currentTotal = 0) {
+    let newAmount =
+      newStage.debitCredit === "Credit"
+        ? `-${newStage.amount.trim()}`
+        : `+${newStage.amount.trim()}`;
+    newAmount = Number(parseFloat(newAmount).toFixed(2));
+    let total = Number(parseFloat(currentTotal).toFixed(2)) + newAmount;
+    console.log("CALCULATE: ", total);
+    return total;
   }
 
   render() {
     const { selectedEvent } = this.props;
-
     return (
       <div>
         <ol className="stageDescriptionList">
-          {selectedEvent.stages.map(stage => (
-            <li>{stage.stageDescription}</li>
+          {selectedEvent.stages.map((stage, i) => (
+            <li key={`stage_${i}`}>{stage.stageDescription}</li>
           ))}
         </ol>
         <Container>
           <Row>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
+            {!!Object.keys(this.state.charts).length &&
+              Object.keys(this.state.charts).map(account => (
+                <Col md={4} key={account}>
+                  <TChart
+                    chart={Object.assign(
+                      {},
+                      { account },
+                      this.state.charts[account]
+                    )}
+                  />
+                </Col>
+              ))}
           </Row>
         </Container>
       </div>

@@ -6,9 +6,23 @@ function createEvent(req, res) {
     res.status(400).send("Make sure your event has a title and description");
   }
 
+  let newEvent = {
+    title: event.title,
+    description: event.description,
+    company: event.company,
+    date: event.date || new Date(),
+    documentNumber: event.documentNumber,
+    customer: event.customer,
+    vendor: event.vendor,
+    invoice: event.invoice,
+    localCurrency: event.localCurrency,
+    stages: event.stages
+  };
+
   db("events")
-    .insert(event)
-    .then(() => {
+    .insert(newEvent)
+    .then(response => {
+      console.log("NEW EVENT RESPONSE: ", response);
       res.status(200).send("New Event Created");
     })
     .catch(e => {
