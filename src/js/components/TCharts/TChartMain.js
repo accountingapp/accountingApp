@@ -11,36 +11,86 @@ class TChartMain extends React.Component {
 
     this.state = {
       credits: [],
-      debits: []
+      debits: [],
+      charts: {}
     };
+    // console.log("T CHART PROPS: ", props);
+    this.transformAccountArray = this.transformAccountArray.bind(this);
+    this.calculateTotal = this.calculateTotal.bind(this);
+  }
+
+  componentDidMount() {
+    this.transformAccountArray(this.props.selectedEvent);
+  }
+
+  transformAccountArray(selectedEvent) {
+    let transformedAccountObject = {};
+    selectedEvent.stages.forEach((stage, stageIndex) => {
+      if (stage.financialImpact === "no") return;
+      stage.accounts.forEach((account, accountIndex) => {
+        let stageInfo = {
+          stage: stageIndex + 1,
+          debitCredit: account.debitCredit,
+          amount: account.amount
+        };
+        if (!transformedAccountObject[account.accountDescription]) {
+          transformedAccountObject[account.accountDescription] = {
+            stages: [stageInfo],
+            total: this.calculateTotal(stageInfo)
+          };
+        } else {
+          transformedAccountObject[
+            account.accountDescription
+          ].stages = transformedAccountObject[
+            account.accountDescription
+          ].stages.concat(stageInfo);
+          transformedAccountObject[
+            account.accountDescription
+          ].total = this.calculateTotal(
+            stageInfo,
+            transformedAccountObject[account.accountDescription].total
+          );
+        }
+      });
+    });
+    this.setState({ charts: transformedAccountObject });
+    return transformedAccountObject;
+  }
+
+  calculateTotal(newStage, currentTotal = 0) {
+    let newAmount =
+      newStage.debitCredit === "Credit"
+        ? `-${newStage.amount.trim()}`
+        : `+${newStage.amount.trim()}`;
+    newAmount = Number(parseFloat(newAmount).toFixed(2));
+    let total = Number(parseFloat(currentTotal).toFixed(2)) + newAmount;
+    console.log("CALCULATE: ", total);
+    return total;
   }
 
   render() {
-    const { props } = this.props;
+    const { selectedEvent } = this.props;
     return (
       <div>
+        <ol className="stageDescriptionList">
+          {selectedEvent.stages.map((stage, i) => (
+            <li key={`stage_${i}`}>{stage.stageDescription}</li>
+          ))}
+        </ol>
         <Container>
           <Row>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
-          </Row>
-          <Row>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
-            <Col md={4}>
-              <TChart />
-            </Col>
+            {!!Object.keys(this.state.charts).length &&
+              Object.keys(this.state.charts).map(account => (
+                <Col md={4} key={account}>
+                  <TChart
+                    chart={Object.assign(
+                      {},
+                      { account },
+                      this.state.charts[account]
+                    )}
+                  />
+                </Col>
+              ))}
           </Row>
         </Container>
       </div>

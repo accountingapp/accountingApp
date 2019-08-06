@@ -132,7 +132,8 @@ class Event extends Component {
   }
 
   addAccount(stageIndex) {
-    const { event } = this.state.event;
+    const { event } = this.state;
+    console.log("EVENT: ", event);
     let accountObject = {
       accountDescription: "",
       debitCredit: "",
@@ -141,7 +142,9 @@ class Event extends Component {
       accountType: "",
       increaseDecrease: ""
     };
-
+    event.stages[stageIndex].accounts = event.stages[stageIndex].accounts
+      ? event.stages[stageIndex].accounts
+      : [];
     event.stages[stageIndex].accounts.push(accountObject);
 
     this.setState({
@@ -200,12 +203,14 @@ class Event extends Component {
             {this.state.event.stages && this.state.event.stages.length
               ? this.state.event.stages.map((stage, index) => (
                   <div key={`stage-${index}`} className="eventHeader">
-                    <i
-                      className="far fa-times-circle"
-                      aria-hidden="false"
-                      onClick={e => this.deleteStage(e, index)}
-                      // TODO: Make this trigger a modal to confirm user wants to delete stage
-                    />
+                    <div className="deleteContainer">
+                      <i
+                        className="far fa-times-circle"
+                        aria-hidden="false"
+                        onClick={e => this.deleteStage(e, index)}
+                        // TODO: Make this trigger a modal to confirm user wants to delete stage
+                      />
+                    </div>
                     <h3 className="stageHeading">{`Stage ${index + 1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
@@ -256,28 +261,35 @@ class Event extends Component {
                       </ButtonToolbar>
                     </div>
 
-                    <AccountTable
-                      accounts={stage.accounts}
-                      accountSearchResults={
-                        this.state.accountSearchResults[index]
+                    <div
+                      className="accountsTable"
+                      hidden={
+                        this.state.event.stages[index].financialImpact !== "yes"
                       }
-                      handleAccountChange={(e, accountIndex) =>
-                        this.handleAccountChange(index, e, accountIndex)
-                      }
-                      deleteAccount={accountIndex =>
-                        this.deleteAccount(index, accountIndex)
-                      }
-                      onClick={() =>
-                        this.setState({ sectionType: `stage_${index}` })
-                      }
-                    />
-
-                    <Button
-                      className="newAccountButton"
-                      onClick={() => this.addAccount(index)}
                     >
-                      <i className="fas fa-plus" />
-                    </Button>
+                      <AccountTable
+                        accounts={stage.accounts}
+                        accountSearchResults={
+                          this.state.accountSearchResults[index]
+                        }
+                        handleAccountChange={(e, accountIndex) =>
+                          this.handleAccountChange(index, e, accountIndex)
+                        }
+                        deleteAccount={accountIndex =>
+                          this.deleteAccount(index, accountIndex)
+                        }
+                        onClick={() =>
+                          this.setState({ sectionType: `stage_${index}` })
+                        }
+                      />
+
+                      <Button
+                        className="newAccountButton"
+                        onClick={() => this.addAccount(index)}
+                      >
+                        <i className="fas fa-plus" />
+                      </Button>
+                    </div>
                   </div>
                 ))
               : null}

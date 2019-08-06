@@ -1,15 +1,14 @@
-
 const forbiddenDomains = {
-  '126': true,
-  '163': true,
+  "126": true,
+  "163": true,
   aol: true,
   att: true,
   comcast: true,
   facebook: true,
-  gmail: true,
+  // gmail: true,
   gmx: true,
-  googlemail: true,
-  google: true,
+  // googlemail: true,
+  // google: true,
   hotmail: true,
   mac: true,
   me: true,
@@ -37,7 +36,7 @@ const forbiddenDomains = {
   tuta: true,
   keemail: true,
   rocketmail: true,
-  'safe-mail': true,
+  "safe-mail": true,
   wow: true,
   ygm: true,
   ymail: true,
@@ -68,7 +67,7 @@ const forbiddenDomains = {
   daum: true,
   nate: true,
   yeah: true,
-  '21cn': true,
+  "21cn": true,
   aliyun: true,
   foxmail: true,
   laposte: true,
@@ -76,7 +75,7 @@ const forbiddenDomains = {
   neuf: true,
   free: true,
   online: true,
-  't-online': true,
+  "t-online": true,
   web: true,
   libero: true,
   virgilio: true,
@@ -105,6 +104,6 @@ const forbiddenDomains = {
   globo: true,
   globomail: true,
   oi: true
-}
+};
 
 export default forbiddenDomains;

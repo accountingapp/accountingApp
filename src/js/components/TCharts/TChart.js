@@ -4,41 +4,68 @@ import { Table } from "react-bootstrap";
 class TChart extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      credits: [],
-      debits: []
-    };
   }
 
   render() {
-    const { props } = this.props;
+    const { chart } = this.props;
     return (
       <div className="tChart">
-        <br />
-        <div className="tChartHeader">
-          <h3>GL account from props</h3>
-        </div>
         <Table>
-          {/* <thead>
+          <thead>
             <tr>
-              <th>Debit</th>
-              <th>Credit</th>
+              <th className="stageNumberHeader" />
+              <th colspan="2" className="tChartHeader">
+                {chart.account}
+              </th>
             </tr>
-          </thead> */}
+            <tr>
+              <th className="stageNumberHeader" />
+              <th className="columnHeader">Debit</th>
+              <th className="columnHeader">Credit</th>
+            </tr>
+          </thead>
           <tbody className="tChartBody">
-            <tr>
-              <td className="debit">4500</td>
-              <td className="credit border-left" />
-            </tr>
-            <tr>
-              <td className="debit" />
-              <td className="credit border-left">1300</td>
-            </tr>
-            <tr>
-              <td className="totalLeft">3200</td>
-              <td className="totalRight" />
-            </tr>
+            {chart.stages.map(stage => {
+              if (stage.debitCredit === "Debit") {
+                return (
+                  <tr key={stage.stage}>
+                    <td className="stageNumberCell">{stage.stage}</td>
+                    <td className="debit">{stage.amount}</td>
+                    <td className="credit border-left" />
+                  </tr>
+                );
+              } else if (stage.debitCredit === "Credit") {
+                return (
+                  <tr key={stage.stage}>
+                    <td className="stageNumberCell">{stage.stage}</td>
+                    <td className="debit" />
+                    <td className="credit border-left">{stage.amount}</td>
+                  </tr>
+                );
+              } else return null;
+            })}
+
+            {chart.total === 0 ? (
+              <tr>
+                <td className="stageNumberCell" />
+                <td className="totalLeft">&nbsp;</td>
+                <td className="totalRight">&nbsp;</td>
+              </tr>
+            ) : chart.total.toString()[0] === "-" ? (
+              <tr>
+                <td className="stageNumberCell" />
+                <td className="totalLeft" />
+                <td className="totalRight">
+                  {chart.total.toFixed(2).slice(1)}
+                </td>
+              </tr>
+            ) : (
+              <tr>
+                <td className="stageNumberCell" />
+                <td className="totalLeft">{chart.total.toFixed(2)}</td>
+                <td className="totalRight" />
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>

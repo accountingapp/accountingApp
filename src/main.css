@@ -204,120 +204,6 @@ button.btn.btn-outline-secondary {
   background: white;
 }
 
-/* Owner */
-
-.pageInfo {
-  padding: 1rem 2.5rem;
-  font-family: "Slabo 27px", serif;
-}
-
-.pageInfoText {
-  display: inline-block;
-  padding-left: 1rem;
-}
-
-/* Process */
-
-.processHeader,
-.settingsHeader {
-  background: #f1f1f1;
-  padding: 1rem 2rem;
-  font-family: "Slabo 27px", serif;
-}
-
-.processBody {
-  padding: 1rem 5rem;
-  font-size: 1.3rem;
-}
-
-.steps {
-  height: 80vh;
-  overflow-y: scroll;
-}
-
-.stepName {
-  font-weight: bold;
-}
-
-.stepData {
-  padding: 0.5rem;
-  background: #f9f8f8;
-  margin: 5px;
-}
-
-.editProcessInfo {
-  margin-bottom: 1.5em;
-  padding: 14px;
-  background-color: #f1f1f1;
-}
-
-.editProcessInfo h2,
-.addProcessStep h2 {
-  font-size: 1.5rem;
-}
-.editProcessInfo .input-group {
-  margin-bottom: 0.5em;
-}
-
-.addProcessStep {
-  padding: 14px;
-  background: #f1f1f1;
-}
-
-.processAccounts {
-  height: 115px;
-  overflow-y: scroll;
-}
-
-.processAccount {
-  background: #008fb3;
-  color: white;
-  margin: 2px;
-  padding: 3px 6px;
-  display: inline-block;
-  font-size: 0.8em;
-  border-radius: 5px;
-}
-
-.input-group-text {
-  background: #353f4e9c;
-  color: white;
-  font-weight: bold;
-}
-
-.processInput a.nav-item.nav-link {
-  background: #7f858e;
-  border: white solid 1px;
-  width: 14.286%;
-  text-align: center;
-  color: white;
-}
-
-.processInput a.nav-item.nav-link.active {
-  background: #008fb3;
-  color: white;
-}
-
-.addProcessStep button.btn.btn-outline-secondary {
-  color: black;
-  margin-top: 5px;
-  font-size: 0.9em;
-  align-content: right;
-}
-
-.processImageTitle {
-  font-style: italic;
-}
-
-.processVideoTitle {
-  font-style: italic;
-}
-
-.processVideo {
-  width: 100%;
-  height: 36rem;
-}
-
 /* Icons */
 
 i.fas.fa-chart-line.icon {
@@ -595,9 +481,11 @@ button.createEvent.btn.btn-primary {
   left: 25%;
 }
 
+.deleteContainer {
+  text-align: right;
+}
+
 i.far.fa-times-circle {
-  display: flex;
-  justify-content: flex-end;
   font-size: 1.6em;
   margin-top: 0.5rem;
 }
@@ -664,20 +552,39 @@ td.debit,
 td.total {
   width: 50%;
   font-size: 1.2rem;
+  background: #efefef;
+  color: black;
 }
 
-.tChartHeader {
-  background: #19b9e7;
-  padding: 0.5rem;
+td.stageNumberCell {
+  color: black;
+}
+
+.table thead th {
+  border-bottom: none;
+}
+
+th.tChartHeader {
+  background: #1bb9e7;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 1px;
   border-radius: 1rem 1rem 0 0;
+}
+
+th.columnHeader {
+  background: #1bb9e7;
+  color: white;
+  padding: 0;
+  font-weight: 100;
 }
 
 .tChartHeader > h3 {
   color: white;
-}
-
-tbody.tChartBody {
-  background: #efefef;
+  font-weight: 525;
+  margin-bottom: 0;
+  letter-spacing: 1px;
 }
 
 td.debit {
@@ -697,4 +604,12 @@ td.totalLeft {
 
 td.totalRight {
   border-bottom-right-radius: 1rem;
+}
+ol.stageDescriptionList {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-align: left;
+  color: black;
+  font-weight: 300;
+  font-size: 1.2rem;
 }
