@@ -7,6 +7,7 @@ import EventsHome from "./EventsHome";
 // import Event from "./EditEvent/Event";
 import Settings from "./Settings";
 import Login from "./Login";
+import AccountSettings from "./settings/AccountSettings";
 import Form from "./LedgerTool/Form";
 import AppContainer from "../container/AppContainer";
 import ProtectedRoute from "../helpers/ProtectedRoute";
@@ -25,14 +26,19 @@ class App extends Component {
             <Fragment>
               <Header className="header" user={app.state.email} />
               <Switch>
-                <ProtectedRoute component={Settings} exact path="/settings" />
-                <Route
+                <ProtectedRoute
+                  component={AccountSettings}
+                  user={app.state.email}
+                  exact
+                  path="/settings"
+                />
+                <ProtectedRoute
                   component={EventTabs}
                   user={app.state.email}
                   exact
                   path="/event-details/:eventId"
                 />
-                <Route
+                <ProtectedRoute
                   component={EventsHome}
                   user={app.state.email}
                   exact
