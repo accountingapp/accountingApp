@@ -13,7 +13,7 @@ function Header(props) {
       {props.user ? (
         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
           <Nav>
-            {/* <Nav.Link href={`/settings`}>Settings</Nav.Link> */}
+            <Nav.Link href="/settings">Settings</Nav.Link>
             <Nav.Link href="/logout">Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>

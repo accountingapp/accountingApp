@@ -17,10 +17,13 @@ function encryptPassword(password) {
 
 function comparePasswords(credentials) {
   return user => {
+    if (Array.isArray(user)) user = user[0];
+    if (Array.isArray(credentials)) credentials = credentials[0];
+
     return new Promise((resolve, reject) => {
       bcrypt.compare(credentials.password, user.password, (err, res) => {
         if (res) resolve(user);
-        else reject(new Error("Incorrect Password"));
+        else reject(new Error("Password is incorrect"));
       });
     });
   };

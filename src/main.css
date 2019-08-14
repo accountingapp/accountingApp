@@ -244,7 +244,32 @@ i.fas.fa-plus-square {
 
 /* Settings */
 
-i.fas.fa-cog {
+.passwordResetForm {
+  display: inline-block;
+  width: 35rem;
+}
+
+.showPasswordToggle {
+  position: relative;
+  display: inline-block;
+  line-height: 18px;
+  font-size: 12px;
+  right: 9rem;
+}
+
+.passwordResetBtn {
+  position: relative;
+  display: inline-block;
+  width: 10rem;
+  right: 3.25rem;
+}
+
+.passwordResetRequirements {
+  font-size: 12px;
+  line-height: 15px;
+}
+
+/* i.fas.fa-cog {
   font-size: 1.8em;
 }
 
@@ -297,12 +322,13 @@ i.fas.fa-cog {
 
 .createWorkbook {
   position: relative;
-  /* margin-left: 1em; */
+  margin-left: 1em; 
   background: transparent;
   border: none;
   font-size: 1em;
   padding-left: 0;
 }
+*/
 
 /* Navigation */
 .nav {

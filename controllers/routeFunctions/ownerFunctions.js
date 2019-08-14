@@ -121,10 +121,32 @@ function forgotPassword(req, res) {
     });
 }
 
+function resetPassword(req, res) {
+  const { user } = req.body;
+
+  db("users")
+    .where("email", user.email)
+    .then(comparePasswords(user))
+    .then(result => {
+      const { id } = result;
+      const newPWEncrypted = encryptPassword(user.newPassword);
+      return db("users")
+        .where("id", "=", id)
+        .update({ password: newPWEncrypted });
+    })
+    .then(() => {
+      res.status(200).send("Password Updated!");
+    })
+    .catch(e => {
+      res.status(400).send(e.message);
+    });
+}
+
 module.exports = {
   getOwnerByName,
   getAllUsers,
   registerUser,
   loginUser,
-  forgotPassword
+  forgotPassword,
+  resetPassword
 };

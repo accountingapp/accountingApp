@@ -26,6 +26,7 @@ module.exports = server => {
   server.post("/registerUser", ownerFunctions.registerUser);
   server.post("/loginUser", ownerFunctions.loginUser);
   server.post("/forgotPassword", ownerFunctions.forgotPassword);
+  server.patch("/resetPassword", ownerFunctions.resetPassword);
 
   // Processes
   server.get("/processTitle/:title", processFunctions.getProcessByTitle);
