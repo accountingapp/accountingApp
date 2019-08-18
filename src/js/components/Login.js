@@ -67,7 +67,7 @@ class Login extends React.Component {
             })
             .catch(e => {
               const message = e.response.data;
-              if (message === "Incorrect Password") {
+              if (message.includes("incorrect")) {
                 this.setState({
                   loginPassword: "is-invalid"
                 });
@@ -103,23 +103,27 @@ class Login extends React.Component {
             email: registerEmail.toLowerCase(),
             company
           };
-
-          axios
-            .post("/registerUser", { user })
-            .then(resp => {
-              console.log("resp", resp.data);
-              setTimeout(() => {
-                alert(
-                  `${resp.data}\nLogin credentials have been sent to your email`
-                );
-              }, 1000);
-            })
-            .catch(error => {
-              console.log("registration error =", error.response);
-              setTimeout(() => {
-                alert(error.response.data.detail);
-              }, 1000);
-            });
+          setTimeout(() => {
+            axios
+              .post("/registerUser", { user })
+              .then(resp => {
+                console.log("resp", resp.data);
+                setTimeout(() => {
+                  alert(
+                    `${
+                      resp.data
+                    }\nLogin credentials have been sent to your email`
+                  );
+                  location.reload("/");
+                }, 1000);
+              })
+              .catch(error => {
+                console.log("registration error =", error.response);
+                setTimeout(() => {
+                  alert(error.response.data.detail);
+                }, 1000);
+              });
+          }, 1000);
         }
       }
     );
