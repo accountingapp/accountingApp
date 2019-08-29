@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
@@ -75,4 +76,4 @@ class EventTabs extends Component {
   }
 }
 
-export default EventTabs;
+export default withRouter(EventTabs);
