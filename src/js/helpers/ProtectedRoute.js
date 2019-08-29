@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { Subscribe } from 'unstated';
-import AppContainer from '../container/AppContainer';
+import React, { Component } from "react";
+import { Redirect, Route, withRouter } from "react-router-dom";
+import { Subscribe } from "unstated";
+import AppContainer from "../container/AppContainer";
 
 class ProtectedRoute extends Component {
   render() {
@@ -14,17 +14,16 @@ class ProtectedRoute extends Component {
             {...props}
             render={() => {
               if (app.isAuthenticated()) {
-                if (Comp) return <Comp {...props} />
+                if (Comp) return <Comp {...props} />;
                 return render(props);
-              } 
-              return <Redirect to="/user-login" />
+              }
+              return <Redirect to="/user-login" />;
             }}
           />
         )}
       </Subscribe>
-    )
+    );
   }
-
 }
 
-export default ProtectedRoute;
+export default withRouter(ProtectedRoute);

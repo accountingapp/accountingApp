@@ -57,7 +57,7 @@ exports.up = function(knex, Promise) {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.string("description").notNullable();
-      table.string("user");
+      table.string("user").unique();
       table.string("company");
       table.string("date");
       table.string("documentNumber");
