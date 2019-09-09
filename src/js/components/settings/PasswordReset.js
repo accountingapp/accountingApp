@@ -1,6 +1,5 @@
 import React from "react";
 import Switch from "react-switch";
-import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 class PasswordReset extends React.Component {
@@ -28,9 +27,11 @@ class PasswordReset extends React.Component {
 
     this.setState(
       {
-        [fieldName]: e.target.value
+        [fieldName]: e.target.value,
+        invalidCurrentPasswordFeedback: ""
       },
       () => {
+        this.props.settinghaschanges();
         if (fieldName.includes("newPassword")) {
           this.validatePassword(fieldName);
         }
@@ -80,20 +81,23 @@ class PasswordReset extends React.Component {
     axios
       .patch("/resetPassword", { user })
       .then(res => {
+        // TODO: make a proper modal for this
         alert(
           "Password successfully updated!  Please login with your new password."
         );
-        location.replace("http://localhost:8080/logout");
+        location.replace("/logout");
       })
-      .catch(error => {
-        alert(error.response.message || "Password Reset Failed");
+      .catch(err => {
+        this.setState({
+          invalidCurrentPasswordFeedback:
+            err.response.data ||
+            "Password reset failed.  The password you've entered may be incorrect"
+        });
       });
   }
 
   render() {
-    return !this.state.email ? (
-      <Redirect to="/logout" />
-    ) : (
+    return (
       <div className="passwordResetForm">
         <h3>Password Reset</h3>
         <p>
@@ -103,7 +107,10 @@ class PasswordReset extends React.Component {
           <div className="form-group">
             <input
               className={`form-control ${
-                this.state.invalidCurrentPasswordFeedback ? "is-invalid" : ""
+                this.state.invalidCurrentPasswordFeedback &&
+                this.state.currentPassword
+                  ? "is-invalid"
+                  : ""
               }`}
               type={this.state.show ? "text" : "password"}
               name="currentPassword"
