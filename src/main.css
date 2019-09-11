@@ -7,20 +7,6 @@ html {
   color: #545454;
 }
 
-.btn-primary,
-.btn-primary:active,
-.btn-primary:focus {
-  color: #fff;
-  background-color: #4468d5;
-  border-color: #4468d5;
-}
-
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: none;
-}
-
 /* Landing */
 .loginHead {
   padding-top: 50px;
@@ -353,51 +339,13 @@ a#tabNavigation-tab-summary.active {
   color: #4468d5;
 }
 
-i.fas.fa-arrow-left {
-  padding-right: 7px;
-}
-
-button.allEventsButton.btn.btn-primary {
-  background: transparent;
-  color: grey;
-  border: none;
-  align-items: center;
-  justify-content: flex-start;
-  display: flex;
-  letter-spacing: 2px;
-  font-weight: bold;
-  padding: 6px 12px;
-  box-shadow: none;
-}
-
 .btn-primary:not(:disabled):not(.disabled).active:focus,
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
   box-shadow: none;
 }
 
-button.allEventsButton.btn.btn-primary:hover,
-button.allEventsButton.btn.btn-primary:active,
-button.allEventsButton.btn.btn-primary:focus {
-  color: #4468d5;
-  font-style: italic;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-
 /* Events Home*/
-a.newEventButton {
-  background: #19b9e7;
-  color: white;
-  padding: 1%;
-  font-weight: bold;
-}
-
-.eventsList {
-  width: 90%;
-  margin: 1rem auto;
-}
 
 /* New Event Page */
 .listSearchResults:hover {

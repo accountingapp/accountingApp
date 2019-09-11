@@ -175,7 +175,10 @@ class Event extends Component {
     return (
       <div>
         <Row>
-          <Col md={8} className="mainNewEventPanel">
+          <Col
+            md={this.state.sectionType ? 8 : 12}
+            className="Event__MainPanel"
+          >
             <h3 className="heading">Overview</h3>
             <div className="eventHeader">
               <div className="formGroup">
@@ -303,7 +306,11 @@ class Event extends Component {
               New Stage
             </Button>
           </Col>
-          <Col md={4} className="sideNewEventPanel">
+          <Col
+            md={4}
+            hidden={!this.state.sectionType}
+            className="sideNewEventPanel"
+          >
             <SidePanel
               sectionType={this.state.sectionType}
               event={this.state.event}

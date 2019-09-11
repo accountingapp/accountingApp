@@ -51,17 +51,15 @@ class EventTabs extends Component {
       <div>
         {this.state.status ? (
           <div>
-            <h2 className="eventTitle">
-              {this.state.selectedEvent.title || "Create a New Event"}
-            </h2>
+            <h2>{this.state.selectedEvent.title || "Create a New Event"}</h2>
             <Link to={`/`}>
-              <Button className="allEventsButton">
+              <Button className="EventTabs__Back__Button">
                 <i className="fas fa-arrow-left" />
                 All Events
               </Button>
             </Link>
-            <Tabs defaultActiveKey="event" id="tabNavigation">
-              <Tab className="navItem" eventKey="event" title="Event">
+            <Tabs defaultActiveKey="event" className="EventTabs__Tabs">
+              <Tab eventKey="event" title="Event">
                 <Event selectedEvent={this.state.selectedEvent} />
               </Tab>
               <Tab eventKey="t-charts" title="T-Charts">

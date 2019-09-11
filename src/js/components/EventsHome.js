@@ -27,9 +27,9 @@ class EventsHome extends Component {
 
   render() {
     return (
-      <div className="eventsList">
+      <div className="EventsHome__Table">
         <Table striped hover borderless="true">
-          <thead className="eventsListTableHead">
+          <thead className="EventsHome__Table__Head">
             <tr>
               <th className="">#</th>
               <th className="">Title</th>
