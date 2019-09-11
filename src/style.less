@@ -1,0 +1,56 @@
+//variables
+@primary-color: #19b9e7;
+@primary-button-color: #4468d5;
+@primary-button-color-hover: darken(@primary-button-color, 10%);
+
+//global
+.btn-primary {
+  color: #fff;
+  background-color: @primary-button-color;
+  border: none;
+
+  &:hover {
+    background-color: @primary-button-color-hover;
+  }
+}
+
+//EventTabs
+.EventTabs__Back__Button {
+  background: transparent;
+  color: grey;
+  border: none;
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  letter-spacing: 2px;
+  font-weight: bold;
+
+  &:hover {
+    color: darken(grey, 10%);
+    background: transparent;
+  }
+
+  i.fas.fa-arrow-left {
+    padding-right: 7px;
+  }
+}
+
+.EventTabs__Tabs {
+  color: black;
+}
+
+//EventsHome
+.EventsHome__Table {
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.EventsHome__Table__Head {
+  background: @primary-color;
+  color: white;
+}
+
+.Event__MainPanel {
+  height: 92vh;
+  overflow-y: scroll;
+}

@@ -48,7 +48,7 @@ class PasswordReset extends React.Component {
   validatePassword(fieldName) {
     const input = this.state[fieldName];
     const pwdReqRegex = new RegExp(
-      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*-])(?=.{8,})"
     ).test(input);
     const pwdMatch = this.state.newPassword1 === this.state.newPassword2;
     const newNotSameAsOld =
