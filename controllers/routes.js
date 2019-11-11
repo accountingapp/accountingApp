@@ -48,7 +48,9 @@ module.exports = server => {
     "/accounts/process/:processId",
     accountFunctions.getAccountsByProcess
   );
+  server.get("/accountsByEmail", accountFunctions.getAccountsByEmail);
   server.post("/account", accountFunctions.createNewAccount);
+  server.delete("/deleteAccount", accountFunctions.deleteAccount);
 
   //Modules
   server.get("/modules", moduleFunctions.getAllModules);
