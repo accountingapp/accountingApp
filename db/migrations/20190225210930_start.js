@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
       table.string("description").notNullable();
       table.string("natural").notNullable();
       table.integer("moduleId").notNullable();
-      table.uuid("ownerId");
+      table.string("email");
       table.specificType("processes", "text[]");
       table.specificType("contributors", "text[]");
 
@@ -29,8 +29,8 @@ exports.up = function(knex, Promise) {
         .inTable("modules")
         .onDelete("CASCADE");
       table
-        .foreign("ownerId")
-        .references("id")
+        .foreign("email")
+        .references("email")
         .inTable("users")
         .onDelete("CASCADE");
     }),

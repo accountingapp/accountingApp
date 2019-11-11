@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Col, Row, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import PasswordReset from "./PasswordReset";
+import AddAccounts from "./AddAccounts";
 
 class AccountSettings extends React.Component {
   constructor(props) {
@@ -46,6 +47,13 @@ class AccountSettings extends React.Component {
             settinghaschanges={this.settingHasChanges}
           />
         );
+      case "Add Accounts 💲":
+        return (
+          <AddAccounts
+            {...this.props}
+            settingHasChanges={this.settingHasChanges}
+          />
+        );
       default:
         return <div>Placeholder</div>;
     }
@@ -82,8 +90,8 @@ class AccountSettings extends React.Component {
   render() {
     const settings = [
       "Password Reset 🔒",
-      "Update Email Address ✉️",
-      "Change Something else"
+      "Update Email ✉️",
+      "Add Accounts 💲"
     ];
     if (!this.props.user) {
       location.replace("/logout");
@@ -97,7 +105,7 @@ class AccountSettings extends React.Component {
               backgroundColor: "#F0F0F0",
               cursor: "pointer"
             }}
-            md={3}
+            lg={2}
           >
             {settings.map((setting, idx) => (
               <div
@@ -130,7 +138,7 @@ class AccountSettings extends React.Component {
                   onClick={() => this.selectSetting(setting, idx)}
                   style={
                     this.state.selectedSetting === setting
-                      ? { backgroundColor: "#C8C8C8", fontWeight: "bold" }
+                      ? { fontWeight: "bold" }
                       : null
                   }
                 >
