@@ -171,6 +171,17 @@ class Event extends Component {
       .catch(error => console.log("ERROR: ", error));
   }
 
+  updateEvent() {
+    let updatedEvent = this.state.event;
+    console.log("updated event client: ", updatedEvent);
+    return axios
+      .put(`/event/${updatedEvent.id}`, updatedEvent)
+      .then(() => {
+        console.log("successfully created a new event!!");
+      })
+      .catch(error => console.log("ERROR: ", error));
+  }
+
   render() {
     return (
       <div>
@@ -320,6 +331,7 @@ class Event extends Component {
                 this.handleStageChange(e, stageIndex)
               }
               createEvent={() => this.createEvent()}
+              update={() => this.update()}
             />
           </Col>
         </Row>

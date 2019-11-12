@@ -357,8 +357,9 @@ a#tabNavigation-tab-summary.active {
   overflow-y: scroll;
 }
 
-.sideNewEventPanel {
-  background: #f5f5f5;
+.sideNewEventPanel.col-md-4 {
+  padding: 0;
+  border-left: lightgrey solid 3px;
 }
 
 input {
@@ -434,8 +435,6 @@ h3.stageHeading {
 button.financialImpactButton.btn.btn-primary {
   margin: 0 1.5%;
   width: 5%;
-  /* background-color: #007bff;
-  border-color: #007bff; */
   flex: 0.4;
 }
 button.unselectedButton.btn.btn-primary {
@@ -447,8 +446,6 @@ button.unselectedButton.btn.btn-primary {
 }
 
 button.createEvent.btn.btn-primary {
-  /* background: #007bfe;
-  border-color: #007bfe; */
   width: 50%;
   position: absolute;
   bottom: 5%;
@@ -460,8 +457,8 @@ button.createEvent.btn.btn-primary {
 }
 
 i.far.fa-times-circle {
-  font-size: 1.6em;
-  margin-top: 0.5rem;
+  font-size: 24px;
+  margin: 15px 15px 0 0;
 }
 
 i.far.fa-times-circle:hover {

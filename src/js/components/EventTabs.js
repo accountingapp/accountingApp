@@ -51,13 +51,17 @@ class EventTabs extends Component {
       <div>
         {this.state.status ? (
           <div>
-            <h2>{this.state.selectedEvent.title || "Create a New Event"}</h2>
-            <Link to={`/`}>
-              <Button className="EventTabs__Back__Button">
-                <i className="fas fa-arrow-left" />
-                All Events
-              </Button>
-            </Link>
+            <div className="EventTabs__Header">
+              <h2 className="EventTabs__Title">
+                {this.state.selectedEvent.title || "Create a New Event"}
+              </h2>
+              <Link to={`/`}>
+                <Button className="EventTabs__Back__Button">
+                  <i className="fas fa-arrow-left" />
+                  All Events
+                </Button>
+              </Link>
+            </div>
             <Tabs defaultActiveKey="event" className="EventTabs__Tabs">
               <Tab eventKey="event" title="Event">
                 <Event selectedEvent={this.state.selectedEvent} />

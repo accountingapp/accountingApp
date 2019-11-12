@@ -45,49 +45,60 @@ const SidePanel = ({
     sectionType && sectionType.slice(0, 5) === "stage"
       ? parseInt(sectionType.slice(6))
       : 0;
+
+  console.log("EVENT: ", event.id);
   return (
-    <div className="entireSidePanel">
+    <div className="SidePanel">
       {sectionType === "event" ? (
-        <div className="eventSidePanel">
-          <h3 className="heading">Event Details</h3>
-          {Object.keys(translate.event).map((eventKey, i) => (
-            <div key={eventKey} className="formGroup">
-              <label>{translate.event[eventKey]}</label>
-              <input
-                id={eventKey}
-                value={event[eventKey]}
-                onChange={e => handleChange(e)}
-                className="inputField sidePanelInput"
-              />
-            </div>
-          ))}
-          <Button className="createEvent" onClick={() => createEvent()}>
-            Save Event
-          </Button>
+        <div className="SidePanel__Event">
+          <h3 className="SidePanel__Heading">Event Details</h3>
+          <div className="SidePanel__Body">
+            {Object.keys(translate.event).map((eventKey, i) => (
+              <div key={eventKey} className="formGroup">
+                <label>{translate.event[eventKey]}</label>
+                <input
+                  id={eventKey}
+                  value={event[eventKey]}
+                  onChange={e => handleChange(e)}
+                  className="inputField sidePanelInput"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       ) : sectionType.slice(0, 5) === "stage" ? (
-        <div className="stageSidePanel">
-          <h3 className="heading">{`Stage ${stageIndex + 1} Details`}</h3>
-          {Object.keys(translate.stages).map((eventKey, i) => (
-            <div key={eventKey}>
-              {translate.stages[eventKey] && (
-                <div className="formGroup">
-                  <label>{translate.stages[eventKey]}</label>
-                  <input
-                    id={eventKey}
-                    value={stages[stageIndex][eventKey]}
-                    onChange={e => handleStageChange(e, stageIndex)}
-                    className="inputField sidePanelInput"
-                  />
-                </div>
-              )}
-            </div>
-          ))}
-          <Button className="createEvent" onClick={() => createEvent()}>
-            Save Event
-          </Button>
+        <div className="SidePanel__Stage">
+          <h3 className="SidePanel__Heading">{`Stage ${stageIndex +
+            1} Details`}</h3>
+          <div className="SidePanel__Body">
+            {Object.keys(translate.stages).map((eventKey, i) => (
+              <div key={eventKey}>
+                {translate.stages[eventKey] && (
+                  <div className="formGroup">
+                    <label>{translate.stages[eventKey]}</label>
+                    <input
+                      id={eventKey}
+                      value={stages[stageIndex][eventKey]}
+                      onChange={e => handleStageChange(e, stageIndex)}
+                      className="inputField sidePanelInput"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       ) : null}
+
+      {event && event.id ? (
+        <Button className="SidePanel__button" onClick={() => updateEvent()}>
+          Update Event
+        </Button>
+      ) : (
+        <Button className="SidePanel__button" onClick={() => createEvent()}>
+          Create Event
+        </Button>
+      )}
     </div>
   );
 };
