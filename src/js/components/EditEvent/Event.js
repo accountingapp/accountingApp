@@ -190,8 +190,8 @@ class Event extends Component {
             md={this.state.sectionType ? 8 : 12}
             className="Event__MainPanel"
           >
-            <h3 className="heading">Overview</h3>
-            <div className="eventHeader">
+            <div className="Event__eventHeader--overview">
+              <h3 className="Event__heading">Overview</h3>
               <div className="formGroup">
                 <label>Title</label>
                 <input
@@ -216,8 +216,8 @@ class Event extends Component {
             </div>
             {this.state.event.stages && this.state.event.stages.length
               ? this.state.event.stages.map((stage, index) => (
-                  <div key={`stage-${index}`} className="eventHeader">
-                    <div className="deleteContainer">
+                  <div key={`stage-${index}`} className="Event__eventHeader">
+                    <div className="Event__deleteButton">
                       <i
                         className="far fa-times-circle"
                         aria-hidden="false"
@@ -225,7 +225,8 @@ class Event extends Component {
                         // TODO: Make this trigger a modal to confirm user wants to delete stage
                       />
                     </div>
-                    <h3 className="stageHeading">{`Stage ${index + 1}`}</h3>
+                    <h3 className="Event__stageHeading">{`Stage ${index +
+                      1}`}</h3>
                     <div className="formGroup formGroupStage">
                       <label>Stage Description</label>
                       <input
@@ -238,12 +239,12 @@ class Event extends Component {
                         }
                       />
 
-                      <ButtonToolbar className="financialImpactButtons">
+                      <ButtonToolbar className="Event__financialImpactButtons">
                         <label>Financial Impact</label>
                         <Button
                           value="yes"
                           id="financialImpact"
-                          className={`financialImpactButton ${
+                          className={`Event__financialImpactButton ${
                             this.state.event.stages[index].financialImpact !==
                             "yes"
                               ? "unselectedButton"
@@ -259,7 +260,7 @@ class Event extends Component {
                         <Button
                           value="no"
                           id="financialImpact"
-                          className={`financialImpactButton ${
+                          className={`Event__financialImpactButton ${
                             this.state.event.stages[index].financialImpact !==
                             "no"
                               ? "unselectedButton"

@@ -1,5 +1,5 @@
 //variables
-@primary-color: #19b9e7;
+@primary-color: #378eaf;
 @primary-button-color: #4468d5;
 @primary-button-color-hover: darken(@primary-button-color, 10%);
 
@@ -15,28 +15,45 @@
 }
 
 //EventTabs
-.EventTabs__Back__Button {
-  background: transparent;
-  color: grey;
-  border: none;
-  align-items: center;
-  justify-content: flex-start;
-  display: flex;
-  letter-spacing: 2px;
-  font-weight: bold;
-
-  &:hover {
-    color: darken(grey, 10%);
+.EventTabs {
+  &__Header {
+    background-color: #f1f1f1c4;
+    padding: 10px 0;
+  }
+  &__Back__Button {
     background: transparent;
+    color: #353f4e;
+    border: none;
+    align-items: center;
+    justify-content: flex-start;
+    display: flex;
+    letter-spacing: 2px;
+    font-weight: bold;
+
+    &:hover {
+      color: darken(#353f4e, 10%);
+      background: transparent;
+    }
+
+    i.fas.fa-arrow-left {
+      padding-right: 7px;
+    }
   }
 
-  i.fas.fa-arrow-left {
-    padding-right: 7px;
+  &__Tabs {
+    color: black;
+    background-color: #f1f1f1c4;
+    padding-top: 0;
+    .nav-link,
+    .nav-link:hover,
+    .nav-link:focus {
+      color: black;
+      width: 140px;
+    }
+    .tab-content {
+      overflow-x: hidden;
+    }
   }
-}
-
-.EventTabs__Tabs {
-  color: black;
 }
 
 //EventsHome
@@ -56,10 +73,65 @@
 }
 
 //Side Panel
-.SidePanel__Heading {
-  padding: 20px;
+.SidePanel {
+  &__Heading {
+    padding: 37px;
+    font-weight: bold;
+    background-color: #353f4e87;
+    color: white;
+  }
+  &__Body {
+    padding: 10px 50px 40px 50px;
+    width: 735px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  &__label {
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 16px;
+    margin: 2px;
+  }
+  .formGroup {
+    justify-content: flex-start;
+  }
 }
 
-.SidePanel__Body {
-  padding: 10px 30px 40px 30px;
+//EVENT
+
+.Event {
+  &__heading,
+  &__stageHeading {
+    font-weight: 500;
+    padding-top: 20px;
+    letter-spacing: 0.08rem;
+  }
+
+  &__stageHeading {
+    margin: 0 0 3rem 0;
+  }
+
+  &__eventHeader {
+    padding-bottom: 4%;
+    border-bottom: 1px lightgrey solid;
+    &--overview {
+      padding-bottom: 4%;
+      border-bottom: 1px lightgrey solid;
+    }
+  }
+
+  &__deleteButton {
+    text-align: right;
+  }
+
+  &__financialImpactButtons {
+    flex: 0.3;
+  }
+
+  &__financialImpactButton {
+    margin: 0 1.5%;
+    width: 5%;
+    flex: 0.4;
+  }
 }
