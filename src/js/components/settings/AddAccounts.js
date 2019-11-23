@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col } from "react-bootstrap";
+import { debounce } from "../../utilFunctions";
 
 class AddAccounts extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class AddAccounts extends React.Component {
     this.addAccount = this.addAccount.bind(this);
     this.deleteAccount = this.deleteAccount.bind(this);
     this.handleHover = this.handleHover.bind(this);
+    this.settingHasChanges = this.props.settingHasChanges.bind(this);
   }
 
   componentDidMount() {
@@ -26,15 +28,28 @@ class AddAccounts extends React.Component {
   }
 
   handleAcctInput(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState(
+      {
+        [e.target.name]: e.target.value
+      },
+      () => {
+        const { description, natural } = this.state;
+        if (description || natural) this.settingHasChanges();
+      }
+    );
   }
 
-  handleHover(e, i) {
-    this.setState({
-      deleteXIdx: i
-    });
+  handleHover(i) {
+    this.setState(
+      {
+        deleteXIdx: i
+      },
+      () => {
+        if (i) {
+          debounce(this.handleHover, 2000)(null);
+        }
+      }
+    );
   }
 
   getAccounts() {
@@ -126,7 +141,7 @@ class AddAccounts extends React.Component {
             </h3>
             {col1.map((acct, i) => (
               <div
-                onMouseEnter={e => this.handleHover(e, i)}
+                onMouseEnter={() => this.handleHover(i)}
                 style={{ fontSize: 14, cursor: "pointer" }}
                 key={i}
               >
@@ -153,7 +168,7 @@ class AddAccounts extends React.Component {
           <Col className="text-left">
             {col2.map((acct, i) => (
               <div
-                onMouseEnter={e => this.handleHover(e, i + div)}
+                onMouseEnter={() => this.handleHover(i + div)}
                 style={{ fontSize: 14, cursor: "pointer" }}
                 key={i + div}
               >
