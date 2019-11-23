@@ -21,21 +21,6 @@ class AccountSettings extends React.Component {
     this.handleModal = this.handleModal.bind(this);
   }
 
-  selectSetting(setting, idx) {
-    if (this.state.settingHasChanges) {
-      this.setState({
-        showModal: true
-      });
-    } else {
-      this.setState({
-        selectedSetting: setting,
-        selectedSettingIdx: idx,
-        settingHasChanges: false,
-        showModal: false
-      });
-    }
-  }
-
   // Add any new setting component here.  See first case (PasswordReset) for example.
   renderSelectedComponent() {
     const setting = this.state.selectedSetting;
@@ -59,29 +44,42 @@ class AccountSettings extends React.Component {
     }
   }
 
-  // This function should be passed to all settings child components, who should in turn call it whenever changes are made in the respective component.
-  // Doing this will cause a modal to be triggered (as of now just an alert) in order to prevent a user from navigating away from a setting and losing their changes
+  // This function should be passed to all settings child components (see renderSelectedComponent above), who should in turn call it whenever changes are made in the respective component.
+  // Doing this will set a trigger for a modal that will notify the user that their changes will be lost if they continue.
   settingHasChanges() {
     this.setState({
       settingHasChanges: true
     });
   }
 
+  selectSetting(setting, idx) {
+    console.log("SELECT SETTING => ", setting, idx);
+    if (this.state.settingHasChanges) {
+      this.setState({
+        showModal: true
+      });
+    } else {
+      this.setState({
+        selectedSetting: setting,
+        selectedSettingIdx: idx,
+        settingHasChanges: false,
+        showModal: false
+      });
+    }
+  }
+
   handleModal(e, setting, idx) {
-    e.persist();
     const { id } = e.target;
+    console.log("MODAL DATA -->", id, setting, idx);
+
     this.setState(
       {
-        showModal: !this.state.showModal
+        showModal: !this.state.showModal,
+        settingHasChanges: id === "cancel"
       },
       () => {
         if (id === "OK") {
-          this.setState(
-            {
-              settingHasChanges: false
-            },
-            () => this.selectSetting(setting, idx)
-          );
+          this.selectSetting(setting, idx);
         }
       }
     );
@@ -112,7 +110,7 @@ class AccountSettings extends React.Component {
                 key={setting}
                 style={{ paddingTop: "0.5rem", paddingLeft: "0.5rem" }}
               >
-                <Modal show={this.state.showModal} onHide={this.handleModal}>
+                <Modal show={this.state.showModal}>
                   <Modal.Title>
                     Are you sure you want to leave this page?
                   </Modal.Title>
