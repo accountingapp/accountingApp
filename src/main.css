@@ -147,39 +147,6 @@ input.form-control {
   font-size: 1.2rem;
 }
 
-.addProcessStep .nav-tabs {
-  border-bottom: 1px solid #dee2e6;
-  font-weight: bold;
-  font-size: 0.8em;
-}
-
-a.nav-item.nav-link[data-rb-event-key="accounts"] {
-  background: #378eaf;
-  color: white;
-  border: none;
-  font-size: 1.4rem;
-  text-align: center;
-  width: 33.33%;
-}
-
-a.nav-item.nav-link[data-rb-event-key="users"] {
-  background: #a6a6a6;
-  color: white;
-  border: none;
-  font-size: 1.4rem;
-  text-align: center;
-  width: 33.33%;
-}
-
-a.nav-item.nav-link[data-rb-event-key="processes"] {
-  background: #a2c3cc;
-  color: white;
-  border: none;
-  font-size: 1.4rem;
-  text-align: center;
-  width: 33.33%;
-}
-
 .mb-3.searchInput.input-group {
   padding: 1.2rem;
   border-radius: 0 0rem 0.25rem 0.25rem;
@@ -255,67 +222,6 @@ i.fas.fa-plus-square {
   line-height: 15px;
 }
 
-/* i.fas.fa-cog {
-  font-size: 1.8em;
-}
-
-.settingsTabs {
-  height: 100vh;
-  background: #e0e0e0;
-  padding-right: 0;
-}
-
-.settingsPage .flex-column.nav.nav-pills {
-  font-size: 1.4em;
-}
-
-.settingsPage .nav-pills .nav-link.active,
-.settingsPage .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #378eaf;
-}
-.settingsPage a {
-  color: black;
-}
-
-.settingsPage .tab-content {
-  margin: 0 1rem;
-}
-
-.accountSettings,
-.moduleSettings {
-  height: 77vh;
-  overflow-y: scroll;
-}
-
-.settingsPage h2 {
-  display: inline-block;
-  padding: 1rem;
-}
-
-.settingsTitle {
-  padding: 0 1rem;
-}
-
-.createNewSettingButton,
-.submitNewItem,
-.cancelNewItem {
-  background: #378eaf;
-  font-size: 1.3em;
-  border: none;
-  margin: 0.5em;
-}
-
-.createWorkbook {
-  position: relative;
-  margin-left: 1em; 
-  background: transparent;
-  border: none;
-  font-size: 1em;
-  padding-left: 0;
-}
-*/
-
 /* Navigation */
 .nav {
   padding-top: 5px;
@@ -331,12 +237,6 @@ a#tabNavigation-tab-event,
 a#tabNavigation-tab-summary {
   color: #969696;
   font-weight: 400;
-}
-
-a#tabNavigation-tab-event.active,
-a#tabNavigation-tab-t-charts.active,
-a#tabNavigation-tab-summary.active {
-  color: #4468d5;
 }
 
 .btn-primary:not(:disabled):not(.disabled).active:focus,
@@ -411,32 +311,6 @@ input.inputField:focus {
   box-shadow: none;
   border-bottom: 2px solid #42acd4;
 }
-
-.eventHeader {
-  padding-bottom: 4%;
-  border-bottom: 1px lightgrey solid;
-}
-
-h3.heading,
-h3.stageHeading {
-  font-weight: 500;
-  margin-top: 1.5rem;
-  letter-spacing: 0.08rem;
-}
-
-h3.stageHeading {
-  margin: 0 0 3rem 0;
-}
-
-.financialImpactButtons {
-  flex: 0.3;
-}
-
-button.financialImpactButton.btn.btn-primary {
-  margin: 0 1.5%;
-  width: 5%;
-  flex: 0.4;
-}
 button.unselectedButton.btn.btn-primary {
   background-color: #b5b5b5;
   border-color: #b5b5b5;
@@ -450,10 +324,6 @@ button.createEvent.btn.btn-primary {
   position: absolute;
   bottom: 5%;
   left: 25%;
-}
-
-.deleteContainer {
-  text-align: right;
 }
 
 i.far.fa-times-circle {
@@ -479,7 +349,7 @@ i.far.fa-times-circle:hover {
 }
 thead.accountTableHeader,
 thead.eventsListTableHead {
-  background: #42acd4;
+  background: #378eaf;
   color: white;
 }
 

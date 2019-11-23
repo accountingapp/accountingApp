@@ -50,11 +50,11 @@ class EventTabs extends Component {
     return (
       <div>
         {this.state.status ? (
-          <div>
+          <div className="EventTabs">
             <div className="EventTabs__Header">
-              <h2 className="EventTabs__Title">
+              {/* <h2 className="EventTabs__Title">
                 {this.state.selectedEvent.title || "Create a New Event"}
-              </h2>
+              </h2> */}
               <Link to={`/`}>
                 <Button className="EventTabs__Back__Button">
                   <i className="fas fa-arrow-left" />

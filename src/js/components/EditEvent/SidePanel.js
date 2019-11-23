@@ -55,7 +55,9 @@ const SidePanel = ({
           <div className="SidePanel__Body">
             {Object.keys(translate.event).map((eventKey, i) => (
               <div key={eventKey} className="formGroup">
-                <label>{translate.event[eventKey]}</label>
+                <label className="SidePanel__label">
+                  {translate.event[eventKey]}
+                </label>
                 <input
                   id={eventKey}
                   value={event[eventKey]}
@@ -75,7 +77,9 @@ const SidePanel = ({
               <div key={eventKey}>
                 {translate.stages[eventKey] && (
                   <div className="formGroup">
-                    <label>{translate.stages[eventKey]}</label>
+                    <label className="SidePanel__label">
+                      {translate.stages[eventKey]}
+                    </label>
                     <input
                       id={eventKey}
                       value={stages[stageIndex][eventKey]}
