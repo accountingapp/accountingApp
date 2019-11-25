@@ -11,6 +11,8 @@ class AccountSettings extends React.Component {
     this.state = {
       selectedSetting: "",
       selectedSettingIdx: "",
+      changeToSetting: "",
+      changeToSettingIdx: "",
       settingHasChanges: false,
       showModal: false
     };
@@ -53,36 +55,41 @@ class AccountSettings extends React.Component {
   }
 
   selectSetting(setting, idx) {
-    console.log("SELECT SETTING => ", setting, idx);
     if (this.state.settingHasChanges) {
       this.setState({
-        showModal: true
+        showModal: true,
+        changeToSetting: setting,
+        changeToSettingIdx: idx
       });
     } else {
       this.setState({
         selectedSetting: setting,
-        selectedSettingIdx: idx,
-        settingHasChanges: false,
-        showModal: false
+        selectedSettingIdx: idx
       });
     }
   }
 
-  handleModal(e, setting, idx) {
+  handleModal(e) {
     const { id } = e.target;
-    console.log("MODAL DATA -->", id, setting, idx);
 
-    this.setState(
-      {
-        showModal: !this.state.showModal,
-        settingHasChanges: id === "cancel"
-      },
-      () => {
-        if (id === "OK") {
-          this.selectSetting(setting, idx);
+    if (id === "cancel") {
+      this.setState({
+        showModal: false
+      });
+    } else if (id === "OK") {
+      this.setState(
+        {
+          showModal: false,
+          settingHasChanges: false
+        },
+        () => {
+          this.selectSetting(
+            this.state.changeToSetting,
+            this.state.changeToSettingIdx
+          );
         }
-      }
-    );
+      );
+    }
   }
 
   render() {
@@ -90,6 +97,7 @@ class AccountSettings extends React.Component {
       "Password Reset 🔒",
       "Update Email ✉️",
       "Add Accounts 💲"
+      // Add setting string here, then add matching component to renderSelectedComponent() above;
     ];
     if (!this.props.user) {
       location.replace("/logout");
@@ -119,14 +127,14 @@ class AccountSettings extends React.Component {
                     <Button
                       variant="secondary"
                       id="cancel"
-                      onClick={e => this.handleModal(e, setting, idx)}
+                      onClick={e => this.handleModal(e)}
                     >
                       Cancel
                     </Button>
                     <Button
                       variant="primary"
                       id="OK"
-                      onClick={e => this.handleModal(e, setting, idx)}
+                      onClick={e => this.handleModal(e)}
                     >
                       OK
                     </Button>
