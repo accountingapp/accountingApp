@@ -1,5 +1,5 @@
 //variables
-@primary-color: #378eaf;
+@table-header: #18a6d0;
 @primary-button-color: #4468d5;
 @primary-button-color-hover: darken(@primary-button-color, 10%);
 
@@ -39,46 +39,128 @@
       padding-right: 7px;
     }
   }
+  .tab-content {
+    overflow: hidden;
+    background-color: #f4f4f4;
+    .row {
+      margin: 0;
+      .col-md-8 {
+        padding-right: 0;
+      }
+    }
+  }
 
   &__Tabs {
     color: black;
     background-color: #f1f1f1c4;
     padding-top: 0;
-    .nav-link,
-    .nav-link:hover,
-    .nav-link:focus {
+    border: none;
+
+    .nav-link {
       color: black;
       width: 140px;
+      font-weight: 400;
+      margin: 10px 0px 8px 10px;
+      background-color: #d6d6d6;
+      border: 1px solid #c7c7c7;
+      border-radius: 10px;
+      &.active {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+      }
     }
-    .tab-content {
-      overflow-x: hidden;
+  }
+}
+
+.TCharts {
+  background-color: #fff;
+  margin: 0px 10px 0;
+  border-radius: 8px;
+  &__title {
+    padding: 20px 0 10px;
+    margin-top: 0;
+  }
+  &__stages {
+    padding: 0 20px 20px;
+    text-align: left;
+    color: grey;
+    font-weight: 400;
+    font-size: 18px;
+  }
+}
+
+.TChart {
+  &__header {
+    background: @table-header;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    border-radius: 18px 18px 0 0;
+    &--column {
+      background-color: #17a5d0;
+      color: white;
+      padding: 8px;
+      font-weight: 400;
+    }
+  }
+  &__cell {
+    &--stageNumber {
+      color: black;
+    }
+    &--debit,
+    &--credit {
+      width: 50%;
+      font-size: 1.2rem;
+      background: #efefef;
+      color: black;
+    }
+    &--totalLeft,
+    &--totalRight {
+      background: lightgrey;
+      color: black;
+      font-size: 1.2rem;
+    }
+    &--totalLeft {
+      border-bottom-left-radius: 18px;
+    }
+    &--totalRight {
+      border-bottom-right-radius: 18px;
     }
   }
 }
 
 //EventsHome
 .EventsHome__Table {
-  width: 90%;
-  margin: 1rem auto;
-}
-
-.EventsHome__Table__Head {
-  background: @primary-color;
-  color: white;
+  width: 75%;
+  margin: 34px auto;
+  &--head {
+    background: @table-header;
+    color: white;
+    border: 1px solid @table-header;
+  }
+  &--body {
+    border: 1px solid #f2f2f2;
+  }
 }
 
 .Event__MainPanel {
   height: 92vh;
   overflow-y: scroll;
+  background-color: #f4f4f4;
 }
 
 //Side Panel
 .SidePanel {
+  background-color: #fff;
+  height: 100%;
   &__Heading {
     padding: 37px;
-    font-weight: bold;
-    background-color: #353f4e87;
+    font-weight: 400;
+    background-color: #bfbfbf;
     color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
   &__Body {
     padding: 10px 50px 40px 50px;
@@ -99,7 +181,6 @@
 }
 
 //EVENT
-
 .Event {
   &__heading,
   &__stageHeading {
@@ -113,12 +194,15 @@
   }
 
   &__eventHeader {
-    padding-bottom: 4%;
-    border-bottom: 1px lightgrey solid;
-    &--overview {
-      padding-bottom: 4%;
-      border-bottom: 1px lightgrey solid;
-    }
+    padding-bottom: 48px;
+    margin-bottom: 8px;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+
+  &__newStageButton {
+    margin: 50px;
+    box-shadow: none;
   }
 
   &__deleteButton {
@@ -133,5 +217,20 @@
     margin: 0 1.5%;
     width: 5%;
     flex: 0.4;
+  }
+}
+
+.AccountTable {
+  margin: 25px;
+  .table {
+    border: 1px solid #d6d6d6;
+  }
+  &__header {
+    background: @table-header;
+    border: solid 1px @table-header;
+    color: white;
+  }
+  tbody {
+    border: 1px solid #f2f2f2;
   }
 }

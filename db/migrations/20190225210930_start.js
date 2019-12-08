@@ -1,11 +1,11 @@
 /*eslint-disable*/
 exports.up = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.createTable("modules", table => {
+  return knex.schema
+    .createTable("modules", table => {
       table.increments("id").primary();
       table.string("module").notNullable();
-    }),
-    knex.schema.createTable("users", table => {
+    })
+    .createTable("users", table => {
       table.uuid("id").primary();
       table.string("name").notNullable();
       table.string("email").unique();
@@ -13,8 +13,8 @@ exports.up = function(knex, Promise) {
       table.string("company");
 
       table.index("email");
-    }),
-    knex.schema.createTable("accounts", table => {
+    })
+    .createTable("accounts", table => {
       table.increments("id").primary();
       table.string("description").notNullable();
       table.string("natural").notNullable();
@@ -33,8 +33,8 @@ exports.up = function(knex, Promise) {
         .references("email")
         .inTable("users")
         .onDelete("CASCADE");
-    }),
-    knex.schema.createTable("processes", table => {
+    })
+    .createTable("processes", table => {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.specificType("process", "json[]");
@@ -45,15 +45,15 @@ exports.up = function(knex, Promise) {
         .references("id")
         .inTable("users")
         .onDelete("CASCADE");
-    }),
-    knex.schema.createTable("resources", table => {
+    })
+    .createTable("resources", table => {
       table.increments("id").primary();
       table.string("description").notNullable();
       table.string("link");
       table.text("article");
       table.text("notes");
-    }),
-    knex.schema.createTable("events", table => {
+    })
+    .createTable("events", table => {
       table.increments("id").primary();
       table.string("title").notNullable();
       table.string("description").notNullable();
@@ -73,17 +73,15 @@ exports.up = function(knex, Promise) {
         .references("email")
         .inTable("users")
         .onDelete("CASCADE");
-    })
-  ]);
+    });
 };
 
-exports.down = function(knex, Promise) {
-  return Promise.all([
-    knex.schema.dropTableIfExists("resources"),
-    knex.schema.dropTableIfExists("accounts"),
-    knex.schema.dropTableIfExists("processes"),
-    knex.schema.dropTableIfExists("modules"),
-    knex.schema.dropTableIfExists("events"),
-    knex.schema.dropTableIfExists("users")
-  ]);
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists("resources")
+    .dropTableIfExists("accounts")
+    .dropTableIfExists("processes")
+    .dropTableIfExists("modules")
+    .dropTableIfExists("events")
+    .dropTableIfExists("users");
 };

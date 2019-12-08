@@ -186,143 +186,140 @@ class Event extends Component {
     return (
       <div>
         <Row>
-          <Col
-            md={this.state.sectionType ? 8 : 12}
-            className="Event__MainPanel"
-          >
-            <div className="Event__eventHeader--overview">
-              <h3 className="Event__heading">Overview</h3>
-              <div className="formGroup">
-                <label>Title</label>
-                <input
-                  id="title"
-                  value={this.state.event.title}
-                  onChange={e => this.handleChange(e)}
-                  className="inputField"
-                  onClick={() => this.setState({ sectionType: "event" })}
-                />
+          <Col md={this.state.sectionType ? 8 : 12}>
+            <div className="Event__MainPanel">
+              <div className="Event__eventHeader">
+                <h3 className="Event__heading">Overview</h3>
+                <div className="formGroup">
+                  <label>Title</label>
+                  <input
+                    id="title"
+                    value={this.state.event.title}
+                    onChange={e => this.handleChange(e)}
+                    className="inputField"
+                    onClick={() => this.setState({ sectionType: "event" })}
+                  />
+                </div>
+
+                <div className="formGroup">
+                  <label>Description</label>
+                  <input
+                    id="description"
+                    value={this.state.event.description}
+                    onChange={e => this.handleChange(e)}
+                    className="inputField"
+                    onClick={() => this.setState({ sectionType: "event" })}
+                  />
+                </div>
               </div>
+              {this.state.event.stages && this.state.event.stages.length
+                ? this.state.event.stages.map((stage, index) => (
+                    <div key={`stage-${index}`} className="Event__eventHeader">
+                      <div className="Event__deleteButton">
+                        <i
+                          className="far fa-times-circle"
+                          aria-hidden="false"
+                          onClick={e => this.deleteStage(e, index)}
+                          // TODO: Make this trigger a modal to confirm user wants to delete stage
+                        />
+                      </div>
+                      <h3 className="Event__stageHeading">{`Stage ${index +
+                        1}`}</h3>
+                      <div className="formGroup formGroupStage">
+                        <label>Stage Description</label>
+                        <input
+                          id="stageDescription"
+                          value={
+                            this.state.event.stages[index].stageDescription
+                          }
+                          onChange={e => this.handleStageChange(e, index)}
+                          className="inputField inputFieldStage"
+                          onClick={() =>
+                            this.setState({ sectionType: `stage_${index}` })
+                          }
+                        />
 
-              <div className="formGroup">
-                <label>Description</label>
-                <input
-                  id="description"
-                  value={this.state.event.description}
-                  onChange={e => this.handleChange(e)}
-                  className="inputField"
-                  onClick={() => this.setState({ sectionType: "event" })}
-                />
-              </div>
-            </div>
-            {this.state.event.stages && this.state.event.stages.length
-              ? this.state.event.stages.map((stage, index) => (
-                  <div key={`stage-${index}`} className="Event__eventHeader">
-                    <div className="Event__deleteButton">
-                      <i
-                        className="far fa-times-circle"
-                        aria-hidden="false"
-                        onClick={e => this.deleteStage(e, index)}
-                        // TODO: Make this trigger a modal to confirm user wants to delete stage
-                      />
-                    </div>
-                    <h3 className="Event__stageHeading">{`Stage ${index +
-                      1}`}</h3>
-                    <div className="formGroup formGroupStage">
-                      <label>Stage Description</label>
-                      <input
-                        id="stageDescription"
-                        value={this.state.event.stages[index].stageDescription}
-                        onChange={e => this.handleStageChange(e, index)}
-                        className="inputField inputFieldStage"
-                        onClick={() =>
-                          this.setState({ sectionType: `stage_${index}` })
-                        }
-                      />
+                        <ButtonToolbar className="Event__financialImpactButtons">
+                          <label>Financial Impact</label>
+                          <Button
+                            value="yes"
+                            id="financialImpact"
+                            className={`Event__financialImpactButton ${
+                              this.state.event.stages[index].financialImpact !==
+                              "yes"
+                                ? "unselectedButton"
+                                : ""
+                            }`}
+                            onClick={e => {
+                              this.handleStageChange(e, index);
+                              this.setState({ sectionType: `stage_${index}` });
+                            }}
+                          >
+                            Yes
+                          </Button>
+                          <Button
+                            value="no"
+                            id="financialImpact"
+                            className={`Event__financialImpactButton ${
+                              this.state.event.stages[index].financialImpact !==
+                              "no"
+                                ? "unselectedButton"
+                                : ""
+                            }`}
+                            onClick={e => {
+                              this.handleStageChange(e, index);
+                              this.setState({ sectionType: `stage_${index}` });
+                            }}
+                          >
+                            No
+                          </Button>
+                        </ButtonToolbar>
+                      </div>
 
-                      <ButtonToolbar className="Event__financialImpactButtons">
-                        <label>Financial Impact</label>
-                        <Button
-                          value="yes"
-                          id="financialImpact"
-                          className={`Event__financialImpactButton ${
-                            this.state.event.stages[index].financialImpact !==
-                            "yes"
-                              ? "unselectedButton"
-                              : ""
-                          }`}
-                          onClick={e => {
-                            this.handleStageChange(e, index);
-                            this.setState({ sectionType: `stage_${index}` });
-                          }}
-                        >
-                          Yes
-                        </Button>
-                        <Button
-                          value="no"
-                          id="financialImpact"
-                          className={`Event__financialImpactButton ${
-                            this.state.event.stages[index].financialImpact !==
-                            "no"
-                              ? "unselectedButton"
-                              : ""
-                          }`}
-                          onClick={e => {
-                            this.handleStageChange(e, index);
-                            this.setState({ sectionType: `stage_${index}` });
-                          }}
-                        >
-                          No
-                        </Button>
-                      </ButtonToolbar>
-                    </div>
-
-                    <div
-                      className="accountsTable"
-                      hidden={
-                        this.state.event.stages[index].financialImpact !== "yes"
-                      }
-                    >
-                      <AccountTable
-                        accounts={stage.accounts}
-                        accountSearchResults={
-                          this.state.accountSearchResults[index]
+                      <div
+                        hidden={
+                          this.state.event.stages[index].financialImpact !==
+                          "yes"
                         }
-                        handleAccountChange={(e, accountIndex) =>
-                          this.handleAccountChange(index, e, accountIndex)
-                        }
-                        deleteAccount={accountIndex =>
-                          this.deleteAccount(index, accountIndex)
-                        }
-                        onClick={() =>
-                          this.setState({ sectionType: `stage_${index}` })
-                        }
-                      />
-
-                      <Button
-                        className="newAccountButton"
-                        onClick={() => this.addAccount(index)}
                       >
-                        <i className="fas fa-plus" />
-                      </Button>
+                        <AccountTable
+                          accounts={stage.accounts}
+                          accountSearchResults={
+                            this.state.accountSearchResults[index]
+                          }
+                          handleAccountChange={(e, accountIndex) =>
+                            this.handleAccountChange(index, e, accountIndex)
+                          }
+                          deleteAccount={accountIndex =>
+                            this.deleteAccount(index, accountIndex)
+                          }
+                          onClick={() =>
+                            this.setState({ sectionType: `stage_${index}` })
+                          }
+                        />
+
+                        <Button
+                          className="newAccountButton"
+                          onClick={() => this.addAccount(index)}
+                        >
+                          <i className="fas fa-plus" />
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                ))
-              : null}
-            <Button
-              className="newStageButton"
-              onClick={() => {
-                this.addStage();
-                this.setState({ sectionType: `stage_0` });
-              }}
-            >
-              New Stage
-            </Button>
+                  ))
+                : null}
+              <Button
+                className="Event__newStageButton"
+                onClick={() => {
+                  this.addStage();
+                  this.setState({ sectionType: `stage_0` });
+                }}
+              >
+                New Stage
+              </Button>
+            </div>
           </Col>
-          <Col
-            md={4}
-            hidden={!this.state.sectionType}
-            className="sideNewEventPanel"
-          >
+          <Col md={4} hidden={!this.state.sectionType}>
             <SidePanel
               sectionType={this.state.sectionType}
               event={this.state.event}

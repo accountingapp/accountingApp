@@ -71,12 +71,15 @@ class TChartMain extends React.Component {
   render() {
     const { selectedEvent } = this.props;
     return (
-      <div>
-        <ol className="stageDescriptionList">
+      <div className="TCharts">
+        <h2 className="TCharts__title">{selectedEvent.title}</h2>
+        <div className="TCharts__stages">
           {selectedEvent.stages.map((stage, i) => (
-            <li key={`stage_${i}`}>{stage.stageDescription}</li>
+            <div key={`stage_${i}`}>{`${i + 1}. ${
+              stage.stageDescription
+            }`}</div>
           ))}
-        </ol>
+        </div>
         <Container>
           <Row>
             {!!Object.keys(this.state.charts).length &&

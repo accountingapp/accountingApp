@@ -29,7 +29,7 @@ class EventsHome extends Component {
     return (
       <div className="EventsHome__Table">
         <Table striped hover borderless="true">
-          <thead className="EventsHome__Table__Head">
+          <thead className="EventsHome__Table--head">
             <tr>
               <th className="">#</th>
               <th className="">Title</th>
@@ -38,7 +38,7 @@ class EventsHome extends Component {
               <th className="">Date</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="EventsHome__Table--body">
             {this.state.events && this.state.events.length
               ? this.state.events.map((event, i) => (
                   <tr key={`event-${event.id}`} className="eventsListRow">

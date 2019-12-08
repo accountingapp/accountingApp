@@ -19,9 +19,9 @@ const AccountTable = ({
   deleteAccount,
   onClick
 }) => (
-  <div className="accountTable">
+  <div className="AccountTable">
     <Table striped hover borderless="true">
-      <thead className="accountTableHeader">
+      <thead className="AccountTable__header">
         <tr>
           <th className="glAccountHeader">GL Account</th>
           <th className="debitCreditHeader">Debit/Credit</th>

@@ -19,68 +19,6 @@ html {
   text-decoration: underline;
 }
 
-.divider {
-  width: 5px;
-  height: auto;
-  display: inline-block;
-}
-
-.section {
-  font-size: 1.5em;
-}
-
-.mainSection {
-  background-image: url("./assets/accounting-analysis-analytics.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
-.mainSectionText {
-  /* font-family: 'Source Sans Pro', sans-serif; */
-  background: rgba(224, 224, 224, 0.78);
-  padding: 4% 6%;
-  border-radius: 2%;
-  height: 14em;
-  font-size: 1.1em;
-  font-weight: bold;
-  /* font-style: italic; */
-}
-
-.section.section1 {
-  background: #9ccb65;
-}
-.section1 p {
-  padding: 16px;
-  font-family: "Slabo 27px", serif;
-  /* background: #73944c; */
-  color: #191818;
-  /* border-radius: 1em; */
-  text-align: center;
-  /* vertical-align: middle; */
-  margin-top: 7%;
-  /* font-weight: bold; */
-}
-
-.section3 {
-  font-family: "Slabo 27px", serif;
-}
-
-.section2 {
-  background: #9fb39e69;
-}
-
-img.searchImage {
-  width: 50%;
-  /* display: block; */
-}
-
-img.paperworkImage,
-img.moneyImage {
-  /* display: block; */
-  width: inherit;
-}
-
 /* Home Page */
 .header {
   background: #353f4e;
@@ -102,61 +40,6 @@ a.appName.navbar-brand:hover {
   font-size: 2rem;
 }
 
-.section {
-  padding: 1rem;
-}
-
-.listTitle {
-  font-size: 2rem;
-  font-family: "Slabo 27px", serif;
-  margin: 2rem 10rem;
-  border-bottom: lightgrey solid 2px;
-}
-
-.list-group {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  max-height: 11rem;
-  overflow: scroll;
-  margin: 0 10%;
-  text-align: center;
-}
-
-.list-group-item {
-  height: 2.5ew;
-  padding: 8px;
-  font-size: 1.1rem;
-}
-
-.dependency {
-  text-align: center;
-}
-
-/* Search Bar */
-.searchContainer {
-  background: #f1f1f1;
-  padding: 3.5rem 17rem;
-}
-
-input.form-control {
-  height: 55px;
-  font-size: 1.2rem;
-}
-
-.mb-3.searchInput.input-group {
-  padding: 1.2rem;
-  border-radius: 0 0rem 0.25rem 0.25rem;
-}
-
-button.btn.btn-outline-secondary {
-  border: 1px solid #ced4da;
-  background: white;
-}
-
 /* Icons */
 
 i.fas.fa-chart-line.icon {
@@ -171,19 +54,6 @@ i.fa.fa-user.ownerGlyph {
   font-size: 8rem;
   margin: 0;
   color: #378eaf;
-}
-
-i.fas.fa-clipboard-list.icon {
-  color: #a2c3cd;
-}
-
-i.applicationIcon {
-  color: #9fa0b3;
-  font-size: 8rem;
-}
-
-.resourceIcon {
-  color: #8a6d6d;
 }
 
 i.fas.fa-comments-dollar {
@@ -232,34 +102,11 @@ a.nav-item:focus {
   color: #929292;
 }
 
-a#tabNavigation-tab-t-charts,
-a#tabNavigation-tab-event,
-a#tabNavigation-tab-summary {
-  color: #969696;
-  font-weight: 400;
-}
-
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: none;
-}
-
 /* Events Home*/
 
 /* New Event Page */
 .listSearchResults:hover {
   cursor: pointer;
-}
-
-.mainNewEventPanel {
-  height: 92vh;
-  overflow-y: scroll;
-}
-
-.sideNewEventPanel.col-md-4 {
-  padding: 0;
-  border-left: lightgrey solid 3px;
 }
 
 input {
@@ -315,9 +162,6 @@ button.unselectedButton.btn.btn-primary {
   background-color: #b5b5b5;
   border-color: #b5b5b5;
 }
-.newStageButton {
-  margin-top: 3%;
-}
 
 button.createEvent.btn.btn-primary {
   width: 50%;
@@ -336,10 +180,6 @@ i.far.fa-times-circle:hover {
 }
 
 /* Table for Accounts */
-.accountTable {
-  margin: 2%;
-  border: 1px solid #dee2e6;
-}
 
 .table td,
 .table th {
@@ -347,9 +187,8 @@ i.far.fa-times-circle:hover {
   vertical-align: top;
   border-top: none;
 }
-thead.accountTableHeader,
 thead.eventsListTableHead {
-  background: #378eaf;
+  background: #18a6d0;
   color: white;
 }
 
@@ -387,70 +226,10 @@ div#increaseDecrease {
   letter-spacing: 0.03rem;
 }
 
-/* T-Chart */
-td.credit,
-td.debit,
-td.total {
-  width: 50%;
-  font-size: 1.2rem;
-  background: #efefef;
-  color: black;
-}
-
-td.stageNumberCell {
-  color: black;
-}
-
 .table thead th {
   border-bottom: none;
 }
 
-th.tChartHeader {
-  background: #1bb9e7;
-  color: white;
-  font-size: 1.3rem;
-  font-weight: 400;
-  letter-spacing: 1px;
-  border-radius: 1rem 1rem 0 0;
-}
-
-th.columnHeader {
-  background: #1bb9e7;
-  color: white;
-  padding: 0;
-  font-weight: 100;
-}
-
-.tChartHeader > h3 {
-  color: white;
-  font-weight: 525;
-  margin-bottom: 0;
-  letter-spacing: 1px;
-}
-
 td.debit {
   border-right: solid 2px;
-}
-
-td.totalLeft,
-td.totalRight {
-  background: lightgrey;
-  color: black;
-  font-size: 1.2rem;
-}
-
-td.totalLeft {
-  border-bottom-left-radius: 1rem;
-}
-
-td.totalRight {
-  border-bottom-right-radius: 1rem;
-}
-ol.stageDescriptionList {
-  margin-top: 1rem;
-  margin-bottom: 0;
-  text-align: left;
-  color: black;
-  font-weight: 300;
-  font-size: 1.2rem;
 }
