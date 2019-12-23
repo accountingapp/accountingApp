@@ -33,6 +33,7 @@ function createEvent(req, res) {
 }
 
 function updateEvent(req, res) {
+  console.log("update!!");
   const event = req.body;
   const id = req.params.eventId;
   if (!event || !event.title || !event.description) {

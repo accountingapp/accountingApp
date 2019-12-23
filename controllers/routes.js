@@ -66,7 +66,7 @@ module.exports = server => {
   server.post("/event", eventFunctions.createEvent);
   server.get("/events", eventFunctions.getEvents);
   server.get("/event/:eventId", eventFunctions.getEvent);
-  server.put("/event/:eventId", eventFunctions.getEvent);
+  server.put("/event/:eventId", eventFunctions.updateEvent);
 
   //Charts
   server.post("/charts", chartFunctions.saveToS3);
