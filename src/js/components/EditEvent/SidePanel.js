@@ -39,7 +39,8 @@ const SidePanel = ({
   stages,
   handleChange,
   handleStageChange,
-  createEvent
+  createEvent,
+  updateEvent
 }) => {
   let stageIndex =
     sectionType && sectionType.slice(0, 5) === "stage"
